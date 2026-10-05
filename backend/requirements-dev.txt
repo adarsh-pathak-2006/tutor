@@ -1,5 +1,5 @@
 # Development and CI tools (not installed on Render)
-ruff==0.16.9
+ruff==0.16.10
 requests==2.34.2
 coverage==7.16.2
 pip-audit==2.10.1
