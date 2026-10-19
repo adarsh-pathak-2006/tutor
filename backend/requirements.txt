@@ -1,5 +1,5 @@
 # Django platform (backend) — Python 3.12. Exact pins: Render installs exactly what CI tested; Dependabot proposes upgrades.
-Django==6.1.1                # pinned 2026-09-28
+Django==6.1.2                # pinned 2026-09-28
 django-ninja==1.7.1          # typed REST API + OpenAPI (API_CONTRACTS.md)
 psycopg[binary]==3.3.6       # PostgreSQL driver
 dj-database-url==3.1.2       # DATABASE_URL -> settings
