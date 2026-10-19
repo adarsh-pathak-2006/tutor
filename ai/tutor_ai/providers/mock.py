@@ -77,6 +77,22 @@ def _mode(system: str) -> str:
     return "explain"
 
 
+# Questions that only ask what the lesson is about share no words with its passages; they get its opening passage.
+OVERVIEW_WORDS = frozenset(
+    "lesson about topic chapter explain summary summarise summarize overview learn learning teach tell me main idea "
+    "start begin please give brief quick whole".split()
+)
+
+
+def _opening_sentence(system: str) -> tuple[str | None, str | None]:
+    blocks: list[tuple[str | None, str]] = list(_PASSAGE_BLOCK.findall(system))
+    if not blocks:
+        return None, None
+    label, text = blocks[0]
+    sentence = next((s.strip() for s in _SENTENCE.split(text) if s.strip()), None)
+    return label, sentence
+
+
 class MockProvider:
     name = "mock"
     chat_model = "mock-tutor-v1"
@@ -89,6 +105,9 @@ class MockProvider:
         question = next((m.content for m in reversed(messages) if m.role == "user"), "")
         system = "\n".join(m.content for m in messages if m.role == "system")
         label, found = _best_passage_sentence(question, system)
+        asked = set(tokens(question))
+        if not found and asked and asked <= OVERVIEW_WORDS:
+            label, found = _opening_sentence(system)
         cite = f" [{label}]" if label else ""
         mode = _mode(system)
         if not found:

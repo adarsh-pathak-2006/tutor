@@ -92,3 +92,36 @@ def test_health_and_close():
 @pytest.mark.parametrize("dimensions", [64, 768, 1536])
 def test_any_configured_dimension(dimensions):
     assert len(hashed_embedding("x y z", dimensions)) == dimensions
+
+
+def test_overview_questions_get_the_opening_passage():
+    system = "Rules.\n\n[P1] Units\nSI units are the standard units of measurement. The metre measures length.\n\n[P2] Mass\nMass is in kilograms."
+    for question in ("What is this lesson about?", "Explain the main idea", "summarise please"):
+        reply = run(
+            collect(
+                MockProvider().chat(
+                    [Message("system", system), Message("user", question)], max_tokens=200, temperature=0.2
+                )
+            )
+        )
+        assert '"SI units are the standard units of measurement." [P1]' in reply, question
+    off_topic = run(
+        collect(
+            MockProvider().chat(
+                [Message("system", system), Message("user", "Who won the cricket match?")],
+                max_tokens=200,
+                temperature=0.2,
+            )
+        )
+    )
+    assert "isn't covered in this lesson" in off_topic
+    no_passages = run(
+        collect(
+            MockProvider().chat(
+                [Message("system", "Rules only."), Message("user", "What is this lesson about?")],
+                max_tokens=200,
+                temperature=0.2,
+            )
+        )
+    )
+    assert "isn't covered in this lesson" in no_passages
