@@ -1,9 +1,9 @@
 # Django platform (backend) — Python 3.12. Exact pins: Render installs exactly what CI tested; Dependabot proposes upgrades.
-Django==6.1.1                # pinned 2026-09-28
+Django==6.1.2                # pinned 2026-09-28
 django-ninja==1.7.1          # typed REST API + OpenAPI (API_CONTRACTS.md)
 psycopg[binary]==3.3.6       # PostgreSQL driver
 dj-database-url==3.1.2       # DATABASE_URL -> settings
-python-dotenv==1.2.3         # reads tutor/.env in development
+python-dotenv==1.2.4         # reads tutor/.env in development
 whitenoise==6.12.0           # serves static files on Render
 gunicorn==26.2.0             # production web server (Dependabot upgrade from 23.x, already live on main)
 httpx==0.28.1                # calls the AI service (same version as ai/)

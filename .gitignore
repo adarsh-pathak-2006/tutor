@@ -220,6 +220,8 @@ __marimo__/
 # TUTOR
 backend/staticfiles/
 .last_run.log
+.rehearsal.log
+.rehearsal-server.log
 
 # Local rotating log files (TUTOR_LOG_DIR); keep only the placeholder
 backend/logs/*

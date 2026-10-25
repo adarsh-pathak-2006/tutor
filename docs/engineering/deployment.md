@@ -65,6 +65,10 @@ passes (`autoDeployTrigger: checksPass`) and switches traffic only when the new 
 
 ## AI service on the hosted demo (D41)
 
+Before any change to the AI service's hosting, rehearse it locally: `ai/rehearse_hosted.sh` runs Render's build
+and start commands with the hosted settings and checks health, hidden docs, the service token, lesson indexing from
+Django and one real student tutor turn; it ends with `REHEARSAL: PASS` or `REHEARSAL: FAIL`.
+
 One-time set-up, in this order. Passwords and tokens go only into the Neon SQL editor and Render; never into git,
 chat or files.
 
