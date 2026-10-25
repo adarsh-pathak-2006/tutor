@@ -1,5 +1,5 @@
 # AI service runtime (Python 3.12). Exact pins: CI and Render install exactly what was tested; Dependabot proposes upgrades.
-fastapi==0.143.2             # HTTP API (pinned 2026-09-29)
+fastapi==0.143.3             # HTTP API (pinned 2026-09-29)
 uvicorn[standard]==0.54.0    # ASGI server
 pydantic==2.14.1             # request/response models
 pydantic-settings==2.16.0    # environment-driven settings
