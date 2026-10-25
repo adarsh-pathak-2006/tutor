@@ -226,3 +226,7 @@ backend/staticfiles/
 # Local rotating log files (TUTOR_LOG_DIR); keep only the placeholder
 backend/logs/*
 !backend/logs/.gitkeep
+
+# Internal analysis and audit reports
+understanding/
+
