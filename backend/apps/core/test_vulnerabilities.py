@@ -9,9 +9,11 @@ Run this suite with:
 
 import hashlib
 import json
+import os
 import re
 from io import StringIO
 
+from django.conf import settings
 from django.core.management import call_command
 from django.db import IntegrityError
 from django.test import Client, RequestFactory, TestCase, override_settings
@@ -32,7 +34,7 @@ from apps.core import messaging
 from apps.learning import mastery, planner, progress
 from apps.learning.models import MasteryState
 
-PASSWORD = "Test-Pass-2026"
+PASSWORD = getattr(settings, "TUTOR_DEMO_PASSWORD", None) or os.getenv("TUTOR_DEMO_PASSWORD") or "Test-Pass-2026"
 
 
 def post_json(client, path, data=None):
@@ -63,7 +65,7 @@ class VulnerabilityVerificationTests(TestCase):
         user = User.objects.create_user(
             email="victim_otp@example.com",
             mobile="+919800000011",
-            password="Test-Password-2026",
+            password=PASSWORD,
             full_name="Victim OTP",
         )
 
@@ -106,7 +108,7 @@ class VulnerabilityVerificationTests(TestCase):
             full_name="Alice Student",
             email="alice_student@example.com",
             mobile="+919800000012",
-            password="Student-Pass-2026",
+            password=PASSWORD,
             class_number=8,
             board_code="cbse",
             city="Delhi",
@@ -126,7 +128,7 @@ class VulnerabilityVerificationTests(TestCase):
             full_name="Eve Attacker",
             email="eve_attacker@example.com",
             mobile="+919800000013",
-            password="Attacker-Pass-2026",
+            password=PASSWORD,
         )
         attacker_parent = accounts_services.signup_parent(attacker_data)
         attacker_parent.email_verified_at = timezone.now()
@@ -162,7 +164,7 @@ class VulnerabilityVerificationTests(TestCase):
         legit_parent = User.objects.create_user(
             email="legitimate_parent@example.com",
             mobile="+919800000014",
-            password="Legit-Pass-2026",
+            password=PASSWORD,
             full_name="Legit Parent",
         )
         legit_parent.email_verified_at = timezone.now()
@@ -189,7 +191,7 @@ class VulnerabilityVerificationTests(TestCase):
         student = User.objects.create_user(
             email="student_mastery@example.com",
             mobile="+919800000021",
-            password="Student-Pass-2026",
+            password=PASSWORD,
             full_name="Student Mastery",
         )
         course = Course.objects.filter(status=PublishStatus.PUBLISHED).first()
@@ -224,7 +226,7 @@ class VulnerabilityVerificationTests(TestCase):
         student = User.objects.create_user(
             email="student_planner@example.com",
             mobile="+919800000031",
-            password="Student-Pass-2026",
+            password=PASSWORD,
             full_name="Student Planner",
         )
         class_level = ClassLevel.objects.get(number=8)
@@ -284,7 +286,7 @@ class VulnerabilityVerificationTests(TestCase):
         student = User.objects.create_user(
             email="quiz_race@example.com",
             mobile="+919800000041",
-            password="Student-Pass-2026",
+            password=PASSWORD,
             full_name="Quiz Race",
         )
         lesson = Lesson.objects.filter(module__course__status=PublishStatus.PUBLISHED).first()
@@ -310,7 +312,7 @@ class VulnerabilityVerificationTests(TestCase):
         request = factory.get("/admin/assessment/questionversion/")
         admin_user = User.objects.create_superuser(
             email="staff_admin@example.com",
-            password="Admin-Pass-2026",
+            password=PASSWORD,
             full_name="Staff Admin",
         )
         request.user = admin_user
@@ -348,7 +350,7 @@ class VulnerabilityVerificationTests(TestCase):
         deleted_user = User.objects.create_user(
             email="deleted_user@example.com",
             mobile="+919800000051",
-            password="Deleted-Pass-2026",
+            password=PASSWORD,
             full_name="Deleted User",
         )
         deleted_user.deleted_at = timezone.now()
@@ -356,7 +358,7 @@ class VulnerabilityVerificationTests(TestCase):
 
         # Proves vulnerability: _check returns None without performing password hashing
         # In a patched implementation, User().set_password(password) would be called to equalize timing
-        result = backend._check("deleted_user@example.com", "any-password")
+        result = backend._check("deleted_user@example.com", PASSWORD)
         self.assertIsNone(result)
 
     # -------------------------------------------------------------------------
@@ -371,7 +373,7 @@ class VulnerabilityVerificationTests(TestCase):
         student = User.objects.create_user(
             email="answer_race@example.com",
             mobile="+919800000061",
-            password="Student-Pass-2026",
+            password=PASSWORD,
             full_name="Answer Race",
         )
         course = Course.objects.filter(status=PublishStatus.PUBLISHED).first()
