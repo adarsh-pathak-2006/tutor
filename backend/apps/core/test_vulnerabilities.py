@@ -53,14 +53,13 @@ class VulnerabilityVerificationTests(TestCase):
         messaging.OUTBOX.clear()
 
     # -------------------------------------------------------------------------
-    # 1. ISSUE-01: CRITICAL - Reversible Unsalted SHA-256 OTP Storage
+    # 1. ISSUE-01: CRITICAL - Reversible Unsalted SHA-256 OTP Storage (Fixed)
     # -------------------------------------------------------------------------
     def test_critical_unsalted_sha256_otp_rainbow_table_reversibility(self):
-        """ISSUE-01: 6-digit OTP codes are stored as unsalted SHA-256 hashes.
+        """ISSUE-01: OTP codes are stored as salted, key-derived hashes.
 
-        Because the entire search space is strictly 10^6 combinations (000000-999999),
-        an attacker with read access to the database can instantly reverse the stored
-        hash using precomputed rainbow tables or a brute-force sweep (< 1 second).
+        Exhaustive search with raw unsalted SHA-256 fails to reverse the stored hash.
+        Legitimate code verification succeeds via salted_hmac.
         """
         user = User.objects.create_user(
             email="victim_otp@example.com",
@@ -76,6 +75,10 @@ class VulnerabilityVerificationTests(TestCase):
         vc = VerificationCode.objects.filter(destination=user.email, purpose="login").latest("created_at")
         stored_hash = vc.code_hash
 
+        # Extract the issued code from outbox
+        msg_text = next(m["text"] for m in reversed(messaging.OUTBOX) if m["to"] == user.email)
+        raw_code = re.search(r"code is (\d{6})", msg_text).group(1)
+
         # Reversibility Proof: Exhaustively test 000000-999999 with raw SHA-256
         recovered_code = None
         for i in range(1_000_000):
@@ -84,24 +87,24 @@ class VulnerabilityVerificationTests(TestCase):
                 recovered_code = candidate
                 break
 
-        # Assert that the code was successfully reversed from the stored hash
-        self.assertIsNotNone(recovered_code, "Failed to reverse unsalted SHA-256 hash")
-        self.assertEqual(len(recovered_code), 6)
-        self.assertEqual(hash_secret(recovered_code), stored_hash)
+        # Verification: Unsalted SHA-256 rainbow search fails to reverse the stored hash
+        self.assertIsNone(recovered_code, "Unsalted SHA-256 should not recover salted OTP hash")
+        self.assertEqual(len(stored_hash), 64)
+        self.assertEqual(hash_secret(raw_code), stored_hash)
 
-        # Confirm the reversed code authenticates successfully
-        verified_user = accounts_services.check_otp(user.email, "login", recovered_code)
+        # Confirm the legitimate code authenticates successfully
+        verified_user = accounts_services.check_otp(user.email, "login", raw_code)
         self.assertEqual(verified_user.pk, user.pk)
 
     # -------------------------------------------------------------------------
-    # 2. ISSUE-02: HIGH - BOLA / IDOR in Parental Consent Approval
+    # 2. ISSUE-02: HIGH - BOLA / IDOR in Parental Consent Approval (Fixed)
     # -------------------------------------------------------------------------
     def test_high_idor_parent_can_hijack_unrelated_child_via_approval_token(self):
         """ISSUE-02: BOLA / IDOR in POST /api/v1/consent/link/{token}/approve.
 
-        The approve_request service does not verify that the approving parent's
-        email/mobile matches req.parent_contact. Any authenticated parent who obtains
-        the token can hijack legal guardianship of the child.
+        The approve_request service verifies that the approving parent's
+        email/mobile matches req.parent_contact. An unrelated parent attempting
+        to approve must be rejected with 403 forbidden.
         """
         # Register a student requesting approval from legitimate_parent@example.com
         student_data = StudentSignupIn(
@@ -144,22 +147,22 @@ class VulnerabilityVerificationTests(TestCase):
             {"relationship": "guardian", "accept": True},
         )
 
-        # Proves vulnerability: request succeeds with 200 OK
-        self.assertEqual(response.status_code, 200)
+        # Verification: Unrelated parent is rejected with 403 Forbidden
+        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.json()["error"]["code"], "forbidden")
 
-        # Verify that Eve is now Alice's guardian in the database
+        # Verify that Eve is NOT linked to child in the database
         link = GuardianLink.objects.filter(parent=attacker_parent, student=student, ended_at__isnull=True).first()
-        self.assertIsNotNone(link, "Attacker parent was not linked to child as guardian")
-        self.assertTrue(link.is_primary)
+        self.assertIsNone(link, "Attacker parent must not be linked to child as guardian")
 
-        # Verify Alice now appears under Eve's /api/v1/me payload
+        # Verify Alice does NOT appear under Eve's /api/v1/me payload
         me_resp = client.get("/api/v1/me")
         self.assertEqual(me_resp.status_code, 200)
         children = me_resp.json().get("children", [])
         child_ids = [c["id"] for c in children]
-        self.assertIn(str(student.pk), child_ids)
+        self.assertNotIn(str(student.pk), child_ids)
 
-        # Verify legitimate parent is now locked out from becoming guardian
+        # Verify legitimate parent CAN approve the request
         req = ApprovalRequest.objects.get(student=student)
         legit_parent = User.objects.create_user(
             email="legitimate_parent@example.com",
@@ -171,22 +174,19 @@ class VulnerabilityVerificationTests(TestCase):
         legit_parent.save()
         accounts_services.ParentProfile.objects.create(user=legit_parent)
 
-        with self.assertRaises(accounts_services.ApiError) as ctx:
-            accounts_services.approve_request(req, legit_parent, "mother")
-        self.assertEqual(ctx.exception.status, 409)
-        self.assertEqual(ctx.exception.code, "already_has_guardian")
+        approved_link = accounts_services.approve_request(req, legit_parent, "mother")
+        self.assertEqual(approved_link.parent_id, legit_parent.pk)
+        self.assertEqual(approved_link.student_id, student.pk)
 
     # -------------------------------------------------------------------------
-    # 3. ISSUE-03: HIGH - Cold-Start Mastery Depressed Score & "Weak" Tagging
+    # 3. ISSUE-03: HIGH - Cold-Start Mastery Depressed Score & "Weak" Tagging (Fixed)
     # -------------------------------------------------------------------------
     def test_high_cold_start_mastery_calculates_weak_on_perfect_first_answer(self):
         """ISSUE-03: Cold-start EMA score initialization in mastery.py.
 
         When a student demonstrates 100% correct competency with zero hints on their
-        first question (credit=1.0), the EMA formula calculates:
-        score = 0.0 + 0.35 * (1.0 - 0.0) = 0.35.
-        Because 0.35 < WEAK_SCORE (0.40), the level is marked WEAK, and planner.review_item()
-        incorrectly selects this skill as the student's weakest skill for remedial review.
+        first question (credit=1.0), the score is initialized directly to 1.00 rather
+        than depressed by a zero baseline. The skill is classified as DEVELOPING, not WEAK.
         """
         student = User.objects.create_user(
             email="student_mastery@example.com",
@@ -201,16 +201,16 @@ class VulnerabilityVerificationTests(TestCase):
         # Record perfect answer with 0 hints (credit = 1.0)
         state = mastery.record_evidence(student, skill, credit=1.0)
 
-        # Proves vulnerability: Score is depressed to 0.35 and assigned WEAK level
-        self.assertEqual(state.score, 0.35)
+        # Verification: First correct answer initializes score to 1.0 and assigns DEVELOPING level
+        self.assertEqual(state.score, 1.0)
         self.assertEqual(state.evidence_count, 1)
-        self.assertEqual(state.level, MasteryState.Level.WEAK)
+        self.assertEqual(state.level, MasteryState.Level.DEVELOPING)
 
-        # Proves impact on planner: review_item picks this perfectly answered skill as "weakest"
+        # Verification on planner: review_item shows DEVELOPING state (not 'weak')
         review = planner.review_item(student)
         self.assertIsNotNone(review)
         self.assertEqual(review["skill"].code, skill.code)
-        self.assertEqual(review["state"].level, "weak")
+        self.assertEqual(review["state"].level, MasteryState.Level.DEVELOPING)
 
     # -------------------------------------------------------------------------
     # 4. ISSUE-04: HIGH - Unpublished Draft Lesson Progression Deadlock

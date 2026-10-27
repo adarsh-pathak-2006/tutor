@@ -29,7 +29,10 @@ def credit_for(correct: bool, hints_used: int) -> float:
 def record_evidence(student, skill, credit: float, answer=None, source="quiz") -> MasteryState:
     state, _ = MasteryState.objects.select_for_update().get_or_create(student=student, skill=skill)
     old = state.score
-    state.score = round(old + ALPHA * (credit - old), 4)
+    if state.evidence_count == 0:
+        state.score = round(credit, 4)
+    else:
+        state.score = round(old + ALPHA * (credit - old), 4)
     state.evidence_count += 1
     state.level = level_for(state.score, state.evidence_count)
     state.save()

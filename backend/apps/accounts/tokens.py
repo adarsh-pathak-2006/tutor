@@ -1,11 +1,12 @@
 """Secrets sent by link or SMS are stored only as hashes (DATA_MODEL.md §4)."""
 
-import hashlib
 import secrets
 
+from django.utils.crypto import salted_hmac
 
-def hash_secret(raw: str) -> str:
-    return hashlib.sha256(raw.encode()).hexdigest()
+
+def hash_secret(raw: str, salt: str = "tutor.accounts.secret") -> str:
+    return salted_hmac(salt, raw, algorithm="sha256").hexdigest()
 
 
 def make_link_token() -> tuple[str, str]:

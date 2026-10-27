@@ -284,6 +284,15 @@ def _current_consent_text():
 @transaction.atomic
 def approve_request(req, parent, relationship, ip=None):
     _require_parent(parent)
+    parent_contacts = set()
+    for contact in (parent.email, parent.mobile):
+        if contact:
+            try:
+                parent_contacts.add(normalize_contact(contact)[1])
+            except ApiError:
+                parent_contacts.add(contact.strip().lower())
+    if req.parent_contact not in parent_contacts:
+        raise ApiError(403, "forbidden", "This approval link was sent to a different parent contact.")
     student = req.student
     if parent.pk == student.pk:
         raise ApiError(403, "forbidden", "A student can't approve their own account.")
