@@ -15,7 +15,7 @@ from io import StringIO
 
 from django.conf import settings
 from django.core.management import call_command
-from django.db import IntegrityError
+from django.db import IntegrityError, transaction
 from django.test import Client, RequestFactory, TestCase, override_settings
 from django.utils import timezone
 
@@ -291,13 +291,12 @@ class VulnerabilityVerificationTests(TestCase):
         )
         lesson = Lesson.objects.filter(module__course__status=PublishStatus.PUBLISHED).first()
 
-        # Simulate concurrent start requests by directly creating two active attempts
         Attempt.objects.create(student=student, lesson=lesson, max_score=1)
-        Attempt.objects.create(student=student, lesson=lesson, max_score=1)
+        with transaction.atomic(), self.assertRaises(IntegrityError):
+            Attempt.objects.create(student=student, lesson=lesson, max_score=1)
 
-        # Proves vulnerability: Database allows multiple active attempts for the same student and lesson
         active_attempts = Attempt.objects.filter(student=student, lesson=lesson, submitted_at__isnull=True)
-        self.assertEqual(active_attempts.count(), 2)
+        self.assertEqual(active_attempts.count(), 1)
 
     # -------------------------------------------------------------------------
     # 6. ISSUE-08: HIGH - Immutability Bypass on Published Assessment Questions

@@ -107,6 +107,13 @@ class Attempt(models.Model):
 
     class Meta:
         ordering = ["-started_at"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["student", "lesson", "kind"],
+                condition=Q(submitted_at__isnull=True),
+                name="unique_open_attempt_per_student_lesson_kind",
+            ),
+        ]
 
     def __str__(self):
         return f"{self.student} · {self.lesson} · {self.score}/{self.max_score}"

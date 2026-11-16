@@ -1,4 +1,4 @@
-from django.db import transaction
+from django.db import IntegrityError, transaction
 from django.db.models import Max
 from django.utils import timezone
 
@@ -64,11 +64,20 @@ def start_lesson_quiz(student, lesson):
     versions = list(published_quiz_versions(lesson)[:QUIZ_SIZE])
     if not versions:
         raise ApiError(404, "not_found", "This lesson has no quiz yet.")
-    attempt = Attempt.objects.create(student=student, lesson=lesson, max_score=len(versions))
-    AttemptItem.objects.bulk_create(
-        [AttemptItem(attempt=attempt, question_version=v, position=i) for i, v in enumerate(versions, start=1)]
-    )
-    return attempt
+    try:
+        with transaction.atomic():
+            attempt = Attempt.objects.create(student=student, lesson=lesson, max_score=len(versions))
+            AttemptItem.objects.bulk_create(
+                [AttemptItem(attempt=attempt, question_version=v, position=i) for i, v in enumerate(versions, start=1)]
+            )
+            return attempt
+    except IntegrityError:
+        existing = Attempt.objects.filter(
+            student=student, lesson=lesson, kind=Attempt.Kind.LESSON_QUIZ, submitted_at__isnull=True
+        ).first()
+        if existing:
+            return existing
+        raise
 
 
 def _item(student, attempt_id, position):
