@@ -116,12 +116,21 @@ CSRF_COOKIE_SAMESITE = "Lax"
 
 # Cache: shared by every web worker, so rate limits and login lockouts hold across processes.
 # The database cache needs no extra service; move to Redis when traffic needs it (docs/engineering/deployment.md).
-CACHES = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
-        "LOCATION": "tutor_cache",  # created by `manage.py createcachetable`
+REDIS_URL = env("REDIS_URL", "") or env("CACHE_URL", "")
+if REDIS_URL:
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.redis.RedisCache",
+            "LOCATION": REDIS_URL,
+        }
     }
-}
+else:
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.db.DatabaseCache",
+            "LOCATION": "tutor_cache",
+        }
+    }
 
 # Rate limits per client IP (per user where noted), as "count/period" (s, m, h, d). None switches one off.
 # Generous on purpose: a whole class can sit behind one school IP. Accounts are protected by the lockout below.
