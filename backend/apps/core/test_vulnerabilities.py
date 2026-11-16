@@ -326,14 +326,14 @@ class VulnerabilityVerificationTests(TestCase):
         self.assertIn("body", cv_readonly)
         self.assertIn("version_no", cv_readonly)
 
-        # QuestionVersionAdmin does NOT freeze published body
         qv = QuestionVersion(status=QuestionVersion.Status.PUBLISHED)
         question_admin = QuestionVersionAdmin(QuestionVersion, None)
         qv_readonly = question_admin.get_readonly_fields(request, qv)
 
-        # Proves vulnerability: body and question options remain editable
-        self.assertNotIn("body", qv_readonly)
-        self.assertNotIn("question", qv_readonly)
+        self.assertIn("body", qv_readonly)
+        self.assertIn("question", qv_readonly)
+        self.assertIn("version_no", qv_readonly)
+        self.assertIn("is_ai_draft", qv_readonly)
 
     # -------------------------------------------------------------------------
     # 7. ISSUE-10: MEDIUM - Timing Attack on Soft-Deleted Accounts

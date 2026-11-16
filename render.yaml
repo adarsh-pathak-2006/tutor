@@ -35,6 +35,8 @@ services:
         sync: false  # e.g. https://tutor-platform.onrender.com
       - key: DATABASE_URL
         sync: false  # paste your Neon connection string
+      - key: REDIS_URL
+        sync: false
       - key: TUTOR_TRUSTED_PROXIES
         value: "1"
       - key: TUTOR_DEV_TOOLS

@@ -6,9 +6,12 @@ contact) or waiting out the window unlocks it. Settings: ``TUTOR_LOGIN_LOCKOUT``
 """
 
 import hashlib
+import threading
 
 from django.conf import settings
 from django.core.cache import cache
+
+_lock = threading.Lock()
 
 
 def _key(identifier: str) -> str:
@@ -32,9 +35,11 @@ def is_locked(identifier: str) -> bool:
 def register_failure(identifier: str) -> int:
     """Count one wrong password. The window restarts on each failure, so a steady attack stays locked out."""
     _, window = _config()
-    count = failures(identifier) + 1
-    cache.set(_key(identifier), count, window)
-    return count
+    key = _key(identifier)
+    with _lock:
+        count = failures(identifier) + 1
+        cache.set(key, count, window)
+        return count
 
 
 def clear(identifier: str) -> None:

@@ -12,8 +12,19 @@ class QuestionVersionInline(admin.StackedInline):
     form = VersionStatusForm
     extra = 0
     fields = ("version_no", "status", "body", "is_ai_draft", "author", "reviewer", "published_at")
-    readonly_fields = ("published_at",)
+    readonly_fields = ("published_at", "published_by", "created_at", "updated_at")
     raw_id_fields = ("author", "reviewer")
+
+    def get_readonly_fields(self, request, obj=None):
+        fields = list(super().get_readonly_fields(request, obj))
+        if obj and getattr(obj, "status", None) in (QuestionVersion.Status.PUBLISHED, QuestionVersion.Status.ARCHIVED):
+            fields += ["body", "version_no", "is_ai_draft"]
+        return fields
+
+    def has_delete_permission(self, request, obj=None):
+        if obj and getattr(obj, "status", None) in (QuestionVersion.Status.PUBLISHED, QuestionVersion.Status.ARCHIVED):
+            return False
+        return super().has_delete_permission(request, obj)
 
 
 @admin.register(Question)
@@ -30,7 +41,19 @@ class QuestionVersionAdmin(admin.ModelAdmin):
     list_display = ("__str__", "question", "status", "is_ai_draft", "author", "reviewer")
     list_filter = ("status", "is_ai_draft")
     raw_id_fields = ("question", "author", "reviewer", "published_by")
+    readonly_fields = ("published_at", "published_by", "created_at", "updated_at")
     actions = ["publish_selected"]
+
+    def get_readonly_fields(self, request, obj=None):
+        fields = list(super().get_readonly_fields(request, obj))
+        if obj and getattr(obj, "status", None) in (QuestionVersion.Status.PUBLISHED, QuestionVersion.Status.ARCHIVED):
+            fields += ["body", "question", "version_no", "is_ai_draft"]
+        return fields
+
+    def has_delete_permission(self, request, obj=None):
+        if obj and getattr(obj, "status", None) in (QuestionVersion.Status.PUBLISHED, QuestionVersion.Status.ARCHIVED):
+            return False
+        return super().has_delete_permission(request, obj)
 
     @admin.action(description="Publish selected approved versions")
     def publish_selected(self, request, queryset):
