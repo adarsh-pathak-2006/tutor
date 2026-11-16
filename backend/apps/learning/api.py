@@ -54,6 +54,9 @@ def open_lesson(request, lesson_id: UUID):
 @lessons_router.post("/{lesson_id}/finish", response=FinishOut, auth=django_auth, tags=["learning"])
 def finish_lesson(request, lesson_id: UUID):
     lesson = get_lesson_for_student(request.user, lesson_id)
+    version = published_version(lesson)
+    if not version:
+        raise ApiError(404, "not_found", "This lesson has no published content yet.")
     progress.mark_finished(request.user, lesson)
     completed = progress.check_course_completion(request.user, lesson.module.course)
     nxt = planner.next_lesson(request.user)

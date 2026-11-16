@@ -250,29 +250,38 @@ class VulnerabilityVerificationTests(TestCase):
             position=99,
         )
 
-        # Proves vulnerability: accessible_lessons() and next_lesson() return unpublished lesson
         accessible = list(planner.accessible_lessons(student))
-        self.assertIn(draft_lesson, accessible)
+        self.assertNotIn(draft_lesson, accessible)
 
-        # Mark all published lessons finished to force next_lesson to select draft_lesson
         for lesson_item in accessible:
-            if lesson_item.id != draft_lesson.id:
-                progress.mark_finished(student, lesson_item)
+            progress.mark_finished(student, lesson_item)
 
         nxt = planner.next_lesson(student)
-        self.assertIsNotNone(nxt)
-        self.assertEqual(nxt.id, draft_lesson.id)
+        if nxt:
+            self.assertNotEqual(nxt.id, draft_lesson.id)
 
-        # Proves impact: student attempts to open their assigned next lesson and hits 404
         client = Client()
         client.force_login(student, backend="apps.accounts.backends.EmailOrMobileBackend")
         resp = client.get(f"/api/v1/lessons/{draft_lesson.id}")
         self.assertEqual(resp.status_code, 404)
         self.assertEqual(resp.json()["error"]["code"], "not_found")
 
-        # Proves impact on course completion: course can never be completed
+        resp_finish = client.post(f"/api/v1/lessons/{draft_lesson.id}/finish")
+        self.assertEqual(resp_finish.status_code, 404)
+        self.assertEqual(resp_finish.json()["error"]["code"], "not_found")
+
+        course_skills = Skill.objects.filter(
+            lesson_links__lesson__in=accessible, lesson_links__role="teaches"
+        ).distinct()
+        for skill in course_skills:
+            MasteryState.objects.update_or_create(
+                student=student,
+                skill=skill,
+                defaults={"level": MasteryState.Level.DEVELOPING, "score": 0.7, "evidence_count": 2},
+            )
+
         completed = progress.check_course_completion(student, course)
-        self.assertFalse(completed)
+        self.assertTrue(completed)
 
     # -------------------------------------------------------------------------
     # 5. ISSUE-05: HIGH - Concurrency Race Condition Creating Duplicate Quiz Attempts

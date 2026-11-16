@@ -7,6 +7,7 @@ from django.utils import timezone
 
 from apps.assessment.models import Answer
 from apps.catalogue.models import Lesson, PublishStatus
+from apps.content.models import ContentVersion
 
 from .access import entitled_course_ids
 from .models import LessonProgress, MasteryState
@@ -21,7 +22,9 @@ def accessible_lessons(student, course_ids=None):
         Lesson.objects.filter(
             module__course_id__in=course_ids,
             module__course__status=PublishStatus.PUBLISHED,
+            versions__status=ContentVersion.Status.PUBLISHED,
         )
+        .distinct()
         .select_related("module__course")
         .order_by("module__course__title", "module__position", "position")
     )
@@ -51,7 +54,7 @@ def review_item(student, course_ids=None):
     return {"skill": weakest.skill, "state": weakest, "lesson": lesson}
 
 
-STREAK_WINDOW_DAYS = 366  # a longer streak is shown as this many days; keeps the query bounded
+STREAK_WINDOW_DAYS = 366
 
 
 def streak_days(student) -> int:
@@ -66,14 +69,14 @@ def streak_days(student) -> int:
     answer_days = (
         Answer.objects.filter(item__attempt__student=student, answered_at__gte=since)
         .annotate(day=TruncDate("answered_at", tzinfo=tz))
-        .order_by()  # model ordering would break DISTINCT
+        .order_by()
         .values_list("day", flat=True)
         .distinct()
     )
     lesson_days = (
         LessonProgress.objects.filter(student=student, finished_at__gte=since)
         .annotate(day=TruncDate("finished_at", tzinfo=tz))
-        .order_by()  # model ordering would break DISTINCT
+        .order_by()
         .values_list("day", flat=True)
         .distinct()
     )

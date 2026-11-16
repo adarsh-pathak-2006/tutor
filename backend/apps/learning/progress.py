@@ -2,6 +2,7 @@ from django.db.models import Exists, OuterRef
 from django.utils import timezone
 
 from apps.catalogue.models import Lesson, Skill
+from apps.content.models import ContentVersion
 
 from .models import CourseCompletion, LessonProgress, MasteryState
 
@@ -25,7 +26,10 @@ def check_course_completion(student, course) -> bool:
     if CourseCompletion.objects.filter(student=student, course=course).exists():
         return True
 
-    lessons = Lesson.objects.filter(module__course=course)
+    lessons = Lesson.objects.filter(
+        module__course=course,
+        versions__status=ContentVersion.Status.PUBLISHED,
+    ).distinct()
     if not lessons.exists():
         return False
 
@@ -44,7 +48,7 @@ def check_course_completion(student, course) -> bool:
 
     missing_mastery = (
         Skill.objects.filter(
-            lesson_links__lesson__module__course=course,
+            lesson_links__lesson__in=lessons,
             lesson_links__role="teaches",
         )
         .distinct()
