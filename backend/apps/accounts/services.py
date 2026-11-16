@@ -114,21 +114,29 @@ def issue_otp(destination: str, purpose: str) -> None:
 def check_otp(destination: str, purpose: str, code: str):
     """Return the user if the code is right, else raise. Marks contact verified for verify_contact."""
     kind, value = normalize_contact(destination)
-    vc = (
-        VerificationCode.objects.filter(
-            destination=value, purpose=purpose, used_at__isnull=True, expires_at__gt=timezone.now()
+    with transaction.atomic():
+        vc = (
+            VerificationCode.objects.select_for_update()
+            .filter(destination=value, purpose=purpose, used_at__isnull=True, expires_at__gt=timezone.now())
+            .order_by("-created_at")
+            .first()
         )
-        .order_by("-created_at")
-        .first()
-    )
-    if not vc or vc.attempts >= VerificationCode.MAX_ATTEMPTS:
+        if not vc or vc.attempts >= VerificationCode.MAX_ATTEMPTS:
+            is_locked = True
+            is_valid = False
+        else:
+            is_locked = False
+            is_valid = hmac.compare_digest(vc.code_hash, hash_secret((code or "").strip()))
+            if not is_valid:
+                vc.attempts += 1
+                vc.save(update_fields=["attempts"])
+            else:
+                vc.used_at = timezone.now()
+                vc.save(update_fields=["used_at"])
+
+    if is_locked or not is_valid:
         raise ApiError(400, "invalid_code", "The code is wrong or has expired.")
-    if not hmac.compare_digest(vc.code_hash, hash_secret((code or "").strip())):
-        vc.attempts += 1
-        vc.save(update_fields=["attempts"])
-        raise ApiError(400, "invalid_code", "The code is wrong or has expired.")
-    vc.used_at = timezone.now()
-    vc.save(update_fields=["used_at"])
+
     user = find_user_by_contact(kind, value)
     if user is None:
         raise ApiError(400, "invalid_code", "The code is wrong or has expired.")
