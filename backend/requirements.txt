@@ -8,3 +8,4 @@ whitenoise==6.12.0           # serves static files on Render
 gunicorn==26.2.0             # production web server (Dependabot upgrade from 23.x, already live on main)
 httpx==0.28.1                # calls the AI service (same version as ai/)
 redis==5.2.1
+uvicorn[standard]==0.54.0

@@ -7,10 +7,11 @@ AI service configured) are made first and answer with the usual JSON error and s
 
 from uuid import UUID
 
-from django.http import HttpResponse, StreamingHttpResponse
+from django.http import HttpResponse
 from ninja import Router
 from ninja.security import django_auth
 
+from apps.core.http import AsyncStreamingHttpResponse
 from apps.core.throttling import tutor_throttle
 
 from . import services
@@ -77,7 +78,7 @@ def send(request, conversation_id: UUID, payload: MessageIn) -> HttpResponse:
     services.tutor_lesson(user, conversation.lesson_id)  # entitlement may have ended since the chat started
     services.require_tutor_available()
     services.reserve_message(user)
-    response = StreamingHttpResponse(
+    response = AsyncStreamingHttpResponse(
         services.relay_turn(user, conversation, payload.message, payload.mode), content_type="text/event-stream"
     )
     response["Cache-Control"] = "no-cache"
