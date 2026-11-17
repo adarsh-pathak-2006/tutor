@@ -1,4 +1,37 @@
 from django.conf import settings
+from django.http import StreamingHttpResponse
+
+
+class AsyncStreamingHttpResponse(StreamingHttpResponse):
+    def __init__(self, stream, *args, **kwargs):
+        self._stream = stream
+        super().__init__(aiter(stream) if hasattr(stream, "__aiter__") else stream, *args, **kwargs)
+
+    @property
+    def streaming_content(self):
+        stream = self._stream
+
+        class HybridContent:
+            def __iter__(self_inner):
+                if hasattr(stream, "__iter__"):
+                    return map(self.make_bytes, stream)
+                return iter([])
+
+            def __aiter__(self_inner):
+                if hasattr(stream, "__aiter__"):
+
+                    async def _aiter():
+                        async for item in stream:
+                            yield self.make_bytes(item)
+
+                    return _aiter()
+                return aiter([])
+
+        return HybridContent()
+
+    @streaming_content.setter
+    def streaming_content(self, value):
+        StreamingHttpResponse.streaming_content.fset(self, value)
 
 
 def client_ip(request):

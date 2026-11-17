@@ -10,11 +10,12 @@ that fails gives the student's message back to the daily limit and stores nothin
 
 import json
 import logging
-from collections.abc import Iterator
+from collections.abc import AsyncIterator, Iterator
 from functools import cache
 from pathlib import Path
 from typing import Any
 
+from asgiref.sync import sync_to_async
 from django.conf import settings
 from django.db import IntegrityError, transaction
 from django.db.models import F
@@ -321,39 +322,92 @@ def _client_error(code: str | None) -> dict[str, str]:
     return {"code": client_code, "message": message}
 
 
-def relay_turn(user, conversation, message: str, mode: str, client: AIServiceClient | None = None) -> Iterator[str]:
-    """The SSE stream the browser receives. The daily-limit reservation is made by the caller before streaming and
-    given back here if no answer is stored."""
-    payload = build_turn(user, conversation, message, mode)
-    answered = False
-    own_client = client is None
-    try:
-        client = client or get_client()
-        for event, data in client.stream_turn(payload, timeout=settings.TUTOR_AI_TURN_TIMEOUT_SECONDS):
-            if event == "meta":
-                yield sse("meta", {"mode": data.get("mode") or mode, "conversation_id": str(conversation.pk)})
-            elif event == "delta":
-                yield sse("delta", {"text": str(data.get("text") or "")})
-            elif event == "final":
-                answer = record_final(conversation, mode, data)
-                answered = True
-                yield sse("final", answer)
-                return
-            elif event == "error":
-                logger.warning(
-                    "tutor turn failed", extra={"conversation_id": str(conversation.pk), "code": data.get("code")}
-                )
-                yield sse("error", _client_error(data.get("code")))
-                return
-        yield sse("error", _client_error(None))  # the stream ended without an answer
-    except AIServiceError as exc:
-        logger.warning("tutor turn failed", extra={"conversation_id": str(conversation.pk), "code": exc.code})
-        yield sse("error", _client_error(exc.code))
-    except Exception:  # the response has started: never break the stream with a 500
-        logger.exception("tutor turn crashed", extra={"conversation_id": str(conversation.pk)})
-        yield sse("error", {"code": "server_error", "message": "Something went wrong on our side."})
-    finally:
-        if not answered:
-            release_message(user)
-        if own_client and client is not None:
-            client.close()
+class RelayStream:
+    def __init__(self, user, conversation, message: str, mode: str, client: AIServiceClient | None = None):
+        self.user = user
+        self.conversation = conversation
+        self.message = message
+        self.mode = mode
+        self.client = client
+
+    def __iter__(self) -> Iterator[str]:
+        payload = build_turn(self.user, self.conversation, self.message, self.mode)
+        answered = False
+        client = self.client
+        own_client = client is None
+        try:
+            client = client or get_client()
+            for event, data in client.stream_turn(payload, timeout=settings.TUTOR_AI_TURN_TIMEOUT_SECONDS):
+                if event == "meta":
+                    yield sse(
+                        "meta", {"mode": data.get("mode") or self.mode, "conversation_id": str(self.conversation.pk)}
+                    )
+                elif event == "delta":
+                    yield sse("delta", {"text": str(data.get("text") or "")})
+                elif event == "final":
+                    answer = record_final(self.conversation, self.mode, data)
+                    answered = True
+                    yield sse("final", answer)
+                    return
+                elif event == "error":
+                    logger.warning(
+                        "tutor turn failed",
+                        extra={"conversation_id": str(self.conversation.pk), "code": data.get("code")},
+                    )
+                    yield sse("error", _client_error(data.get("code")))
+                    return
+            yield sse("error", _client_error(None))
+        except AIServiceError as exc:
+            logger.warning("tutor turn failed", extra={"conversation_id": str(self.conversation.pk), "code": exc.code})
+            yield sse("error", _client_error(exc.code))
+        except Exception:
+            logger.exception("tutor turn crashed", extra={"conversation_id": str(self.conversation.pk)})
+            yield sse("error", {"code": "server_error", "message": "Something went wrong on our side."})
+        finally:
+            if not answered:
+                release_message(self.user)
+            if own_client and client is not None:
+                client.close()
+
+    async def __aiter__(self) -> AsyncIterator[str]:
+        payload = await sync_to_async(build_turn)(self.user, self.conversation, self.message, self.mode)
+        answered = False
+        client = self.client
+        own_client = client is None
+        try:
+            client = client or get_client()
+            async for event, data in client.astream_turn(payload, timeout=settings.TUTOR_AI_TURN_TIMEOUT_SECONDS):
+                if event == "meta":
+                    yield sse(
+                        "meta", {"mode": data.get("mode") or self.mode, "conversation_id": str(self.conversation.pk)}
+                    )
+                elif event == "delta":
+                    yield sse("delta", {"text": str(data.get("text") or "")})
+                elif event == "final":
+                    answer = await sync_to_async(record_final)(self.conversation, self.mode, data)
+                    answered = True
+                    yield sse("final", answer)
+                    return
+                elif event == "error":
+                    logger.warning(
+                        "tutor turn failed",
+                        extra={"conversation_id": str(self.conversation.pk), "code": data.get("code")},
+                    )
+                    yield sse("error", _client_error(data.get("code")))
+                    return
+            yield sse("error", _client_error(None))
+        except AIServiceError as exc:
+            logger.warning("tutor turn failed", extra={"conversation_id": str(self.conversation.pk), "code": exc.code})
+            yield sse("error", _client_error(exc.code))
+        except Exception:
+            logger.exception("tutor turn crashed", extra={"conversation_id": str(self.conversation.pk)})
+            yield sse("error", {"code": "server_error", "message": "Something went wrong on our side."})
+        finally:
+            if not answered:
+                await sync_to_async(release_message)(self.user)
+            if own_client and client is not None:
+                await client.aclose()
+
+
+def relay_turn(user, conversation, message: str, mode: str, client: AIServiceClient | None = None) -> RelayStream:
+    return RelayStream(user, conversation, message, mode, client)

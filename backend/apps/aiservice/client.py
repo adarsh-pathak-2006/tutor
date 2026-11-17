@@ -7,10 +7,11 @@ Idempotency-Key. Failures become AIServiceError with a `retryable` flag: network
 The token is never logged. The client is synchronous (Django views and management commands are).
 """
 
+import asyncio
 import json
 import logging
 import uuid
-from collections.abc import Iterator
+from collections.abc import AsyncIterator, Iterator
 from typing import Any
 
 import httpx
@@ -56,21 +57,59 @@ def is_configured() -> bool:
 
 class AIServiceClient:
     def __init__(self, base_url: str, token: str, *, timeout: float, transport: httpx.BaseTransport | None = None):
+        self._base_url = base_url.rstrip("/")
+        self._token = token
+        self._timeout = timeout
+        self._transport = transport
+        self._headers = {"Authorization": f"Bearer {token}", "Accept": "application/json", "User-Agent": "tutor-django"}
         self._client = httpx.Client(
-            base_url=base_url.rstrip("/"),
+            base_url=self._base_url,
             timeout=httpx.Timeout(timeout, connect=min(CONNECT_TIMEOUT_SECONDS, timeout)),
             transport=transport,
-            headers={"Authorization": f"Bearer {token}", "Accept": "application/json", "User-Agent": "tutor-django"},
+            headers=self._headers,
         )
+        self._aclient: httpx.AsyncClient | None = None
+
+    def _get_aclient(self) -> httpx.AsyncClient:
+        if self._aclient is None or self._aclient.is_closed:
+            self._aclient = httpx.AsyncClient(
+                base_url=self._base_url,
+                timeout=httpx.Timeout(self._timeout, connect=min(CONNECT_TIMEOUT_SECONDS, self._timeout)),
+                transport=self._transport,
+                headers=self._headers,
+            )
+        return self._aclient
+
+    async def aclose(self) -> None:
+        if self._aclient is not None and not self._aclient.is_closed:
+            await self._aclient.aclose()
 
     def close(self) -> None:
         self._client.close()
+        if self._aclient is not None and not self._aclient.is_closed:
+            try:
+                loop = asyncio.get_running_loop()
+            except RuntimeError:
+                loop = None
+            if loop is not None and loop.is_running():
+                loop.create_task(self._aclient.aclose())
+            else:
+                try:
+                    asyncio.run(self._aclient.aclose())
+                except RuntimeError:
+                    pass
 
     def __enter__(self) -> "AIServiceClient":
         return self
 
     def __exit__(self, *exc_info: object) -> None:
         self.close()
+
+    async def __aenter__(self) -> "AIServiceClient":
+        return self
+
+    async def __aexit__(self, *exc_info: object) -> None:
+        await self.aclose()
 
     # -- plumbing ----------------------------------------------------------------------------------------------
 
@@ -176,6 +215,41 @@ class AIServiceClient:
         except httpx.HTTPError as exc:
             raise AIServiceError(f"POST {path} failed: {type(exc).__name__}", code="unreachable") from exc
         except ValueError as exc:  # invalid JSON in an event
+            raise AIServiceError("the AI service sent an invalid event", code="bad_response") from exc
+
+    async def astream_turn(
+        self, payload: dict[str, Any], *, timeout: float
+    ) -> AsyncIterator[tuple[str, dict[str, Any]]]:
+        request_id = get_request_id()
+        headers = {"X-Request-ID": request_id if request_id != "-" else uuid.uuid4().hex, "Accept": "text/event-stream"}
+        path = "/v1/tutor/turns"
+        aclient = self._get_aclient()
+        try:
+            async with aclient.stream(
+                "POST",
+                path,
+                json=payload,
+                headers=headers,
+                timeout=httpx.Timeout(timeout, connect=min(CONNECT_TIMEOUT_SECONDS, timeout)),
+            ) as response:
+                if response.status_code >= 400:
+                    await response.aread()
+                    raise self._error("POST", path, response)
+                event: str | None = None
+                async for line in response.aiter_lines():
+                    if line.startswith("event: "):
+                        event = line[len("event: ") :].strip()
+                    elif line.startswith("data: ") and event:
+                        data = json.loads(line[len("data: ") :])
+                        if not isinstance(data, dict):
+                            raise AIServiceError("an event's data is not an object", code="bad_response")
+                        yield event, data
+                        event = None
+        except httpx.TimeoutException as exc:
+            raise AIServiceError(f"POST {path} timed out", code="timeout") from exc
+        except httpx.HTTPError as exc:
+            raise AIServiceError(f"POST {path} failed: {type(exc).__name__}", code="unreachable") from exc
+        except ValueError as exc:
             raise AIServiceError("the AI service sent an invalid event", code="bad_response") from exc
 
 
