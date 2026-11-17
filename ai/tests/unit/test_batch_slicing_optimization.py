@@ -9,17 +9,19 @@ Verifies:
 
 import asyncio
 import json
+
 import httpx
 import pytest
 from pydantic import ValidationError
 
-from tutor_ai.providers import ProviderError
 from tutor_ai.providers.factory import build_provider
 from tutor_ai.providers.ollama import DEFAULT_EMBED_BATCH, OllamaProvider
 from tutor_ai.settings import Settings
 
 
-def _create_mock_ollama_provider(recorded_requests: list[dict], max_batch_size: int = DEFAULT_EMBED_BATCH, dims: int = 4) -> OllamaProvider:
+def _create_mock_ollama_provider(
+    recorded_requests: list[dict], max_batch_size: int = DEFAULT_EMBED_BATCH, dims: int = 4
+) -> OllamaProvider:
     def handler(request: httpx.Request) -> httpx.Response:
         body = json.loads(request.content)
         recorded_requests.append(body)
@@ -57,26 +59,27 @@ def test_batch_slicing_no_overlap_on_batch_size_16():
     assert [len(r["input"]) for r in recorded] == [16, 16, 16]
 
     # 4. Batches must not overlap; reconstructed items must match input order exactly
-    reconstructed = [
-        item.removeprefix("search_document: ")
-        for r in recorded
-        for item in r["input"]
-    ]
+    reconstructed = [item.removeprefix("search_document: ") for r in recorded for item in r["input"]]
     assert reconstructed == texts
 
     # 5. Specifically verify items 16 to 31 are present exactly once
     for i in range(16, 32):
         key = f"Item {i:02d}"
-        assert reconstructed.count(key) == 1, f"Expected exactly 1 occurrence of {key}, found {reconstructed.count(key)}"
+        assert reconstructed.count(key) == 1, (
+            f"Expected exactly 1 occurrence of {key}, found {reconstructed.count(key)}"
+        )
 
 
-@pytest.mark.parametrize("batch_size,text_count,expected_batch_lengths", [
-    (7, 20, [7, 7, 6]),
-    (1, 5, [1, 1, 1, 1, 1]),
-    (10, 25, [10, 10, 5]),
-    (32, 35, [32, 3]),
-    (64, 100, [64, 36]),
-])
+@pytest.mark.parametrize(
+    "batch_size,text_count,expected_batch_lengths",
+    [
+        (7, 20, [7, 7, 6]),
+        (1, 5, [1, 1, 1, 1, 1]),
+        (10, 25, [10, 10, 5]),
+        (32, 35, [32, 3]),
+        (64, 100, [64, 36]),
+    ],
+)
 def test_batch_slicing_across_various_batch_sizes(batch_size: int, text_count: int, expected_batch_lengths: list[int]):
     """Verify slicing correctness and item ordering across arbitrary batch sizes."""
     recorded = []
@@ -97,13 +100,23 @@ def test_batch_size_clamping():
     """Verify max_batch_size is clamped between 1 and 64 for safety."""
     dummy_transport = httpx.MockTransport(lambda r: httpx.Response(200))
     p_low = OllamaProvider(
-        base_url="http://test/", chat_model="m", embedding_model="m", dimensions=4, max_batch_size=0, transport=dummy_transport
+        base_url="http://test/",
+        chat_model="m",
+        embedding_model="m",
+        dimensions=4,
+        max_batch_size=0,
+        transport=dummy_transport,
     )
     assert p_low.max_batch_size == 1
     asyncio.run(p_low.aclose())
 
     p_high = OllamaProvider(
-        base_url="http://test/", chat_model="m", embedding_model="m", dimensions=4, max_batch_size=100, transport=dummy_transport
+        base_url="http://test/",
+        chat_model="m",
+        embedding_model="m",
+        dimensions=4,
+        max_batch_size=100,
+        transport=dummy_transport,
     )
     assert p_high.max_batch_size == 64
     asyncio.run(p_high.aclose())

@@ -41,12 +41,41 @@ logger = logging.getLogger("tutor_ai.tutor")
 TEMPERATURE = 0.3
 _CITATION = re.compile(r"\[(P\d+)\]")
 
-_CONVERSATIONAL_PHRASES = frozenset({
-    "yes", "yeah", "yep", "no", "nope", "ok", "okay", "sure", "thanks", "thank you",
-    "continue", "go on", "tell me more", "explain more", "give an example", "what next",
-    "i understand", "i got it", "i see", "makes sense", "understood", "got it", "please continue",
-    "next", "more", "cool", "alright", "all right", "great", "yes please", "no thanks"
-})
+_CONVERSATIONAL_PHRASES = frozenset(
+    {
+        "yes",
+        "yeah",
+        "yep",
+        "no",
+        "nope",
+        "ok",
+        "okay",
+        "sure",
+        "thanks",
+        "thank you",
+        "continue",
+        "go on",
+        "tell me more",
+        "explain more",
+        "give an example",
+        "what next",
+        "i understand",
+        "i got it",
+        "i see",
+        "makes sense",
+        "understood",
+        "got it",
+        "please continue",
+        "next",
+        "more",
+        "cool",
+        "alright",
+        "all right",
+        "great",
+        "yes please",
+        "no thanks",
+    }
+)
 
 
 def is_conversational_continuation(text: str) -> bool:
@@ -61,6 +90,7 @@ def is_conversational_continuation(text: str) -> bool:
     if len(words) <= 2 and all(w in _CONVERSATIONAL_PHRASES or w in {"please", "so", "and"} for w in words):
         return True
     return False
+
 
 Event = tuple[str, dict[str, Any]]
 
@@ -86,6 +116,7 @@ class TurnRequest:
     open_quiz: bool = False
     protected_answers: list[str] = field(default_factory=list)
     max_reply_tokens: int = 250
+
 
 @dataclass
 class _Context:

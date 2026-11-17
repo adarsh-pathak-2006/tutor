@@ -19,9 +19,7 @@ from pathlib import Path
 # --------------------------------------------------
 
 if sys.platform == "win32":
-    asyncio.set_event_loop_policy(
-        asyncio.WindowsSelectorEventLoopPolicy()
-    )
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 # --------------------------------------------------
 # 2. Add AI project directory to Python import path
@@ -39,10 +37,10 @@ from sqlalchemy.engine import make_url
 
 from tutor_ai.settings import Settings
 
-
 # --------------------------------------------------
 # 4. Database connection test
 # --------------------------------------------------
+
 
 async def main():
 
@@ -70,27 +68,20 @@ async def main():
         # Convert SQLAlchemy URL format to Psycopg format.
         sqlalchemy_url = make_url(database_url)
 
-        psycopg_url = sqlalchemy_url.set(
-            drivername="postgresql"
-        )
+        psycopg_url = sqlalchemy_url.set(drivername="postgresql")
 
-        connection_string = psycopg_url.render_as_string(
-            hide_password=False
-        )
+        connection_string = psycopg_url.render_as_string(hide_password=False)
 
         print("Database URL format converted successfully.")
         print("Connecting to PostgreSQL...\n")
 
         # Establish asynchronous database connection.
-        connection = await psycopg.AsyncConnection.connect(
-            connection_string
-        )
+        connection = await psycopg.AsyncConnection.connect(connection_string)
 
         print("DATABASE CONNECTION ESTABLISHED!")
 
         # Execute a simple test query.
         async with connection.cursor() as cursor:
-
             await cursor.execute("SELECT 1;")
 
             result = await cursor.fetchone()
@@ -103,7 +94,6 @@ async def main():
         print("================================")
 
     except Exception as exc:
-
         print("\n================================")
         print(" DATABASE TEST FAILED")
         print("================================")
@@ -112,9 +102,7 @@ async def main():
         print("Error:", str(exc))
 
     finally:
-
         if connection is not None:
-
             await connection.close()
 
             print("\nDatabase connection closed.")

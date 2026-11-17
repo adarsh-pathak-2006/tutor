@@ -8,7 +8,6 @@ import httpx
 from google import genai
 from google.genai import types
 
-
 from .base import (
     EmbeddingKind,
     Message,
@@ -71,9 +70,7 @@ class GeminiProvider:
                 )
             )
 
-        system_instruction = (
-            "\n\n".join(system_parts) if system_parts else None
-        )
+        system_instruction = "\n\n".join(system_parts) if system_parts else None
 
         return system_instruction, contents
 
@@ -121,7 +118,10 @@ class GeminiProvider:
                     yield text
             logger.info(
                 "Gemini stream completed",
-                extra={"duration_ms": round((time.perf_counter() - started) * 1000, 1), "received_text": first_text_logged},
+                extra={
+                    "duration_ms": round((time.perf_counter() - started) * 1000, 1),
+                    "received_text": first_text_logged,
+                },
             )
 
         except Exception as exc:
@@ -129,9 +129,7 @@ class GeminiProvider:
             status_code = getattr(exc, "code", None)
             status_code = status_code() if callable(status_code) else status_code
 
-            if isinstance(exc, TimeoutError) or isinstance(
-                exc, httpx.TimeoutException
-            ):
+            if isinstance(exc, TimeoutError) or isinstance(exc, httpx.TimeoutException):
                 raise ProviderTimeout(
                     "Gemini request timed out.",
                     provider=self.name,
@@ -153,8 +151,7 @@ class GeminiProvider:
                 raise
 
             raise ProviderUnavailable(
-                "Gemini request failed. Check the model, API key, "
-                "network connection, and provider quota.",
+                "Gemini request failed. Check the model, API key, network connection, and provider quota.",
                 provider=self.name,
             ) from exc
 

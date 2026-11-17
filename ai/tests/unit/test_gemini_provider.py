@@ -1,5 +1,6 @@
-import pytest
 from unittest.mock import AsyncMock, MagicMock
+
+import pytest
 
 from tutor_ai.providers.base import (
     Message,
@@ -92,9 +93,7 @@ async def test_timeout_error_mapping(gemini):
 
     gemini._client.aio.models.generate_content_stream = fake_stream
 
-    messages = [
-        Message(role="user", content="Hello")
-    ]
+    messages = [Message(role="user", content="Hello")]
 
     with pytest.raises(ProviderTimeout):
         async for _ in gemini.chat(
@@ -115,9 +114,7 @@ async def test_rate_limit_error_mapping(gemini):
 
     gemini._client.aio.models.generate_content_stream = fake_stream
 
-    messages = [
-        Message(role="user", content="Hello")
-    ]
+    messages = [Message(role="user", content="Hello")]
 
     with pytest.raises(ProviderUnavailable):
         async for _ in gemini.chat(

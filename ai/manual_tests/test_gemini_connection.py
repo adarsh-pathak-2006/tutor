@@ -8,9 +8,9 @@ from pathlib import Path
 AI_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(AI_ROOT))
 
-from tutor_ai.settings import Settings
-from tutor_ai.providers.factory import build_provider
 from tutor_ai.providers.base import Message
+from tutor_ai.providers.factory import build_provider
+from tutor_ai.settings import Settings
 
 
 async def main():

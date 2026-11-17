@@ -15,7 +15,6 @@ from pathlib import Path
 
 import requests
 
-
 # ============================================================
 # 1. ENVIRONMENT CONFIGURATION
 # ============================================================
@@ -78,9 +77,7 @@ LEARNER_REF = os.getenv(
     "lr_test_student_001",
 )
 
-QUESTION = (
-    " explain me arithmetic intensity" 
-)
+QUESTION = " explain me arithmetic intensity"
 
 body = {
     "learner_ref": LEARNER_REF,
@@ -123,6 +120,7 @@ HEADERS = {
 # 5. SEND REQUEST AND PROCESS SSE
 # ============================================================
 
+
 def main():
 
     print("\n================================")
@@ -150,7 +148,6 @@ def main():
             stream=True,
             timeout=(15, 240),
         ) as response:
-
             print("HTTP Status:", response.status_code)
 
             if response.status_code != 200:
@@ -159,7 +156,6 @@ def main():
                 return
 
             for line in response.iter_lines(decode_unicode=True):
-
                 if not line:
                     continue
 

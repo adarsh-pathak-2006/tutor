@@ -7,7 +7,7 @@ Captures complete SSE answers and generates:
   - reports/tutor_load_test_results.json
 
 Run from the ai directory:
-    python .\manual_tests\test_tutor_load_10.py
+    python .\\manual_tests\test_tutor_load_10.py
 """
 
 import asyncio
@@ -17,11 +17,10 @@ import os
 import time
 import uuid
 import webbrowser
+from datetime import UTC, datetime
 from pathlib import Path
-from datetime import datetime, timezone
 
 import httpx
-
 
 # ============================================================
 # CONFIGURATION
@@ -67,6 +66,7 @@ STUDENT_QUESTIONS = [
 # ============================================================
 # ENVIRONMENT AND REQUEST
 # ============================================================
+
 
 def load_env_file():
     if not ENV_FILE.exists():
@@ -119,6 +119,7 @@ def build_payload(student_number: int) -> dict:
 # ============================================================
 # SSE PARSING
 # ============================================================
+
 
 def collect_text(value):
     """Extract likely answer text from common tutor SSE payload shapes."""
@@ -181,23 +182,19 @@ async def read_sse_response(response: httpx.Response) -> dict:
 
         event_type = current_event
         if isinstance(parsed, dict):
-            event_type = (
-                parsed.get("type")
-                or parsed.get("event")
-                or current_event
-            )
+            event_type = parsed.get("type") or parsed.get("event") or current_event
 
-        result["events"].append({
-            "event": event_type or "message",
-            "data": parsed,
-        })
+        result["events"].append(
+            {
+                "event": event_type or "message",
+                "data": parsed,
+            }
+        )
 
         if not result["raw_preview"]:
             result["raw_preview"] = raw_data[:1000]
 
-        if event_type == "error" or (
-            isinstance(parsed, dict) and parsed.get("error")
-        ):
+        if event_type == "error" or (isinstance(parsed, dict) and parsed.get("error")):
             if isinstance(parsed, dict):
                 result["error"] = parsed.get("error", parsed)
             else:
@@ -233,9 +230,9 @@ async def read_sse_response(response: httpx.Response) -> dict:
 
     async for line in response.aiter_lines():
         if line.startswith("event:"):
-            current_event = line[len("event:"):].strip()
+            current_event = line[len("event:") :].strip()
         elif line.startswith("data:"):
-            data_lines.append(line[len("data:"):].strip())
+            data_lines.append(line[len("data:") :].strip())
         elif line == "":
             process_event()
 
@@ -252,6 +249,7 @@ async def read_sse_response(response: httpx.Response) -> dict:
 # ============================================================
 # ONE STUDENT REQUEST
 # ============================================================
+
 
 async def test_student(
     client: httpx.AsyncClient,
@@ -289,9 +287,7 @@ async def test_student(
 
             if response.status_code != 200:
                 body = await response.aread()
-                result["error"] = body.decode(
-                    "utf-8", errors="replace"
-                )[:2000]
+                result["error"] = body.decode("utf-8", errors="replace")[:2000]
             else:
                 stream = await read_sse_response(response)
                 result["events_received"] = stream["events_received"]
@@ -299,14 +295,11 @@ async def test_student(
                 result["error"] = stream["error"]
                 result["event_details"] = stream["events"]
                 result["success"] = (
-                    stream["final_received"]
-                    and stream["error"] is None
-                    and bool(stream["answer"].strip())
+                    stream["final_received"] and stream["error"] is None and bool(stream["answer"].strip())
                 )
                 if not result["success"] and not result["error"]:
                     result["error"] = (
-                        "No complete answer/final SSE event was detected. "
-                        "Inspect event_details in the JSON report."
+                        "No complete answer/final SSE event was detected. Inspect event_details in the JSON report."
                     )
 
     except httpx.TimeoutException:
@@ -316,9 +309,7 @@ async def test_student(
     except Exception as exc:
         result["error"] = f"{type(exc).__name__}: {exc}"
 
-    result["response_time_seconds"] = round(
-        time.perf_counter() - started, 3
-    )
+    result["response_time_seconds"] = round(time.perf_counter() - started, 3)
 
     status = "SUCCESS" if result["success"] else "FAILED"
     print(
@@ -333,45 +324,38 @@ async def test_student(
 # HTML REPORT
 # ============================================================
 
+
 def make_html_report(report: dict) -> str:
     summary = report["summary"]
     results = report["results"]
-    success_rate = (
-        summary["successful_requests"] / summary["total_requests"] * 100
-        if summary["total_requests"] else 0
-    )
+    success_rate = summary["successful_requests"] / summary["total_requests"] * 100 if summary["total_requests"] else 0
 
     cards = []
     for item in results:
         ok = item["success"]
         status_class = "success" if ok else "failed"
         status_label = "SUCCESS" if ok else "FAILED"
-        answer = item.get("answer") or (
-            "No answer was captured for this request."
-        )
+        answer = item.get("answer") or ("No answer was captured for this request.")
         error_html = ""
         if item.get("error"):
-            error_html = (
-                '<div class="error-box"><strong>Error</strong><br>'
-                f'{html.escape(str(item["error"]))}</div>'
-            )
+            error_html = f'<div class="error-box"><strong>Error</strong><br>{html.escape(str(item["error"]))}</div>'
 
         cards.append(f"""
         <details class="student-card {status_class}">
           <summary>
-            <span class="student-name">Student {item['student']:02d}</span>
+            <span class="student-name">Student {item["student"]:02d}</span>
             <span class="badge {status_class}">{status_label}</span>
-            <span class="time">{item.get('response_time_seconds', 0):.3f}s</span>
+            <span class="time">{item.get("response_time_seconds", 0):.3f}s</span>
             <span class="chevron">＋</span>
           </summary>
           <div class="student-content">
             <div class="meta-grid">
-              <div><label>Learner reference</label><strong>{html.escape(item['learner_ref'])}</strong></div>
-              <div><label>HTTP status</label><strong>{item.get('status_code') or 'N/A'}</strong></div>
-              <div><label>SSE events</label><strong>{item.get('events_received', 0)}</strong></div>
+              <div><label>Learner reference</label><strong>{html.escape(item["learner_ref"])}</strong></div>
+              <div><label>HTTP status</label><strong>{item.get("status_code") or "N/A"}</strong></div>
+              <div><label>SSE events</label><strong>{item.get("events_received", 0)}</strong></div>
             </div>
             <div class="section-title">Student question</div>
-            <div class="question">{html.escape(item.get('question', ''))}</div>
+            <div class="question">{html.escape(item.get("question", ""))}</div>
             <div class="section-title">Gemini tutor answer</div>
             <div class="answer">{html.escape(answer)}</div>
             {error_html}
@@ -468,8 +452,8 @@ summary::-webkit-details-marker {{ display:none; }}
     <p class="subtitle">10 students submitted lesson questions at the same time.</p>
     <div class="hero-meta">
       <span>Provider: Gemini + Ollama embeddings</span>
-      <span>Lesson: {html.escape(report['lesson']['title'])}</span>
-      <span>Concurrency: {summary['total_requests']} students</span>
+      <span>Lesson: {html.escape(report["lesson"]["title"])}</span>
+      <span>Concurrency: {summary["total_requests"]} students</span>
     </div>
   </header>
 
@@ -479,10 +463,10 @@ summary::-webkit-details-marker {{ display:none; }}
   </div>
   <section class="metrics">
     <div class="metric"><label>Success rate</label><strong>{success_rate:.0f}%</strong><div class="rate"><span></span></div></div>
-    <div class="metric"><label>Successful</label><strong>{summary['successful_requests']}<span class="unit"> / {summary['total_requests']}</span></strong></div>
-    <div class="metric"><label>Failed</label><strong>{summary['failed_requests']}</strong></div>
-    <div class="metric"><label>Average response</label><strong>{summary['average_response_time_seconds']}<span class="unit"> sec</span></strong></div>
-    <div class="metric"><label>Total test duration</label><strong>{summary['total_execution_time_seconds']}<span class="unit"> sec</span></strong></div>
+    <div class="metric"><label>Successful</label><strong>{summary["successful_requests"]}<span class="unit"> / {summary["total_requests"]}</span></strong></div>
+    <div class="metric"><label>Failed</label><strong>{summary["failed_requests"]}</strong></div>
+    <div class="metric"><label>Average response</label><strong>{summary["average_response_time_seconds"]}<span class="unit"> sec</span></strong></div>
+    <div class="metric"><label>Total test duration</label><strong>{summary["total_execution_time_seconds"]}<span class="unit"> sec</span></strong></div>
   </section>
 
   <div class="section-heading">
@@ -490,10 +474,10 @@ summary::-webkit-details-marker {{ display:none; }}
     <span class="muted">Select a student to view the full question and AI answer</span>
   </div>
   <section class="student-list">
-    {''.join(cards)}
+    {"".join(cards)}
   </section>
   <div class="footer">
-    Tutor AI test report · Lesson ID: {html.escape(report['lesson']['lesson_id'])}
+    Tutor AI test report · Lesson ID: {html.escape(report["lesson"]["lesson_id"])}
     <br>Response times are measured by this test client; this run is not a production capacity certification.
   </div>
 </div>
@@ -504,6 +488,7 @@ summary::-webkit-details-marker {{ display:none; }}
 # ============================================================
 # RUN TEST AND SAVE REPORTS
 # ============================================================
+
 
 async def run_load_test():
     load_env_file()
@@ -521,22 +506,14 @@ async def run_load_test():
     print("\nStarting concurrent requests...\n")
 
     started = time.perf_counter()
-    async with httpx.AsyncClient(
-        timeout=httpx.Timeout(TIMEOUT_SECONDS)
-    ) as client:
-        tasks = [
-            test_student(client, headers, number)
-            for number in range(1, CONCURRENT_STUDENTS + 1)
-        ]
+    async with httpx.AsyncClient(timeout=httpx.Timeout(TIMEOUT_SECONDS)) as client:
+        tasks = [test_student(client, headers, number) for number in range(1, CONCURRENT_STUDENTS + 1)]
         results = await asyncio.gather(*tasks)
 
     total_time = round(time.perf_counter() - started, 3)
     successful = [r for r in results if r["success"]]
     failed = [r for r in results if not r["success"]]
-    response_times = [
-        r["response_time_seconds"] for r in results
-        if r["response_time_seconds"] is not None
-    ]
+    response_times = [r["response_time_seconds"] for r in results if r["response_time_seconds"] is not None]
 
     average = round(sum(response_times) / len(response_times), 3) if response_times else 0
     fastest = min(response_times) if response_times else None
@@ -546,7 +523,7 @@ async def run_load_test():
 
     report = {
         "test_name": "Tutor AI 10 Concurrent Student Load Test",
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "timestamp": datetime.now(UTC).isoformat(),
         "server": BASE_URL,
         "endpoint": ENDPOINT,
         "provider": "Gemini + Ollama embeddings",

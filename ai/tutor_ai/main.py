@@ -4,20 +4,9 @@ Run with `uvicorn tutor_ai.main:create_app --factory`; tests call create_app() w
 Settings are read when the app is created, so importing this module never needs any configuration.
 """
 
+import asyncio
 import logging
 import sys
-
-if sys.platform == "win32":
-    import asyncio
-    import warnings
-
-    if hasattr(asyncio, "WindowsSelectorEventLoopPolicy"):
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore", DeprecationWarning)
-            try:
-                asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-            except Exception:
-                pass
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 
@@ -35,6 +24,10 @@ from .safety import SafetyPolicy
 from .settings import Settings, get_settings
 
 logger = logging.getLogger("tutor_ai")
+
+if sys.platform == "win32":  # pragma: no cover - only on native Windows
+    # psycopg's async driver can't run on Windows' default (Proactor) event loop.
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 
 def create_app(settings: Settings | None = None, provider: ModelProvider | None = None) -> FastAPI:

@@ -115,21 +115,15 @@ class OllamaProvider:
                 "/api/chat",
                 json=body,
             ) as response:
-
                 if response.status_code != 200:
-                    detail = (
-                        (await response.aread())
-                        .decode(errors="replace")[:200]
-                    )
+                    detail = (await response.aread()).decode(errors="replace")[:200]
 
                     raise ProviderError(
-                        f"Ollama chat returned "
-                        f"{response.status_code}: {detail}",
+                        f"Ollama chat returned {response.status_code}: {detail}",
                         provider=self.name,
                     )
 
                 async for line in response.aiter_lines():
-
                     if not line.strip():
                         continue
 
@@ -169,11 +163,7 @@ class OllamaProvider:
     ) -> list[list[float]]:
         """Generate text embeddings using the configured Ollama model."""
 
-        prefix = (
-            NOMIC_PREFIX[kind]
-            if self.embedding_model.startswith("nomic-embed-text")
-            else ""
-        )
+        prefix = NOMIC_PREFIX[kind] if self.embedding_model.startswith("nomic-embed-text") else ""
 
         vectors: list[list[float]] = []
         for start in range(0, len(texts), self.max_batch_size):
@@ -211,9 +201,7 @@ class OllamaProvider:
             for vector in embeddings:
                 if len(vector) != self.dimensions:
                     raise ProviderError(
-                        f"{self.embedding_model} returned "
-                        f"{len(vector)} dimensions, "
-                        f"expected {self.dimensions}",
+                        f"{self.embedding_model} returned {len(vector)} dimensions, expected {self.dimensions}",
                         provider=self.name,
                     )
 
@@ -238,10 +226,7 @@ class OllamaProvider:
             if response.status_code != 200:
                 return False
 
-            names = {
-                model.get("name", "")
-                for model in response.json().get("models", [])
-            }
+            names = {model.get("name", "") for model in response.json().get("models", [])}
 
         except (
             httpx.HTTPError,
@@ -273,10 +258,7 @@ class OllamaProvider:
             if response.status_code != 200:
                 return False
 
-            names = {
-                model.get("name", "")
-                for model in response.json().get("models", [])
-            }
+            names = {model.get("name", "") for model in response.json().get("models", [])}
 
         except (
             httpx.HTTPError,
@@ -307,10 +289,4 @@ def _has_model(
     An explicitly specified tag must match exactly.
     """
 
-    return (
-        wanted in installed
-        or (
-            ":" not in wanted
-            and f"{wanted}:latest" in installed
-        )
-    )
+    return wanted in installed or (":" not in wanted and f"{wanted}:latest" in installed)

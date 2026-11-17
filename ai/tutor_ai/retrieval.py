@@ -199,7 +199,8 @@ async def pin_context(
 ) -> list[Passage]:
     """Choose the passages for a new chat. Empty if the lesson isn't indexed (for this embedding model)."""
     model = provider.embedding_model
-    has_query = bool(query and query.strip())
+    query_text = query or ""
+    has_query = bool(query_text.strip())
     vector: list[float] | None = None
     async with engine.connect() as conn:
         lesson = await lesson_passages(conn, lesson_id, model)
@@ -210,7 +211,7 @@ async def pin_context(
             chosen = lesson
         else:
             if has_query:
-                vector = await get_query_embedding(provider, query, max_entries=max_cache_entries)
+                vector = await get_query_embedding(provider, query_text, max_entries=max_cache_entries)
                 scored = await passages_by_id(conn, [p.chunk_id for p in lesson], model, vector)
                 best_first = sorted(scored, key=lambda p: (-(p.similarity or 0.0), p.position))
                 chosen = sorted(_fill(best_first, budget_tokens), key=lambda p: p.position)
@@ -220,7 +221,7 @@ async def pin_context(
         related: list[Passage] = []
         if related_k > 0 and remaining > 0 and has_query:
             if vector is None:
-                vector = await get_query_embedding(provider, query, max_entries=max_cache_entries)
+                vector = await get_query_embedding(provider, query_text, max_entries=max_cache_entries)
             found = await search(
                 conn, vector, course_id=course_id, model=model, k=related_k, minimum=minimum, exclude_lesson=lesson_id
             )

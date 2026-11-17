@@ -12,16 +12,12 @@ Covers:
 import asyncio
 import json
 import uuid
-from collections.abc import AsyncIterator
-from typing import Any
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import httpx
 import pytest
 
 from tutor_ai.db import create_engine
-from tutor_ai.prompt_builder import Mode
-from tutor_ai.providers.base import EmbeddingKind, Message, ModelProvider
 from tutor_ai.providers.mock import MockProvider
 from tutor_ai.providers.ollama import OllamaProvider
 from tutor_ai.retrieval import (
@@ -31,7 +27,7 @@ from tutor_ai.retrieval import (
     get_query_embedding,
     pin_context,
 )
-from tutor_ai.safety import OK, SafetyPolicy, StreamGuard, Verdict
+from tutor_ai.safety import SafetyPolicy, StreamGuard
 from tutor_ai.settings import Settings
 from tutor_ai.tutor import (
     LessonRef,
@@ -39,7 +35,6 @@ from tutor_ai.tutor import (
     TutorService,
     is_conversational_continuation,
 )
-
 
 # ==============================================================================
 # 1. Ollama Provider: Slicing Bug Fix & Connection Timeout
@@ -103,8 +98,11 @@ def test_ollama_connect_timeout_configured():
 # ==============================================================================
 
 
-@pytest.mark.asyncio
-async def test_query_embedding_cache_hit_and_normalization():
+def test_query_embedding_cache_hit_and_normalization():
+    asyncio.run(_test_query_embedding_cache_hit_and_normalization())
+
+
+async def _test_query_embedding_cache_hit_and_normalization():
     """Verify that repeated queries hit cache and normalized whitespace/casing match."""
     clear_query_cache()
     mock_provider = MockProvider(dimensions=8)
@@ -130,8 +128,11 @@ async def test_query_embedding_cache_hit_and_normalization():
     assert vec4 != vec1
 
 
-@pytest.mark.asyncio
-async def test_query_embedding_cache_lru_eviction():
+def test_query_embedding_cache_lru_eviction():
+    asyncio.run(_test_query_embedding_cache_lru_eviction())
+
+
+async def _test_query_embedding_cache_lru_eviction():
     """Verify that oldest entry is evicted when max_entries is exceeded."""
     clear_query_cache()
     mock_provider = MockProvider(dimensions=8)
@@ -158,16 +159,23 @@ async def test_query_embedding_cache_lru_eviction():
 # ==============================================================================
 
 
-@pytest.mark.asyncio
-async def test_pin_context_lazy_avoids_embedding_when_lesson_fits():
+def test_pin_context_lazy_avoids_embedding_when_lesson_fits():
+    asyncio.run(_test_pin_context_lazy_avoids_embedding_when_lesson_fits())
+
+
+async def _test_pin_context_lazy_avoids_embedding_when_lesson_fits():
     """When lesson passages fit in token budget and related_k=0, embed() must NOT be called."""
     clear_query_cache()
 
     lesson_id = uuid.uuid4()
     course_id = uuid.uuid4()
     mock_passages = [
-        Passage(chunk_id=uuid.uuid4(), lesson_id=lesson_id, heading="Intro", text="Sample text", token_count=50, position=0),
-        Passage(chunk_id=uuid.uuid4(), lesson_id=lesson_id, heading="Body", text="More text", token_count=100, position=1),
+        Passage(
+            chunk_id=uuid.uuid4(), lesson_id=lesson_id, heading="Intro", text="Sample text", token_count=50, position=0
+        ),
+        Passage(
+            chunk_id=uuid.uuid4(), lesson_id=lesson_id, heading="Body", text="More text", token_count=100, position=1
+        ),
     ]
 
     # Provider with spy on embed()
@@ -198,15 +206,20 @@ async def test_pin_context_lazy_avoids_embedding_when_lesson_fits():
     assert provider.embed.call_count == 0
 
 
-@pytest.mark.asyncio
-async def test_pin_context_lazy_calls_embedding_when_budget_exceeded():
+def test_pin_context_lazy_calls_embedding_when_budget_exceeded():
+    asyncio.run(_test_pin_context_lazy_calls_embedding_when_budget_exceeded())
+
+
+async def _test_pin_context_lazy_calls_embedding_when_budget_exceeded():
     """When lesson passages exceed budget, embed() must be called lazily to rank chunks."""
     clear_query_cache()
 
     lesson_id = uuid.uuid4()
     course_id = uuid.uuid4()
     mock_passages = [
-        Passage(chunk_id=uuid.uuid4(), lesson_id=lesson_id, heading="Intro", text="Text 1", token_count=400, position=0),
+        Passage(
+            chunk_id=uuid.uuid4(), lesson_id=lesson_id, heading="Intro", text="Text 1", token_count=400, position=0
+        ),
         Passage(chunk_id=uuid.uuid4(), lesson_id=lesson_id, heading="Body", text="Text 2", token_count=400, position=1),
     ]
 
@@ -217,8 +230,9 @@ async def test_pin_context_lazy_calls_embedding_when_budget_exceeded():
     mock_engine = MagicMock()
     mock_engine.connect.return_value.__aenter__.return_value = mock_conn
 
-    with patch("tutor_ai.retrieval.lesson_passages", new=AsyncMock(return_value=mock_passages)), patch(
-        "tutor_ai.retrieval.passages_by_id", new=AsyncMock(return_value=mock_passages)
+    with (
+        patch("tutor_ai.retrieval.lesson_passages", new=AsyncMock(return_value=mock_passages)),
+        patch("tutor_ai.retrieval.passages_by_id", new=AsyncMock(return_value=mock_passages)),
     ):
         # budget = 500 tokens (passages sum to 800 > 500)
         chosen = await pin_context(
@@ -283,8 +297,11 @@ def test_conversational_detector_preserves_academic_questions(question: str):
     assert is_conversational_continuation(question) is False
 
 
-@pytest.mark.asyncio
-async def test_tutor_context_short_circuits_conversational_turn():
+def test_tutor_context_short_circuits_conversational_turn():
+    asyncio.run(_test_tutor_context_short_circuits_conversational_turn())
+
+
+async def _test_tutor_context_short_circuits_conversational_turn():
     """Verify that TutorService._context skips embedding when student message is conversational."""
     clear_query_cache()
 
@@ -341,12 +358,14 @@ async def test_tutor_context_short_circuits_conversational_turn():
 
 def test_windowed_safety_scan_catches_quiz_leak_across_chunks():
     """Verify that windowed scanning still reliably catches answers split across chunks."""
-    policy = SafetyPolicy.load(Settings(
-        TUTOR_ENV="test",
-        AI_DATABASE_URL="postgresql://u:p@localhost:5432/db",
-        TUTOR_AI_SERVICE_TOKEN="a" * 32,
-        TUTOR_AI_PROVIDER="mock",
-    ).safety_policy)
+    policy = SafetyPolicy.load(
+        Settings(
+            TUTOR_ENV="test",
+            AI_DATABASE_URL="postgresql://u:p@localhost:5432/db",
+            TUTOR_AI_SERVICE_TOKEN="a" * 32,
+            TUTOR_AI_PROVIDER="mock",
+        ).safety_policy
+    )
 
     guard = StreamGuard(policy, protected_answers=["photosynthesis"])
     chunks = ["The process ", "is called ", "photo", "syn", "thesis", " in botany."]
@@ -364,12 +383,14 @@ def test_windowed_safety_scan_catches_quiz_leak_across_chunks():
 
 def test_windowed_safety_scan_linear_performance():
     """Verify windowed scan remains efficient over long streaming outputs."""
-    policy = SafetyPolicy.load(Settings(
-        TUTOR_ENV="test",
-        AI_DATABASE_URL="postgresql://u:p@localhost:5432/db",
-        TUTOR_AI_SERVICE_TOKEN="a" * 32,
-        TUTOR_AI_PROVIDER="mock",
-    ).safety_policy)
+    policy = SafetyPolicy.load(
+        Settings(
+            TUTOR_ENV="test",
+            AI_DATABASE_URL="postgresql://u:p@localhost:5432/db",
+            TUTOR_AI_SERVICE_TOKEN="a" * 32,
+            TUTOR_AI_PROVIDER="mock",
+        ).safety_policy
+    )
 
     guard = StreamGuard(policy, protected_answers=["mitochondria"])
     chunks = ["This is a completely safe sentence about cellular biology. " for _ in range(150)]

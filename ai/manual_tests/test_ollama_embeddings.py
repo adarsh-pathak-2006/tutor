@@ -16,16 +16,14 @@ from pathlib import Path
 
 # Windows asynchronous event-loop compatibility
 if sys.platform == "win32":
-    asyncio.set_event_loop_policy(
-        asyncio.WindowsSelectorEventLoopPolicy()
-    )
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 # Add AI directory to Python path
 AI_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(AI_ROOT))
 
-from tutor_ai.settings import Settings
 from tutor_ai.providers.ollama import OllamaProvider
+from tutor_ai.settings import Settings
 
 
 async def main():
@@ -58,9 +56,7 @@ async def main():
         healthy = await provider.embedding_health()
 
         if not healthy:
-            raise RuntimeError(
-                "Ollama is unavailable or required models are missing."
-            )
+            raise RuntimeError("Ollama is unavailable or required models are missing.")
 
         print("Ollama health: SUCCESS")
 
@@ -82,17 +78,11 @@ async def main():
 
         # 3. Validate dimensions
         for index, vector in enumerate(vectors):
-
             if len(vector) != settings.embedding_dimensions:
-                raise ValueError(
-                    f"Vector {index} has incorrect dimensions: "
-                    f"{len(vector)}"
-                )
+                raise ValueError(f"Vector {index} has incorrect dimensions: {len(vector)}")
 
             if not all(math.isfinite(value) for value in vector):
-                raise ValueError(
-                    f"Vector {index} contains invalid numeric values."
-                )
+                raise ValueError(f"Vector {index} contains invalid numeric values.")
 
             print(
                 f"Vector {index + 1} dimensions:",
@@ -108,7 +98,6 @@ async def main():
         print("================================")
 
     except Exception as exc:
-
         print("\n================================")
         print(" OLLAMA EMBEDDING TEST FAILED")
         print("================================")
@@ -117,7 +106,6 @@ async def main():
         print("Error:", str(exc))
 
     finally:
-
         if provider is not None:
             await provider.aclose()
             print("\nOllama connection closed.")

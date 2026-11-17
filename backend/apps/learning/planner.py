@@ -7,6 +7,7 @@ from django.utils import timezone
 
 from apps.assessment.models import Answer
 from apps.catalogue.models import Lesson, PublishStatus
+
 from .access import entitled_course_ids
 from .models import LessonProgress, MasteryState
 
@@ -28,9 +29,7 @@ def accessible_lessons(student, course_ids=None):
 
 def next_lesson(student, course_ids=None):
     """The first accessible lesson the student hasn't finished. Filtered in the database, one row fetched."""
-    finished = LessonProgress.objects.filter(
-        student=student, status=LessonProgress.Status.FINISHED
-    ).values("lesson_id")
+    finished = LessonProgress.objects.filter(student=student, status=LessonProgress.Status.FINISHED).values("lesson_id")
 
     return accessible_lessons(student, course_ids=course_ids).exclude(id__in=finished).first()
 
@@ -47,9 +46,7 @@ def review_item(student, course_ids=None):
     if not weakest:
         return None
 
-    lesson = accessible_lessons(student, course_ids=course_ids).filter(
-        skill_links__skill=weakest.skill
-    ).first()
+    lesson = accessible_lessons(student, course_ids=course_ids).filter(skill_links__skill=weakest.skill).first()
 
     return {"skill": weakest.skill, "state": weakest, "lesson": lesson}
 

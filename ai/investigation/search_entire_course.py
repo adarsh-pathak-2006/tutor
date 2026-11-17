@@ -1,4 +1,4 @@
-"""
+r"""
 Tutor AI - Whole Course Retrieval Diagnostic
 
 Purpose:
@@ -18,23 +18,22 @@ Run from the ai directory:
 
 import asyncio
 import json
+import selectors
 import sys
 from pathlib import Path
-import selectors
 
-from sqlalchemy import func, select, or_
+from sqlalchemy import func, or_, select
 
 # Ensure imports work when launched from the ai directory or script directory.
 AI_DIR = Path(__file__).resolve().parents[1]
 if str(AI_DIR) not in sys.path:
     sys.path.insert(0, str(AI_DIR))
 
-from tutor_ai.settings import get_settings
+from tutor_ai import retrieval
 from tutor_ai.db import create_engine
 from tutor_ai.providers.factory import build_provider
 from tutor_ai.schema import lesson_chunk
-from tutor_ai import retrieval
-
+from tutor_ai.settings import get_settings
 
 # Use the course already used by the successful Tutor load test.
 # IMPORTANT: No lesson ID is used anywhere in this diagnostic.
@@ -204,9 +203,7 @@ if __name__ == "__main__":
     try:
         asyncio.run(
             main(),
-            loop_factory=lambda: asyncio.SelectorEventLoop(
-                selectors.SelectSelector()
-            ),
+            loop_factory=lambda: asyncio.SelectorEventLoop(selectors.SelectSelector()),
         )
     except KeyboardInterrupt:
         print("\nSearch cancelled by user.")

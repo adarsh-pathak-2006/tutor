@@ -86,11 +86,7 @@ def test_json_log_line_has_request_id_and_extras():
     finally:
         reset_request_id(token)
 
-    assert (
-        line["msg"] == "hello"
-        and line["level"] == "INFO"
-        and line["logger"] == "tutor_ai.test"
-    )
+    assert line["msg"] == "hello" and line["level"] == "INFO" and line["logger"] == "tutor_ai.test"
     assert line["request_id"] == "req-abcdef12"
     assert line["chunks"] == 4
 
@@ -128,4 +124,3 @@ def test_malformed_incoming_request_ids_are_replaced(bad):
 
 def test_well_formed_request_id_is_kept():
     assert new_request_id("django-req-1234") == "django-req-1234"
-    
