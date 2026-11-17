@@ -8,3 +8,5 @@ SQLAlchemy[asyncio]==2.1.6  # async Core queries
 psycopg[binary]==3.3.6       # PostgreSQL driver (same as backend)
 alembic==1.20.1              # migrations for schema "ai"
 pgvector==0.5.1              # vector column type
+google-genai
+google-genai==2.34.0

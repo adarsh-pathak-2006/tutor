@@ -1,0 +1,747 @@
+===== TUTOR AI SOURCE INSPECTION =====
+
+
+========== FILE: ai\tutor_ai\tutor.py ==========
+"""One tutor turn, as a stream of events (design §3 "Tutor turn", §6, §7).
+
+Events, in order: `meta` → any number of `delta` → exactly one `final`; or an `error` instead of the rest.
+Django relays deltas to the browser and stores only the `final` event (its `text` is authoritative: when the output
+check replaces a reply, `final.text` differs from the deltas and `final.replaced` is true).
+
+Steps:
+1. Input safety (safety.py): harmful, risk-to-life and prompt-injection messages get a fixed reply without any model
+   call; personal data is scrubbed before any model sees it.
+2. Context: the pinned passages (reloaded by id) or, for a new chat or a re-indexed lesson, freshly pinned ones.
+3. On later turns, a message far from the pinned passages triggers one course-wide search; if nothing relevant is
+   found the student gets a gentle redirect without a model call.
+4. The prompt (prompt_builder.py) is streamed from the provider through a StreamGuard; a quiz answer or harmful text
+   stops the stream before it reaches the student.
+5. The final event carries the full text, citations, safety results and timings.
+
+The AI service never learns who the student is (a pseudonymous learner_ref only) and never logs message text.
+"""
+
+import asyncio
+import logging
+import re
+import time
+import uuid
+from collections.abc import AsyncIterator
+from dataclasses import dataclass, field
+from typing import Any
+
+from sqlalchemy.ext.asyncio import AsyncEngine
+
+from . import retrieval
+from .prompt_builder import BuiltPrompt, Mode, PromptLimits, Turn, build_prompt
+from .prompts import PromptRegistry
+from .providers.base import ModelProvider, ProviderError
+from .retrieval import Passage
+from .safety import OK, InputDecision, SafetyPolicy, StreamGuard, Verdict, grounding_score
+from .settings import Settings
+
+logger = logging.getLogger("tutor_ai.tutor")
+
+TEMPERATURE = 0.3
+_CITATION = re.compile(r"\[(P\d+)\]")
+
+Event = tuple[str, dict[str, Any]]
+
+
+@dataclass(frozen=True)
+class LessonRef:
+    id: uuid.UUID
+    version_id: uuid.UUID
+    course_id: uuid.UUID
+    title: str
+
+
+@dataclass(frozen=True)
+class TurnRequest:
+    learner_ref: str
+    chat_id: uuid.UUID
+    class_number: int | None
+    lesson: LessonRef
+    mode: Mode
+    message: str
+    history: list[Turn] = field(default_factory=list)
+    pinned_chunk_ids: list[uuid.UUID] = field(default_factory=list)
+    open_quiz: bool = False
+    protected_answers: list[str] = field(default_factory=list)
+    max_reply_tokens: int = 250
+
+
+@dataclass
+class _Context:
+    passages: list[Passage]
+    pinned_ids: list[uuid.UUID]
+    repinned: bool = False
+    extra_retrieval: bool = False
+    off_topic: bool = False
+    similarity: float | None = None
+
+
+class TutorService:
+    def __init__(
+        self,
+        engine: AsyncEngine,
+        provider: ModelProvider,
+        prompts: PromptRegistry,
+        policy: SafetyPolicy,
+        settings: Settings,
+    ) -> None:
+        self.engine = engine
+        self.provider = provider
+        self.prompts = prompts
+        self.policy = policy
+        self.settings = settings
+        self.minimum = retrieval.min_similarity(settings.min_similarity, provider.name)
+
+    # -- public ------------------------------------------------------------------------------------------------
+
+    async def turn(self, request: TurnRequest) -> AsyncIterator[Event]:
+        started = time.monotonic()
+        decision = self.policy.check_input(request.message)
+        mode: Mode = "hint" if request.open_quiz else request.mode
+        if decision.action == "block":
+            yield "meta", self._meta(request, pinned=request.pinned_chunk_ids, mode=mode, model=None)
+            yield (
+                "final",
+                self._final(request, started, text=decision.reply or "", decision=decision, output=OK, blocked=True),
+            )
+            self._log(request, started, "blocked", decision.verdict)
+            return
+
+        context = await self._context(request, decision.text)
+        if context is None:
+            yield "error", {"code": "lesson_not_indexed", "message": "This lesson isn't ready for the tutor yet."}
+            return
+        if context.off_topic:
+            yield "meta", self._meta(request, pinned=context.pinned_ids, mode=mode, model=None)
+            text = self.policy.reply("off_topic", lesson_title=request.lesson.title)
+            yield (
+                "final",
+                self._final(request, started, text=text, decision=decision, output=OK, context=context, off_topic=True),
+            )
+            self._log(request, started, "off_topic", decision.verdict)
+            return
+
+        prompt = self._build(request, decision.text, context.passages)
+        yield "meta", self._meta(request, pinned=context.pinned_ids, mode=prompt.mode, model=self.provider.chat_model)
+        guard = StreamGuard(self.policy, request.protected_answers)
+        if decision.notice:
+            notice = decision.notice + "\n\n"
+            yield "delta", {"text": notice}
+        else:
+            notice = ""
+        try:
+            async for chunk in self._stream(prompt, request, guard):
+                yield "delta", {"text": chunk}
+        except ProviderError as exc:
+            logger.warning("tutor turn failed", extra={"chat_id": str(request.chat_id), "code": exc.code})
+            yield "error", {"code": exc.code, "message": "The tutor is unavailable right now."}
+            return
+        except TimeoutError:
+            logger.warning("tutor turn timed out", extra={"chat_id": str(request.chat_id)})
+            yield "error", {"code": "timeout", "message": "The tutor took too long to answer."}
+            return
+
+        replaced = guard.problem is not None
+        if replaced:
+            fallback = "quiz_fallback" if guard.problem == "quiz_answer" else "output_fallback"
+            body = self.policy.reply(fallback)
+        else:
+            tail = guard.finish()
+            if tail:
+                yield "delta", {"text": tail}
+            body = guard.text.strip()
+        grounding = (
+            grounding_score(body, [p.text for p in context.passages] + [decision.text]) if not replaced else None
+        )
+        yield (
+            "final",
+            self._final(
+                request,
+                started,
+                text=notice + body,
+                decision=decision,
+                output=guard.verdict,
+                context=context,
+                prompt=prompt,
+                replaced=replaced,
+                grounding=grounding,
+                reply_text=body,
+            ),
+        )
+        self._log(request, started, "replaced" if replaced else "answered", decision.verdict)
+
+    # -- steps -------------------------------------------------------------------------------------------------
+
+    async def _context(self, request: TurnRequest, message: str) -> _Context | None:
+        model = self.provider.embedding_model
+        budget = self.settings.context_tokens
+        pinned: list[Passage] = []
+        if request.pinned_chunk_ids:
+            async with self.engine.connect() as conn:
+                pinned = await retrieval.passages_by_id(conn, request.pinned_chunk_ids, model)
+        if not pinned or len(pinned) < len(request.pinned_chunk_ids):  # new chat, or the lesson was re-indexed
+            fresh = await retrieval.pin_context(
+                self.engine,
+                self.provider,
+                lesson_id=request.lesson.id,
+                course_id=request.lesson.course_id,
+                query=message,
+                budget_tokens=budget,
+                related_k=self.settings.retrieval_top_k,
+                minimum=self.minimum,
+            )
+            if not fresh:
+                return None
+            return _Context(fresh, [p.chunk_id for p in fresh], repinned=bool(request.pinned_chunk_ids))
+
+        context = _Context(pinned, [p.chunk_id for p in pinned])
+        vector = (await self.provider.embed([message], kind="query"))[0]
+        async with self.engine.connect() as conn:
+            context.similarity = await retrieval.best_similarity(conn, context.pinned_ids, vector, model)
+            if context.similarity is not None and context.similarity >= self.minimum:
+                return context
+            extra = await retrieval.search(
+                conn,
+                vector,
+                course_id=request.lesson.course_id,
+                model=model,
+                k=self.settings.retrieval_top_k,
+                minimum=self.minimum,
+            )
+        already = set(context.pinned_ids)
+        new = [p for p in extra if p.chunk_id not in already]
+        if not extra:
+            context.off_topic = True
+        else:  # this turn only: the pinned prefix stays the same for the next turns
+            context.passages = pinned + new
+            context.extra_retrieval = True
+        return context
+
+    def _build(self, request: TurnRequest, message: str, passages: list[Passage]) -> BuiltPrompt:
+        limits = PromptLimits(
+            context_tokens=self.settings.context_tokens,
+            history_turns=self.settings.history_turns,
+            history_tokens=self.settings.history_tokens,
+            reply_tokens=min(request.max_reply_tokens, self.settings.reply_tokens),
+        )
+        return build_prompt(
+            self.prompts.active("tutor"),
+            mode=request.mode,
+            class_number=request.class_number,
+            lesson_title=request.lesson.title,
+            passages=passages,
+            history=request.history,
+            message=message,
+            limits=limits,
+            open_quiz=request.open_quiz,
+        )
+
+    async def _stream(self, prompt: BuiltPrompt, request: TurnRequest, guard: StreamGuard) -> AsyncIterator[str]:
+        """Model output that passed the guard. Raises TimeoutError when the whole reply takes longer than the turn
+        timeout (a per-chunk wait, so the deadline never cancels anything outside this generator)."""
+        reply_tokens = min(request.max_reply_tokens, self.settings.reply_tokens)
+        stream = self.provider.chat(prompt.messages, max_tokens=reply_tokens, temperature=TEMPERATURE)
+        loop = asyncio.get_running_loop()
+        deadline = loop.time() + self.settings.turn_timeout_seconds
+        try:
+            while True:
+                remaining = deadline - loop.time()
+                if remaining <= 0:
+                    raise TimeoutError
+                try:
+                    delta = await asyncio.wait_for(anext(stream), remaining)
+                except StopAsyncIteration:
+                    break
+                released = guard.feed(delta)
+                if released:
+                    yield released
+                if guard.problem is not None:
+                    break  # stop generating: nothing more of this reply will be shown
+        finally:
+            close = getattr(stream, "aclose", None)
+            if close is not None:
+                await close()
+
+    # -- events ------------------------------------------------------------------------------------------------
+
+    def _meta(self, request: TurnRequest, *, pinned: list[uuid.UUID], mode: Mode, model: str | None) -> dict[str, Any]:
+        return {
+            "chat_id": str(request.chat_id),
+            "model": model,
+            "provider": self.provider.name,
+            "prompt_version": self.prompts.active("tutor").ref,
+            "safety_version": self.policy.ref,
+            "mode": mode,
+            "pinned_chunk_ids": [str(i) for i in pinned],
+        }
+
+    def _final(
+        self,
+        request: TurnRequest,
+        started: float,
+        *,
+        text: str,
+        decision: InputDecision,
+        output: Verdict,
+        context: _Context | None = None,
+        prompt: BuiltPrompt | None = None,
+        blocked: bool = False,
+        off_topic: bool = False,
+        replaced: bool = False,
+        grounding: float | None = None,
+        reply_text: str = "",
+    ) -> dict[str, Any]:
+        citations = []
+        if prompt is not None and not replaced:
+            headings = {p.chunk_id: p.heading for p in context.passages} if context else {}
+            for label in dict.fromkeys(_CITATION.findall(reply_text)):
+                chunk_id = prompt.passage_ids.get(label)
+                if chunk_id is not None:
+                    citations.append({"label": label, "chunk_id": str(chunk_id), "heading": headings.get(chunk_id, "")})
+        flags = []
+        if decision.verdict.flagged:
+            flags.append({"stage": "input", **decision.verdict.as_dict()})
+        if output.flagged:
+            flags.append({"stage": "output", **output.as_dict()})
+        ungrounded = grounding is not None and grounding < self.settings.grounding_min
+        if ungrounded:
+            flags.append({"stage": "output", "category": "ungrounded", "severity": "low", "flagged": False})
+        return {
+            "text": text.strip(),
+            "message": decision.text,  # the student's message as stored: personal data already hidden
+            "blocked": blocked,
+            "replaced": replaced,
+            "off_topic": off_topic,
+            "citations": citations,
+            "safety": {
+                "input": decision.verdict.as_dict(),
+                "output": output.as_dict(),
+                "personal_data": list(decision.personal_data),
+                "grounding": None if grounding is None else round(grounding, 3),
+            },
+            "flags": flags,
+            "context": {
+                "pinned_chunk_ids": [str(i) for i in context.pinned_ids] if context else [],
+                "repinned": bool(context and context.repinned),
+                "extra_retrieval": bool(context and context.extra_retrieval),
+                "similarity": None if not context or context.similarity is None else round(context.similarity, 3),
+            },
+            "usage": {
+                "prompt_tokens_estimate": prompt.estimated_tokens if prompt else 0,
+                "reply_tokens_estimate": len(reply_text.split()) if reply_text else 0,
+                "history_used": prompt.history_used if prompt else 0,
+                "history_dropped": prompt.history_dropped if prompt else 0,
+                "cost": 0.0,  # local and mock models; the hosted provider reports real cost
+            },
+            "latency_ms": int((time.monotonic() - started) * 1000),
+            "model": self.provider.chat_model if prompt else None,
+            "prompt_version": self.prompts.active("tutor").ref,
+            "safety_version": self.policy.ref,
+            "mode": prompt.mode if prompt else request.mode,
+        }
+
+    def _log(self, request: TurnRequest, started: float, outcome: str, verdict: Verdict) -> None:
+        logger.info(
+            "tutor turn",
+            extra={
+                "chat_id": str(request.chat_id),
+                "learner_ref": request.learner_ref,
+                "outcome": outcome,
+                "input_category": verdict.category,
+                "latency_ms": int((time.monotonic() - started) * 1000),
+            },
+        )
+
+
+========== FILE: ai\tutor_ai\prompt_builder.py ==========
+"""Assemble the messages for one tutor turn (design §6, D31).
+
+Layout, in this order:
+1. system: rules + mode instructions (+ quiz guard) + the pinned lesson context  — identical on every turn of a chat
+   as long as the mode doesn't change, so Ollama reuses its work and hosted providers can cache it
+2. the conversation so far: the last `history_turns` turns, oldest dropped first to stay within `history_tokens`
+3. the student's new message
+
+Passages are labelled [P1], [P2], … in pinned order; the labels map back to chunk ids for citations. While a quiz is
+open the mode is always "hint" (design §6 quiz guard), whatever the student chose.
+
+Pure functions: no I/O, same input → same output.
+"""
+
+import uuid
+from collections.abc import Sequence
+from dataclasses import dataclass
+from typing import Literal
+
+from .chunking import count_tokens
+from .prompts import PromptVersion
+from .providers.base import Message
+from .retrieval import Passage
+
+Mode = Literal["explain", "socratic", "hint"]
+Role = Literal["student", "tutor"]
+
+WORDS_PER_TOKEN = 0.75  # rough English average; only used to tell the model a word limit
+
+
+@dataclass(frozen=True)
+class Turn:
+    role: Role
+    text: str
+
+
+@dataclass(frozen=True)
+class PromptLimits:
+    context_tokens: int
+    history_turns: int
+    history_tokens: int
+    reply_tokens: int
+
+
+@dataclass(frozen=True)
+class BuiltPrompt:
+    messages: list[Message]
+    prompt_ref: str
+    mode: Mode  # the mode actually used (hint while a quiz is open)
+    passage_ids: dict[str, uuid.UUID]  # "P1" -> chunk id
+    history_used: int  # turns included
+    history_dropped: int  # turns left out to respect the limits
+    estimated_tokens: int
+
+
+def student_label(class_number: int | None) -> str:
+    return f"a Class {class_number} student" if class_number else "a school student"
+
+
+def format_passages(passages: Sequence[Passage], budget_tokens: int) -> tuple[str, dict[str, uuid.UUID]]:
+    """Label passages in order, stopping before the context budget is exceeded."""
+    blocks: list[str] = []
+    labels: dict[str, uuid.UUID] = {}
+    used = 0
+    for passage in passages:
+        if used + passage.token_count > budget_tokens:
+            break
+        label = f"P{len(labels) + 1}"
+        heading = f" {passage.heading}" if passage.heading else ""
+        blocks.append(f"[{label}]{heading}\n{passage.text}")
+        labels[label] = passage.chunk_id
+        used += passage.token_count
+    return "\n\n".join(blocks), labels
+
+
+def select_history(history: Sequence[Turn], max_turns: int, max_tokens: int) -> list[Turn]:
+    """The most recent turns within both limits, in their original order."""
+    chosen: list[Turn] = []
+    used = 0
+    for turn in reversed(history[-max_turns:] if max_turns else []):
+        tokens = count_tokens(turn.text)
+        if used + tokens > max_tokens:
+            break
+        chosen.insert(0, turn)
+        used += tokens
+    return chosen
+
+
+def build_prompt(
+    prompt: PromptVersion,
+    *,
+    mode: Mode,
+    class_number: int | None,
+    lesson_title: str,
+    passages: Sequence[Passage],
+    history: Sequence[Turn],
+    message: str,
+    limits: PromptLimits,
+    open_quiz: bool = False,
+) -> BuiltPrompt:
+    effective: Mode = "hint" if open_quiz else mode
+    passages_text, labels = format_passages(passages, limits.context_tokens)
+    parts = [
+        prompt.render(
+            "system",
+            student=student_label(class_number),
+            reply_words=str(max(10, int(limits.reply_tokens * WORDS_PER_TOKEN))),
+        ),
+        prompt.render(effective),
+    ]
+    if open_quiz:
+        parts.append(prompt.render("quiz_guard"))
+    parts.append(
+        prompt.render("context", lesson_title=lesson_title, passages=passages_text or "(no passages available)")
+    )
+    system = "\n\n".join(parts)
+
+    turns = select_history(history, limits.history_turns, limits.history_tokens)
+    messages = [Message("system", system)]
+    messages += [Message("user" if t.role == "student" else "assistant", t.text) for t in turns]
+    messages.append(Message("user", message))
+    return BuiltPrompt(
+        messages=messages,
+        prompt_ref=prompt.ref,
+        mode=effective,
+        passage_ids=labels,
+        history_used=len(turns),
+        history_dropped=len(history) - len(turns),
+        estimated_tokens=sum(count_tokens(m.content) for m in messages),
+    )
+
+
+========== FILE: ai\tutor_ai\retrieval.py ==========
+"""Finding the lesson passages the tutor may use (design §5 "Retrieval", §6).
+
+- pin_context(): chosen once when a chat starts. The current lesson's passages come first (all of them if they fit
+  the context budget; otherwise the ones closest to the student's first question, kept in lesson order), then the
+  most similar passages from other lessons of the same course, if budget remains and they are relevant enough.
+- passages_by_id(): later turns reload exactly the pinned passages, so the prompt prefix stays byte-identical.
+- best_similarity(): how close a new message is to the pinned passages; below the threshold it is off the pinned
+  context (design §6: one extra retrieval, then off-topic handling in §7).
+
+Only vectors from the provider's current embedding model are ever compared (a model change means a re-index).
+Similarity is cosine similarity (1 - cosine distance), in [-1, 1].
+"""
+
+import uuid
+from collections.abc import Sequence
+from dataclasses import dataclass, replace
+from typing import Any
+
+from sqlalchemy import func, select, text
+from sqlalchemy.ext.asyncio import AsyncConnection, AsyncEngine
+
+from .providers.base import ModelProvider
+from .schema import lesson_chunk
+
+# Relevance thresholds per provider until evals calibrate them (TUTOR_AI_MIN_SIMILARITY overrides). Hashed
+# bag-of-words vectors (mock) score far lower than a trained model for the same pair of texts.
+DEFAULT_MIN_SIMILARITY = {"mock": 0.10, "ollama": 0.45}
+FALLBACK_MIN_SIMILARITY = 0.50
+
+
+@dataclass(frozen=True)
+class Passage:
+    chunk_id: uuid.UUID
+    lesson_id: uuid.UUID
+    heading: str
+    text: str
+    token_count: int
+    position: int
+    similarity: float | None = None
+
+
+def min_similarity(configured: float | None, provider_name: str) -> float:
+    if configured is not None:
+        return configured
+    return DEFAULT_MIN_SIMILARITY.get(provider_name, FALLBACK_MIN_SIMILARITY)
+
+
+_COLUMNS = (
+    lesson_chunk.c.id,
+    lesson_chunk.c.lesson_id,
+    lesson_chunk.c.heading,
+    lesson_chunk.c.text,
+    lesson_chunk.c.token_count,
+    lesson_chunk.c.position,
+)
+
+
+def _passage(row: Any, similarity: float | None = None) -> Passage:
+    return Passage(
+        chunk_id=row.id,
+        lesson_id=row.lesson_id,
+        heading=row.heading,
+        text=row.text,
+        token_count=row.token_count,
+        position=row.position,
+        similarity=similarity,
+    )
+
+
+def _similarity(vector: Sequence[float]) -> Any:
+    return 1 - lesson_chunk.c.embedding.cosine_distance(list(vector))
+
+
+async def lesson_passages(conn: AsyncConnection, lesson_id: uuid.UUID, model: str) -> list[Passage]:
+    query = (
+        select(*_COLUMNS)
+        .where(lesson_chunk.c.lesson_id == lesson_id, lesson_chunk.c.embedding_model == model)
+        .order_by(lesson_chunk.c.position)
+    )
+    return [_passage(row) for row in (await conn.execute(query)).all()]
+
+
+async def search(
+    conn: AsyncConnection,
+    vector: Sequence[float],
+    *,
+    course_id: uuid.UUID,
+    model: str,
+    k: int,
+    minimum: float = -1.0,
+    exclude_lesson: uuid.UUID | None = None,
+) -> list[Passage]:
+    """The k passages of a course most similar to `vector`, best first, at or above `minimum`."""
+    # Candidates the HNSW index examines (default 40). pgvector filters by course *after* the index scan, so a wider
+    # scan keeps k results available when a course is a small part of the table.
+    await conn.execute(text("SET LOCAL hnsw.ef_search = 100"))
+    distance = lesson_chunk.c.embedding.cosine_distance(list(vector))
+    query = select(*_COLUMNS, _similarity(vector).label("similarity")).where(
+        lesson_chunk.c.course_id == course_id, lesson_chunk.c.embedding_model == model
+    )
+    if exclude_lesson is not None:
+        query = query.where(lesson_chunk.c.lesson_id != exclude_lesson)
+    rows = (await conn.execute(query.order_by(distance).limit(k))).all()
+    return [_passage(row, float(row.similarity)) for row in rows if row.similarity >= minimum]
+
+
+async def passages_by_id(
+    conn: AsyncConnection, chunk_ids: Sequence[uuid.UUID], model: str, vector: Sequence[float] | None = None
+) -> list[Passage]:
+    """The given passages in the given order; ids that no longer exist (re-indexed lesson) are left out."""
+    if not chunk_ids:
+        return []
+    columns = [*_COLUMNS, _similarity(vector).label("similarity")] if vector is not None else list(_COLUMNS)
+    query = select(*columns).where(lesson_chunk.c.id.in_(list(chunk_ids)), lesson_chunk.c.embedding_model == model)
+    found = {
+        row.id: _passage(row, float(row.similarity) if vector is not None else None)
+        for row in (await conn.execute(query)).all()
+    }
+    return [found[i] for i in chunk_ids if i in found]
+
+
+async def best_similarity(
+    conn: AsyncConnection, chunk_ids: Sequence[uuid.UUID], vector: Sequence[float], model: str
+) -> float | None:
+    """The highest similarity between `vector` and the given passages (None if none of them exist)."""
+    if not chunk_ids:
+        return None
+    query = select(func.max(_similarity(vector))).where(
+        lesson_chunk.c.id.in_(list(chunk_ids)), lesson_chunk.c.embedding_model == model
+    )
+    value = (await conn.execute(query)).scalar()
+    return None if value is None else float(value)
+
+
+def _fill(candidates: Sequence[Passage], budget: int) -> list[Passage]:
+    """Greedy: take candidates in order while they fit; a passage too big for what is left is skipped."""
+    chosen: list[Passage] = []
+    used = 0
+    for passage in candidates:
+        if used + passage.token_count <= budget:
+            chosen.append(passage)
+            used += passage.token_count
+    return chosen
+
+
+async def pin_context(
+    engine: AsyncEngine,
+    provider: ModelProvider,
+    *,
+    lesson_id: uuid.UUID,
+    course_id: uuid.UUID,
+    query: str | None,
+    budget_tokens: int,
+    related_k: int,
+    minimum: float,
+) -> list[Passage]:
+    """Choose the passages for a new chat. Empty if the lesson isn't indexed (for this embedding model)."""
+    model = provider.embedding_model
+    vector = (await provider.embed([query], kind="query"))[0] if query and query.strip() else None  # before any I/O
+    async with engine.connect() as conn:
+        lesson = await lesson_passages(conn, lesson_id, model)
+        if not lesson:
+            return []
+        if sum(p.token_count for p in lesson) <= budget_tokens:
+            chosen = lesson
+        elif vector is None:
+            chosen = _fill(lesson, budget_tokens)
+        else:
+            scored = await passages_by_id(conn, [p.chunk_id for p in lesson], model, vector)
+            best_first = sorted(scored, key=lambda p: (-(p.similarity or 0.0), p.position))
+            chosen = sorted(_fill(best_first, budget_tokens), key=lambda p: p.position)
+        remaining = budget_tokens - sum(p.token_count for p in chosen)
+        related: list[Passage] = []
+        if vector is not None and related_k > 0 and remaining > 0:
+            found = await search(
+                conn, vector, course_id=course_id, model=model, k=related_k, minimum=minimum, exclude_lesson=lesson_id
+            )
+            related = _fill(found, remaining)
+    return [replace(p, similarity=None) for p in chosen] + related
+
+
+========== FILE: ai\tutor_ai\main.py ==========
+"""FastAPI application factory.
+
+Run with `uvicorn tutor_ai.main:create_app --factory`; tests call create_app() with their own settings and provider.
+Settings are read when the app is created, so importing this module never needs any configuration.
+"""
+
+import logging
+from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager
+
+from fastapi import FastAPI
+
+from . import __version__
+from .api import health, v1
+from .db import create_engine
+from .errors import install_error_handlers
+from .logging_config import configure_logging
+from .middleware import RequestContextMiddleware
+from .prompts import PromptError, PromptRegistry, sync_prompts
+from .providers import ModelProvider, build_provider
+from .safety import SafetyPolicy
+from .settings import Settings, get_settings
+
+logger = logging.getLogger("tutor_ai")
+
+
+def create_app(settings: Settings | None = None, provider: ModelProvider | None = None) -> FastAPI:
+    settings = settings or get_settings()
+    if settings.environment != "test":  # tests keep pytest's log capture; everything else logs JSON to stdout
+        configure_logging(settings.log_level)
+    prompts = PromptRegistry.load(settings.prompts_dir)  # a malformed prompt file stops the service here
+    safety = SafetyPolicy.load(settings.safety_policy)  # so does a malformed safety policy
+
+    @asynccontextmanager
+    async def lifespan(app: FastAPI) -> AsyncIterator[None]:
+        app.state.settings = settings
+        app.state.engine = create_engine(settings.database_url.get_secret_value())
+        app.state.provider = provider or build_provider(settings)
+        app.state.prompts = prompts
+        app.state.safety = safety
+        try:
+            await sync_prompts(app.state.engine, prompts)
+        except PromptError:
+            raise  # an edited prompt version must never answer students
+        except Exception:  # database unreachable: start anyway (health reports it); the next start records them
+            logger.warning("could not record prompt versions", exc_info=True)
+        logger.info(
+            "started",
+            extra={"version": __version__, "environment": settings.environment, "provider": app.state.provider.name},
+        )
+        try:
+            yield
+        finally:
+            await app.state.provider.aclose()
+            await app.state.engine.dispose()
+
+    app = FastAPI(
+        title="TUTOR AI service",
+        version=__version__,
+        lifespan=lifespan,
+        # Internal service: the interactive docs are only served locally.
+        docs_url="/docs" if settings.environment in ("local", "test") else None,
+        redoc_url=None,
+        openapi_url="/openapi.json" if settings.environment in ("local", "test") else None,
+    )
+    app.dependency_overrides[get_settings] = lambda: settings  # every dependency sees this app's settings
+    app.add_middleware(RequestContextMiddleware)
+    install_error_handlers(app)
+    app.include_router(health.router)
+    app.include_router(v1.router)
+    return app

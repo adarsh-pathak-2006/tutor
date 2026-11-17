@@ -1,0 +1,503 @@
+===== TUTOR API AND PROMPT INSPECTION =====
+
+
+========== FILE: ai\tutor_ai\prompts.py ==========
+"""Versioned prompt files (design §6).
+
+Prompts live in ai/prompts/<name>/v<N>.md, split into sections by "## @section" lines. At start-up every file is
+loaded and checked (known sections, known placeholders), and the active version of each prompt is the highest
+number. Every tutor reply records the prompt reference (e.g. "tutor/v1") so answers can be traced to exact text.
+
+A version is immutable once used: sync_prompts() stores each version's text (without its <!-- comments -->) with a
+SHA-256 checksum in ai.prompt_version and refuses to continue if a stored version's text has changed. To change a
+prompt, add v2.md.
+
+Templates use string.Template ($name). Lesson text and student messages are always substituted *values*, so a "$" or
+"{" typed by a student can never change the template.
+"""
+
+import hashlib
+import logging
+import re
+from collections.abc import Mapping
+from dataclasses import dataclass, field
+from pathlib import Path
+from string import Template
+
+from sqlalchemy import select, update
+from sqlalchemy.dialects.postgresql import insert as pg_insert
+from sqlalchemy.ext.asyncio import AsyncEngine
+
+from .schema import prompt_version
+
+logger = logging.getLogger("tutor_ai.prompts")
+
+_SECTION = re.compile(r"^## @([a-z_]+)[ \t]*$", re.MULTILINE)
+_VERSION_FILE = re.compile(r"^v([1-9][0-9]{0,3})\.md$")
+_COMMENT = re.compile(r"<!--.*?-->", re.DOTALL)
+
+# Every prompt name the service knows, with its sections and the placeholders each section may use.
+SCHEMAS: dict[str, dict[str, frozenset[str]]] = {
+    "tutor": {
+        "system": frozenset({"student", "reply_words"}),
+        "explain": frozenset(),
+        "socratic": frozenset(),
+        "hint": frozenset(),
+        "quiz_guard": frozenset(),
+        "context": frozenset({"lesson_title", "passages"}),
+    },
+}
+
+
+class PromptError(RuntimeError):
+    """A prompt file is malformed, or a stored prompt version was edited."""
+
+
+@dataclass(frozen=True)
+class PromptVersion:
+    name: str
+    version: str  # "v1"
+    number: int
+    body: str
+    checksum: str
+    sections: Mapping[str, Template] = field(compare=False)
+
+    @property
+    def ref(self) -> str:
+        return f"{self.name}/{self.version}"
+
+    def render(self, section: str, **values: str) -> str:
+        """Fill one section. Every placeholder must be given (a missing value is a programming error)."""
+        return self.sections[section].substitute(values).strip()
+
+
+def parse(name: str, version: str, body: str) -> PromptVersion:
+    schema = SCHEMAS.get(name)
+    if schema is None:
+        raise PromptError(f"unknown prompt name {name!r} (known: {', '.join(sorted(SCHEMAS))})")
+    match = _VERSION_FILE.match(f"{version}.md")
+    if match is None:
+        raise PromptError(f"{name}/{version}: versions are named v1, v2, …")
+    text = _COMMENT.sub("", body)
+    headers = list(_SECTION.finditer(text))
+    found: dict[str, Template] = {}
+    for i, header in enumerate(headers):
+        section = header.group(1)
+        end = headers[i + 1].start() if i + 1 < len(headers) else len(text)
+        content = text[header.end() : end].strip()
+        if section not in schema:
+            raise PromptError(f"{name}/{version}: unknown section @{section}")
+        if section in found:
+            raise PromptError(f"{name}/{version}: section @{section} appears twice")
+        if not content:
+            raise PromptError(f"{name}/{version}: section @{section} is empty")
+        template = Template(content)
+        if not template.is_valid():
+            raise PromptError(f"{name}/{version}: section @{section} has a malformed $placeholder")
+        unknown = set(template.get_identifiers()) - schema[section]
+        if unknown:
+            raise PromptError(f"{name}/{version}: section @{section} uses unknown placeholders {sorted(unknown)}")
+        found[section] = template
+    missing = set(schema) - set(found)
+    if missing:
+        raise PromptError(f"{name}/{version}: missing sections {sorted(missing)}")
+    return PromptVersion(
+        name=name,
+        version=version,
+        number=int(match.group(1)),
+        body=body,
+        checksum=hashlib.sha256(text.strip().encode("utf-8")).hexdigest(),  # comments may be edited; text may not
+        sections=found,
+    )
+
+
+class PromptRegistry:
+    def __init__(self, versions: list[PromptVersion]) -> None:
+        self._by_name: dict[str, dict[str, PromptVersion]] = {}
+        for item in versions:
+            self._by_name.setdefault(item.name, {})[item.version] = item
+        missing = set(SCHEMAS) - set(self._by_name)
+        if missing:
+            raise PromptError(f"no versions found for prompts {sorted(missing)}")
+
+    @classmethod
+    def load(cls, directory: Path) -> "PromptRegistry":
+        if not directory.is_dir():
+            raise PromptError(f"prompt directory {directory} does not exist")
+        versions = []
+        for path in sorted(directory.glob("*/*.md")):
+            if not _VERSION_FILE.match(path.name):
+                raise PromptError(f"{path}: prompt files are named v1.md, v2.md, …")
+            versions.append(parse(path.parent.name, path.stem, path.read_text(encoding="utf-8")))
+        return cls(versions)
+
+    def active(self, name: str) -> PromptVersion:
+        return max(self._by_name[name].values(), key=lambda v: v.number)
+
+    def get(self, name: str, version: str) -> PromptVersion:
+        try:
+            return self._by_name[name][version]
+        except KeyError:
+            raise PromptError(f"unknown prompt {name}/{version}") from None
+
+    def all(self) -> list[PromptVersion]:
+        return [v for versions in self._by_name.values() for v in versions.values()]
+
+    def active_refs(self) -> dict[str, str]:
+        return {name: self.active(name).version for name in sorted(self._by_name)}
+
+
+async def sync_prompts(engine: AsyncEngine, registry: PromptRegistry) -> None:
+    """Record every version in ai.prompt_version, mark the active ones, and refuse edited versions."""
+    async with engine.begin() as conn:
+        for item in registry.all():
+            await conn.execute(
+                pg_insert(prompt_version)
+                .values(name=item.name, version=item.version, body=item.body, checksum=item.checksum)
+                .on_conflict_do_nothing(constraint="uq_prompt_version")
+            )
+        rows = (
+            await conn.execute(select(prompt_version.c.name, prompt_version.c.version, prompt_version.c.checksum))
+        ).all()
+        for row in rows:
+            try:
+                current = registry.get(row.name, row.version)
+            except PromptError:
+                continue  # a version deleted from disk stays in the database for traceability
+            if current.checksum != row.checksum:
+                raise PromptError(
+                    f"prompt {current.ref} was edited after it was stored; restore it and put changes in a new version"
+                )
+        for name, version in registry.active_refs().items():
+            await conn.execute(
+                update(prompt_version)
+                .where(prompt_version.c.name == name)
+                .values(active=prompt_version.c.version == version)
+            )
+    logger.info("prompts synced", extra={"active": registry.active_refs()})
+
+
+========== FILE: ai\tutor_ai\api\tutor.py ==========
+"""Tutor endpoints (design §3). Called only by Django, which has already checked login, consent, entitlement and the
+student's daily limit; this service never looks anything up about the student."""
+
+import json
+import logging
+import uuid
+from collections.abc import AsyncIterator
+from typing import Annotated, Literal
+
+from fastapi import APIRouter, Depends, Request
+from fastapi.responses import StreamingResponse
+from pydantic import BaseModel, ConfigDict, Field, StringConstraints
+
+from ..prompt_builder import Turn
+from ..safety import SafetyPolicy
+from ..tutor import LessonRef, TurnRequest, TutorService
+from .deps import Engine, Provider
+
+logger = logging.getLogger("tutor_ai.api.tutor")
+
+router = APIRouter(tags=["tutor"])
+
+
+class LessonIn(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    id: uuid.UUID
+    version_id: uuid.UUID
+    course_id: uuid.UUID
+    title: Annotated[str, StringConstraints(strip_whitespace=True, min_length=1, max_length=150)]
+
+
+class HistoryTurnIn(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    role: Literal["student", "tutor"]
+    text: Annotated[str, StringConstraints(strip_whitespace=True, min_length=1, max_length=4000)]
+
+
+class GuardIn(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    open_quiz: bool = False
+    protected_answers: list[Annotated[str, StringConstraints(strip_whitespace=True, min_length=1, max_length=300)]] = (
+        Field(default_factory=list, max_length=20)
+    )
+
+
+class LimitsIn(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    max_reply_tokens: int = Field(250, ge=20, le=2000)
+
+
+class TurnIn(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    learner_ref: Annotated[str, StringConstraints(pattern=r"^lr_[A-Za-z0-9_-]{8,64}$")]
+    chat_id: uuid.UUID
+    class_number: int | None = Field(None, ge=1, le=12)
+    lesson: LessonIn
+    mode: Literal["explain", "socratic", "hint"] = "explain"
+    message: Annotated[str, StringConstraints(strip_whitespace=True, min_length=1, max_length=500)]
+    history: list[HistoryTurnIn] = Field(default_factory=list, max_length=40)
+    pinned_chunk_ids: list[uuid.UUID] = Field(default_factory=list, max_length=50)
+    guard: GuardIn = Field(default_factory=GuardIn)
+    limits: LimitsIn = Field(default_factory=LimitsIn)
+
+
+class SafetyCheckIn(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    text: Annotated[str, StringConstraints(min_length=1, max_length=4000)]
+
+
+class SafetyCheckOut(BaseModel):
+    category: str
+    severity: str
+    flagged: bool
+
+
+def _policy(request: Request) -> SafetyPolicy:
+    policy: SafetyPolicy = request.app.state.safety
+    return policy
+
+
+Policy = Annotated[SafetyPolicy, Depends(_policy)]
+
+
+def sse(event: str, data: dict[str, object]) -> str:
+    return f"event: {event}\ndata: {json.dumps(data, ensure_ascii=False)}\n\n"
+
+
+@router.post(
+    "/tutor/turns",
+    response_class=StreamingResponse,
+    responses={200: {"content": {"text/event-stream": {}}, "description": "meta, delta…, final | error"}},
+)
+async def tutor_turn(
+    body: TurnIn, request: Request, engine: Engine, provider: Provider, policy: Policy
+) -> StreamingResponse:
+    """One tutor turn as Server-Sent Events: `meta`, many `delta`, then one `final` (or one `error`)."""
+    service = TutorService(engine, provider, request.app.state.prompts, policy, request.app.state.settings)
+    turn = TurnRequest(
+        learner_ref=body.learner_ref,
+        chat_id=body.chat_id,
+        class_number=body.class_number,
+        lesson=LessonRef(body.lesson.id, body.lesson.version_id, body.lesson.course_id, body.lesson.title),
+        mode=body.mode,
+        message=body.message,
+        history=[Turn(t.role, t.text) for t in body.history],
+        pinned_chunk_ids=body.pinned_chunk_ids,
+        open_quiz=body.guard.open_quiz,
+        protected_answers=body.guard.protected_answers,
+        max_reply_tokens=body.limits.max_reply_tokens,
+    )
+
+    async def events() -> AsyncIterator[str]:
+        try:
+            async for name, data in service.turn(turn):
+                yield sse(name, data)
+        except Exception:  # the response has started: report the failure as an event, never a broken stream
+            logger.exception("tutor turn crashed", extra={"chat_id": str(body.chat_id)})
+            yield sse("error", {"code": "server_error", "message": "Something went wrong on our side."})
+
+    return StreamingResponse(
+        events(),
+        media_type="text/event-stream",
+        headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"},  # proxies must not buffer the stream
+    )
+
+
+@router.post("/safety/check", response_model=SafetyCheckOut)
+async def safety_check(body: SafetyCheckIn, policy: Policy) -> SafetyCheckOut:
+    """Classify a text with the current safety policy (for parent-visible content later). The text is not stored."""
+    verdict = policy.classify(body.text)
+    if verdict.severity in ("none", "low") and policy.is_injection(body.text):
+        return SafetyCheckOut(category="injection", severity=policy.injection_severity, flagged=True)
+    return SafetyCheckOut(**verdict.as_dict())
+
+
+========== FILE: ai\tutor_ai\api\index.py ==========
+"""Lesson index endpoints (design §3, §5). Called only by Django, which decides *what* is published; this service
+only keeps the index in step with what it is told."""
+
+import uuid
+from datetime import datetime
+from typing import Annotated, Literal, Self
+
+from fastapi import APIRouter, Header, Query, Response
+from pydantic import BaseModel, ConfigDict, Field, model_validator
+
+from .. import indexing
+from .deps import Engine, Provider
+
+router = APIRouter(tags=["index"])
+
+MAX_LESSON_CHARACTERS = 500_000
+
+IdempotencyKey = Annotated[
+    str,
+    Header(
+        alias="Idempotency-Key",
+        pattern=r"^[A-Za-z0-9._:-]{8,100}$",
+        description="Unique per logical request; a retry of the same request sends the same key.",
+    ),
+]
+
+
+class Block(BaseModel):
+    """One content block as stored by Django. Unknown block types are accepted and ignored if they have no text,
+    so new block types in the editor never break indexing."""
+
+    model_config = ConfigDict(extra="ignore")
+
+    type: str = Field(min_length=1, max_length=30)
+    text: str | None = Field(None, max_length=20_000)
+    alt: str | None = Field(None, max_length=300)
+
+
+class Section(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+
+    heading: str = Field("", max_length=200)
+    blocks: list[Block] = Field(default_factory=list, max_length=100)
+
+
+class IndexLessonIn(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    content_version_id: uuid.UUID
+    version_no: int = Field(ge=1, le=1_000_000)
+    course_id: uuid.UUID
+    subject: str = Field(min_length=1, max_length=80)
+    class_number: int | None = Field(None, ge=1, le=12)  # None for board-independent courses
+    title: str = Field(min_length=1, max_length=150)
+    sections: list[Section] = Field(min_length=1, max_length=200)
+
+    @model_validator(mode="after")
+    def _total_size(self) -> Self:
+        total = sum(len(b.text or "") + len(b.alt or "") for s in self.sections for b in s.blocks)
+        if total > MAX_LESSON_CHARACTERS:
+            raise ValueError(f"the lesson has {total} characters of text; the limit is {MAX_LESSON_CHARACTERS}")
+        return self
+
+
+class IndexLessonOut(BaseModel):
+    lesson_id: uuid.UUID
+    content_version_id: uuid.UUID
+    version_no: int
+    chunks: int
+    embedding_model: str
+    status: Literal["indexed", "unchanged"]
+
+
+class IndexedLessonOut(BaseModel):
+    lesson_id: uuid.UUID
+    content_version_id: uuid.UUID
+    version_no: int
+    embedding_model: str
+    chunks: int
+    indexed_at: datetime
+
+
+class IndexStatusOut(BaseModel):
+    embedding_model: str = Field(description="The model new chunks are embedded with; others need a re-index.")
+    lessons: list[IndexedLessonOut]
+
+
+@router.put("/lessons/{lesson_id}/index", response_model=IndexLessonOut)
+async def index_lesson(
+    lesson_id: uuid.UUID, body: IndexLessonIn, key: IdempotencyKey, engine: Engine, provider: Provider
+) -> IndexLessonOut:
+    """Index one published lesson version, replacing whatever was indexed for the lesson."""
+    doc = indexing.LessonDocument(
+        lesson_id=lesson_id,
+        content_version_id=body.content_version_id,
+        version_no=body.version_no,
+        course_id=body.course_id,
+        subject=body.subject,
+        class_number=body.class_number,
+        title=body.title,
+        sections=[s.model_dump() for s in body.sections],
+    )
+    result = await indexing.index_lesson(engine, provider, doc, key)
+    return IndexLessonOut(**result.__dict__)
+
+
+@router.delete("/lessons/{lesson_id}/index", status_code=204)
+async def delete_lesson(
+    lesson_id: uuid.UUID,
+    key: IdempotencyKey,
+    engine: Engine,
+    up_to_version: Annotated[int | None, Query(ge=1, description="Refuse if a newer version is indexed.")] = None,
+) -> Response:
+    """Remove a lesson from the index (no longer published). Removing a lesson that isn't indexed is not an
+    error."""
+    await indexing.delete_lesson(engine, lesson_id, key, up_to_version)
+    return Response(status_code=204)
+
+
+@router.get("/index/status", response_model=IndexStatusOut)
+async def index_status(engine: Engine, provider: Provider) -> IndexStatusOut:
+    """Every indexed lesson with its version and embedding model, for Django's reconciliation."""
+    lessons = await indexing.indexed_lessons(engine)
+    return IndexStatusOut(
+        embedding_model=provider.embedding_model,
+        lessons=[IndexedLessonOut(**lesson.__dict__) for lesson in lessons],
+    )
+
+
+========== FILE: ai\tutor_ai\api\v1.py ==========
+"""Version 1 of the internal API, called only by the Django platform (design §3). Every route needs the service
+token. Endpoints arrive step by step (design §14): indexing (step 3), tutor turns (step 4)."""
+
+from fastapi import APIRouter, Depends, Request
+
+from ..security import require_service_token
+from . import index, tutor
+
+router = APIRouter(prefix="/v1", dependencies=[Depends(require_service_token)])
+router.include_router(index.router)
+router.include_router(tutor.router)
+
+
+@router.get("/whoami", tags=["system"])
+async def whoami(request: Request) -> dict[str, object]:
+    """Lets Django verify its token and see which provider and models this service uses."""
+    provider = request.app.state.provider
+    return {
+        "service": "tutor-ai",
+        "provider": provider.name,
+        "chat_model": provider.chat_model,
+        "embedding_model": provider.embedding_model,
+        "dimensions": provider.dimensions,
+        "prompts": request.app.state.prompts.active_refs(),
+        "safety": request.app.state.safety.ref,
+    }
+
+
+========== FILE: ai\tutor_ai\api\deps.py ==========
+"""Shared request dependencies: the engine and provider created at start-up (see main.create_app)."""
+
+from typing import Annotated
+
+from fastapi import Depends, Request
+from sqlalchemy.ext.asyncio import AsyncEngine
+
+from ..providers.base import ModelProvider
+
+
+def _engine(request: Request) -> AsyncEngine:
+    engine: AsyncEngine = request.app.state.engine
+    return engine
+
+
+def _provider(request: Request) -> ModelProvider:
+    provider: ModelProvider = request.app.state.provider
+    return provider
+
+
+Engine = Annotated[AsyncEngine, Depends(_engine)]
+Provider = Annotated[ModelProvider, Depends(_provider)]

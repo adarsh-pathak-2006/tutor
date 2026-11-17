@@ -7,7 +7,6 @@ from django.utils import timezone
 
 from apps.assessment.models import Answer
 from apps.catalogue.models import Lesson, PublishStatus
-from apps.content.models import ContentVersion
 
 from .access import entitled_course_ids
 from .models import LessonProgress, MasteryState

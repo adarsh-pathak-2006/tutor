@@ -1,0 +1,685 @@
+{
+  "question": "What is an intelligent system? Explain with a practical example.",
+  "course_id": "f0000000-0000-0000-0000-000000000001",
+  "embedding_model": "nomic-embed-text",
+  "provider": "gemini",
+  "lesson_filter": null,
+  "course_inventory": {
+    "total_chunks": 283,
+    "distinct_lessons": 40
+  },
+  "semantic_results": [
+    {
+      "rank": 1,
+      "similarity": 0.7342,
+      "lesson_id": "afb05e46-7a1a-5f41-bf9c-6296ea7a5ce4",
+      "chunk_id": "e555a27a-9cc6-4e87-ba0a-2aba2edbcad2",
+      "position": 1,
+      "heading": "M30 Syllabus & Labs",
+      "text": "and\n\nuncertainty\n\nestimates.\n\nP01\n\nIntelligent\n\nVision\n\nSystem\n\n25-26\n\nM08,\n\nM12\n End-to-end perception pipeline with a robustness matrix, \nerror\n\nanalysis\n\nand\n\ndeployment\n\nplan.\n\nP03\n Research and Knowledge \nAgent\n\n37-38\n\nM16-M18\n Agent combining retrieval, evidence grounding, tool use and reasoning, with a cited experiment report and \nreliability\n\ncase.\n\nP04\n\nAutonomous\n\nSystem\n\n47-48\n\nM21-M23\n Simulated perception, state estimation, planning and \naction,\n\nwith\n\na\n\nsafety\n\nmonitor\n\nand\n\nfault\n\ncampaign.\n\nP05\n\nAerospace\n\nIntelligence\n\n49-50\n\nM24\n Simulated mission planning, trajectory optimisation and \nanomaly\n\nresponse\n\nin\n\na\n\ndigital\n\nmission\n\ntwin.\n\nP06\n\nResearch\n\nReproduction\n\n57-58\n\nM29\n Reproduction of a technical paper, a modified method \nand\n\nnew\n\nexperimental\n\nevidence.\n\n12.2\n\nThe\n\ncapstone\n\n(M30)\n\nEach learner receives a problem rather than a tutorial. They define the architecture, build the system, run \nexperiments,\n\nevaluate\n\nits\n\nlimitations\n\nand\n\ndefend\n\ntheir\n\nengineering\n\ndecisions.\n\nThe\n\nsystem\n\nmust\n\noperate\n\nas\n\na\n\nclosed\n\nloop:\n\nit\n\ngathers\n\nevidence,\n\nbuilds\n\nan\n\ninternal\n\nrepresentation,\n\nmakes\n\nan\n\ninference\n\nor\n\ndecision,\n\nacts\n\nor\n\nrecommends,\n\nobserves\n\nthe\n\noutcome\n\nand\n\nchecks\n\nit\n\nagainst\n\nstated\n\nconstraints.\n\nFigure\n\n6.\n\nCapstone\n\nphases\n\nand\n\nreview\n\ngates.\n\nGate\n\nPhase\n\nWeeks\n\nRequirement\n\nfor\n\npassing\n\nthe\n\ngate\n\nG0\n\nFraming\n\n55\n\nOne\n\nmeasurable\n\nquestion\n\nand\n\na\n\ndefined\n\nscope\n\nG1\n\nSpecification\n\n56\n\nRequirements,\n\nconstraints,\n\nmetrics\n\nand\n\nfailure\n\ncriteria\n\napproved\n\nG2\n\nDesign\n\n57-58\n\nArchitecture,\n\ninterfaces,\n\ndata\n\nand\n\nenvironment\n\ndescriptions,\n\nand\n\nthreat\n\nmodel\n\nG3\n\nBaseline\n\n59-60\n\nBaseline\n\nsystem\n\nrunning\n\nand\n\nevaluated\n\nG4\n\nPrototype\n\n61-62\n\nEnd-to-end\n\nsystem\n\noperating\n\non\n\nrepresentative\n\ncases\n\nG5\n\nEvidence\n\n63-65\n\nMain,"
+    },
+    {
+      "rank": 2,
+      "similarity": 0.7141,
+      "lesson_id": "02a783dc-1b1d-5162-8dac-1dc9a612cf4d",
+      "chunk_id": "7f3c54bd-c996-4f15-a269-d687183cb90a",
+      "position": 42,
+      "heading": "TUTOR",
+      "text": "Learners\n\nwork\n\nin\n\nPython\n\nin\n\na\n\nLinux\n\nenvironment\n\nfrom\n\nthe\n\nfirst\n\nweek,\n\nand\n\nC\n\nand\n\nC++\n\nare\n\nintroduced\n\nfor\n\nperformance\n\nwork. \nPage 7\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \n4.\n\nProgramme\n\nlearning\n\noutcomes\n\nOn successful completion of the programme, graduates will be able to demonstrate the following outcomes. \nEach\n\nmodule\n\nobjective\n\ncontributes\n\nto\n\nat\n\nleast\n\none\n\nof\n\nthem. \nCode\n\nOutcome\n\nGraduates\n\nwill\n\nbe\n\nable\n\nto\n\nPLO1\n Computational reasoning Translate real problems into mathematical, computational and algorithmic formulations. \nPLO2\n Machine learning Design, train, evaluate and improve ML and deep learning systems, and explain why they work and where they fail. \nPLO3\n AI systems engineering Integrate models with data, retrieval, memory, tools, inference, monitoring and evaluation. \nPLO4\n Generative and agentic AI Build grounded generative systems and agents that complete multi-step tasks with tools. \nPLO5\n Simulation and autonomy Build and test perception, decision, planning and action loops in virtual environments. \nPLO6\n Research engineering Reproduce a technical method, form hypotheses, run controlled experiments and report evidence. \nPLO7\n Deployment thinking Reason about latency, throughput, memory, compute, reliability and observability. \nPLO8\n Independent problem solving Approach unfamiliar technical problems without step-by-step tutorials.\n\nFigure 1. Mapping of programme learning outcomes to levels. Primary indicates the level where the outcome is mainly developed; \nsupports\n\nindicates\n\nfurther\n\npractice.\n\nPage 8\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \n5.\n\nProgramme\n\nstructure\n\nThe course is organised into five levels and thirty modules. Each module lasts two weeks and contains ten \nlessons.\n\nSix\n\nportfolio\n\nprojects\n\nrun\n\nas\n\ntwo-week\n\nassignments\n\nalongside\n\nthe\n\nmodule"
+    },
+    {
+      "rank": 3,
+      "similarity": 0.7139,
+      "lesson_id": "c8b17af7-bf53-5d7c-b30a-abe9898f424c",
+      "chunk_id": "f3a0d650-1e2d-4660-b94a-4d0cc5761f2b",
+      "position": 3,
+      "heading": "M02 Syllabus & Labs",
+      "text": "•\n Lab 3: statistical inference on image data, with bootstrap accuracy intervals and class-imbalance effects. ASSIGNMENT\n\nProbabilistic System Component \nBuild one probabilistic component of an intelligent system, such as a calibrated classifier or a Bayesian state estimator, and trace uncertainty from input to decision. \nDeliverables\n\nPage 20"
+    },
+    {
+      "rank": 4,
+      "similarity": 0.7066,
+      "lesson_id": "afb05e46-7a1a-5f41-bf9c-6296ea7a5ce4",
+      "chunk_id": "1efb38f8-1327-4966-9cfe-69d1e4aee663",
+      "position": 3,
+      "heading": "M30 Technical Viva Defense Questions",
+      "text": "Intelligent\n\nSystems\n\nCapstone\n • What changed, what was controlled, how was it measured, and \nwhere\n\ndoes\n\nit\n\nfail?\n\n•\n\nWhich\n\nassumption,\n\nif\n\nwrong,\n\nwould\n\nmost\n\nchange\n\nyour\n\nconclusion?\n\n•\n\nHow\n\nwould\n\nan\n\nengineer\n\nwho\n\ndid\n\nnot\n\nbuild\n\nthis\n\nsystem\n\nreproduce\n\nyour\n\nmain\n\nresult?\n\nPage 107"
+    },
+    {
+      "rank": 5,
+      "similarity": 0.7053,
+      "lesson_id": "afb05e46-7a1a-5f41-bf9c-6296ea7a5ce4",
+      "chunk_id": "b0b2701a-808f-41bf-858b-cd9a393b556a",
+      "position": 2,
+      "heading": "M30 Syllabus & Labs",
+      "text": "data\n\nand\n\nenvironment\n\ndescriptions,\n\nand\n\nthreat\n\nmodel\n\nG3\n\nBaseline\n\n59-60\n\nBaseline\n\nsystem\n\nrunning\n\nand\n\nevaluated\n\nG4\n\nPrototype\n\n61-62\n\nEnd-to-end\n\nsystem\n\noperating\n\non\n\nrepresentative\n\ncases\n\nG5\n\nEvidence\n\n63-65\n\nMain,\n\nablation,\n\nrobustness\n\nand\n\nrecovery\n\nstudies\n\ncomplete\n\nG6\n\nRelease\n\n66-67\n\nReproducible\n\nenvironment,\n\ndocumentation,\n\ntests\n\nand\n\nrelease\n\ncandidate\n\nG7\n\nDefence\n\n68\n\nClaims,\n\nevidence\n\nand\n\nlimitations\n\ndefended\n\nunder\n\nexamination\n\nPage 80"
+    },
+    {
+      "rank": 6,
+      "similarity": 0.7042,
+      "lesson_id": "02a783dc-1b1d-5162-8dac-1dc9a612cf4d",
+      "chunk_id": "d970423e-eef1-4d37-9cea-66a45c88ccd5",
+      "position": 36,
+      "heading": "TUTOR",
+      "text": "110\n\nPage 3\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \n1.\n\nExecutive\n\nsummary\n\nThis document sets out the complete curriculum for the TUTOR Frontier programme in Intelligent Systems \nEngineering.\n\nIt\n\nwas\n\ndesigned\n\nfrom\n\nthe\n\nprogramme\n\noverview\n\nand\n\nthe\n\nthirty\n\nmodule\n\npacks,\n\nand\n\norganises\n\ntheir\n\ncontent\n\ninto\n\na\n\ncourse\n\nthat\n\ncan\n\nbe\n\ndeveloped\n\nand\n\ntaught\n\nas\n\nit\n\nstands. \nThe course takes learners from computational and mathematical foundations through machine learning, AI \nsystems\n\nengineering,\n\nautonomy\n\nand\n\nsimulation\n\nto\n\nfrontier\n\nresearch.\n\nIt\n\nends\n\nwith\n\nan\n\nindependent\n\ncapstone\n\nin\n\nwhich\n\neach\n\nlearner\n\ndesigns,\n\nbuilds,\n\nevaluates\n\nand\n\ndefends\n\na\n\ncomplete\n\nintelligent\n\nsystem. \nItem\n\nSpecification\n\nProgramme\n TUTOR Frontier: Intelligent Systems Engineering \nDuration\n 68 weeks of teaching (a 12-16 month programme) \nStructure\n 5 levels, 30 modules, 300 lessons (10 per module) \nPractical work 231 laboratories, including failure laboratories; 60 daily practice problems per module \nKnowledge checks 29 module quizzes with 145 questions and an answer key \nAssignments\n 30 module assignments, 6 portfolio projects and an independent capstone \nOral assessment A technical viva in every module and a 50-minute capstone defence \nDelivery\n Fully online, in a Linux virtual machine or container per learner; simulation-first\n\n1.1\n\nWhat\n\nthe\n\ncourse\n\ncovers\n\n•\n Level I, Computational Intelligence Foundations (Weeks 1-12): Problem formulation, the mathematics of \nrepresentation\n\nand\n\nuncertainty,\n\nnumerical\n\nmethods,\n\nscientific\n\nsoftware\n\nand\n\ndata\n\nengineering. \n•\n Level II, Machine Intelligence (Weeks 13-22): Classical machine learning, experiment design, neural \nnetworks\n\nfrom\n\nfirst\n\nprinciples,\n\ndeep\n\nlearning\n\nsystems\n\nand"
+    },
+    {
+      "rank": 7,
+      "similarity": 0.6981,
+      "lesson_id": "02a783dc-1b1d-5162-8dac-1dc9a612cf4d",
+      "chunk_id": "2e44dc03-60b1-47c8-9452-763d17e92571",
+      "position": 41,
+      "heading": "TUTOR",
+      "text": "Level\n\nI\n\nprovides\n\nthe\n\nmathematics,\n\nprogramming\n\nand\n\ndata\n\nskills\n\nthat\n\nevery\n\nlater\n\nmodule\n\nassumes.\n\nLevel\n\nII\n\nintroduces\n\nlearning\n\nsystems\n\nand\n\nevaluation.\n\nLevel\n\nIII\n\nturns\n\nmodels\n\ninto\n\ncomplete\n\nsystems.\n\nLevel\n\nIV\n\napplies\n\nthese\n\nsystems\n\nto\n\naction\n\nin\n\nsimulated\n\nphysical\n\nworlds,\n\nand\n\nLevel\n\nV\n\nbrings\n\nthem\n\ntogether\n\nin\n\nresearch-level\n\nwork\n\nand\n\nthe\n\ncapstone. \nPage 6\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \n3.\n\nProgramme\n\noverview\n\n3.1\n\nAim\n\nThe programme aims to develop engineering capability rather than familiarity with particular tools. Graduates \nshould\n\nbe\n\nable\n\nto\n\ntake\n\nan\n\nunfamiliar\n\nproblem,\n\nformulate\n\nand\n\nmodel\n\nit,\n\nbuild\n\na\n\nsolution,\n\nevaluate\n\nhow\n\nit\n\nfails\n\nand\n\ncontinue\n\nlearning\n\nbeyond\n\nthe\n\ntaught\n\nmaterial. \n3.2\n\nDelivery\n\nmodel\n\nFeature\n\nDescription\n\nFully online Structured digital teaching with virtual engineering environments; no physical campus is required \nVirtual machine A controlled workspace for coding, experiments, simulation, version control and reproducible work \nSimulation first Robotics, industrial and aerospace problems are explored without physical hardware \nResearch workflow Version control, experiment tracking, technical reports, reproducibility and review \nProgressive difficulty Foundations, then core intelligence, systems, autonomy and frontier research \nHuman and AI workflow AI tools may accelerate implementation; assessment concentrates on reasoning, verification and judgement \n3.3\n\nEntry\n\npoint\n\nM01, Computational Thinking and Problem Formulation, is the entry module and a prerequisite for all other \nmodules.\n\nLearners\n\nwork\n\nin\n\nPython\n\nin\n\na\n\nLinux\n\nenvironment\n\nfrom\n\nthe\n\nfirst\n\nweek,\n\nand\n\nC\n\nand\n\nC++\n\nare\n\nintroduced\n\nfor\n\nperformance\n\nwork. \nPage 7\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \n4.\n\nProgramme\n\nlearning\n\noutcomes"
+    },
+    {
+      "rank": 8,
+      "similarity": 0.6923,
+      "lesson_id": "02a783dc-1b1d-5162-8dac-1dc9a612cf4d",
+      "chunk_id": "d24af0a1-68e2-4bae-83af-c5965a399146",
+      "position": 48,
+      "heading": "TUTOR",
+      "text": "TUTOR Frontier · Intelligent Systems Engineering Course Curriculum \nReproducibility standard An assessor can clone the repository, build the environment, run the tests and reproduce the main experiment without private files \nPage 14\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \n7.\n\nLevel\n\nI:\n\nComputational\n\nIntelligence\n\nFoundations\n\nProblem formulation, the mathematics of representation and uncertainty, numerical methods, scientific software \nand\n\ndata\n\nengineering.\n\nThis\n\nlevel\n\nruns\n\nin\n\nWeeks\n\n1-12. \nCode\n\nModule\n\nWeeks\n\nLessons\n\n/\n\nlabs\n\nM01\n Computational Thinking and Problem Formulation 1-2 10 / 3 \nM02\n Linear Algebra for Intelligent Systems 3-4 10 / 5 \nM03\n Probability, Statistics and Information 5-6 10 / 3 \nM04\n Optimisation and Numerical Methods 7-8 10 / 4 \nM05\n Scientific Programming and Software Engineering 9-10 10 / 4 \nM06\n Data Engineering and Representation 11-12 10 / 4 \nPage 15"
+    },
+    {
+      "rank": 9,
+      "similarity": 0.6923,
+      "lesson_id": "0a52f6d4-bb16-575b-a84f-6dcbcd83b3aa",
+      "chunk_id": "0d35ebd3-449e-4f66-9557-303e72f925a6",
+      "position": 0,
+      "heading": "M01 Syllabus & Labs",
+      "text": "TUTOR Frontier · Intelligent Systems Engineering Course Curriculum \nASSIGNMENT\n\nAdaptive Route Planner \nBuild a reproducible simulation in which an agent reaches a target through a constrained grid, with at least two search strategies and one objective variation. Answer the research question: under what environmental conditions does heuristic search give a measurable benefit over uninformed search? \nDeliverables\n\n•\n Environment generator with fixed seeds \n•\n At least two search implementations behind one interface \n•\n Metric collector and path visualisation \n•\n Test suite covering reachable, unreachable and cyclic graphs \n•\n Technical report with an engineering decision record \nLearners also complete the module's 60 daily practice problems, one research reproduction and a one-page report on the \nindustry\n\ntechnical\n\nsession.\n\nASSESSMENT\n\nDaily practice Laboratories Research reproduction Project Technical viva Engineering record \n20%\n 30% 10% 20% 15% 5% \nSAMPLE\n\nVIVA\n\nQUESTIONS\n\n•\n State the binary-search invariant without looking at your code. \n•\n Why does BFS give shortest paths only under particular cost assumptions? \n•\n What evidence would make you reject your own engineering decision? \nPage 17\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \nM02\n\nLinear\n\nAlgebra\n\nfor\n\nIntelligent\n\nSystems\n\nWeeks\n\nPrerequisites\n\nLessons\n\nLaboratories\n\nQuiz\n\n3-4\n M01 10 5 5 questions \n Builds the representation layer of intelligent systems: vectors, matrices, transformations, projections, \neigenstructure\n\nand\n\nlow-rank\n\nstructure.\n\nEvery\n\nobject\n\nis\n\nderived,\n\nimplemented,\n\ntested,\n\nvisualised\n\nand\n\nlinked\n\nto\n\na\n\nreal\n\ncapability\n\nsuch\n\nas\n\nimages\n\nor\n\nembeddings. \nLEARNING\n\nOBJECTIVES\n\nOn completing the module, learners will be able to: \n•\n represent images, text, datasets and system states as vectors, matrices and tensors with defined \ndimensions\n\nand\n\naxis"
+    },
+    {
+      "rank": 10,
+      "similarity": 0.6913,
+      "lesson_id": "02a783dc-1b1d-5162-8dac-1dc9a612cf4d",
+      "chunk_id": "2354826e-54ac-4285-b4cd-41b4c14574cc",
+      "position": 40,
+      "heading": "TUTOR",
+      "text": "Design\n\nprinciples\n\nThe following principles are taken from the module packs and applied throughout the curriculum. \nPrinciple\n\nHow\n\nit\n\nis\n\napplied\n\nSpecification before code Every substantial task starts with a written problem specification: objective, inputs, outputs, state, actions, constraints, assumptions, success metric and failure condition. \nFirst principles before frameworks Methods are derived and implemented with basic data structures and NumPy before framework abstractions such as PyTorch are introduced and checked against them. \nFailure as a learning activity Each module includes a failure laboratory in which known faults are injected and traced to their root cause. \nEvidence over output A correct result is not accepted without an explanation of why the method works, what it assumes, how it scales and where it fails. \nReproducibility\n Work runs in a reproducible environment with recorded code versions, data, seeds and configuration, so an assessor can rerun the main result. \nSimulation first Robotics, industrial and aerospace problems are studied in virtual environments, so no physical hardware is needed. \nHuman and AI workflow AI tools may speed up implementation, but assessment concentrates on specification, reasoning, verification, experimentation and engineering judgement. \nPage 5\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \n2.4\n\nSequencing\n\nfrom\n\nbasic\n\nto\n\nadvanced\n\nEach module pack states the modules it depends on and the modules that build on it. These statements were \nused\n\nto\n\norder\n\nthe\n\nthirty\n\nmodules\n\ninto\n\na\n\nsingle\n\npath.\n\nLevel\n\nI\n\nprovides\n\nthe\n\nmathematics,\n\nprogramming\n\nand\n\ndata\n\nskills\n\nthat\n\nevery\n\nlater\n\nmodule\n\nassumes.\n\nLevel\n\nII\n\nintroduces\n\nlearning\n\nsystems\n\nand\n\nevaluation.\n\nLevel\n\nIII\n\nturns\n\nmodels\n\ninto\n\ncomplete\n\nsystems.\n\nLevel\n\nIV\n\napplies\n\nthese\n\nsystems\n\nto\n\naction\n\nin"
+    },
+    {
+      "rank": 11,
+      "similarity": 0.6898,
+      "lesson_id": "02a783dc-1b1d-5162-8dac-1dc9a612cf4d",
+      "chunk_id": "c18c1b47-e972-4e95-9f9a-a3ad72d69c41",
+      "position": 13,
+      "heading": "TUTOR",
+      "text": "16 \nM01 Computational Thinking and Problem Formulation .................................................................................... 17 \nM02 Linear Algebra for Intelligent Systems ........................................................................................................"
+    },
+    {
+      "rank": 12,
+      "similarity": 0.6879,
+      "lesson_id": "02a783dc-1b1d-5162-8dac-1dc9a612cf4d",
+      "chunk_id": "8accdf61-0b0e-468e-8f05-a8c99c428940",
+      "position": 46,
+      "heading": "TUTOR",
+      "text": "this\n\nimplementation. \n5.\n A controlled experiment with repeated trials. \n6.\n A deliberately introduced fault and its diagnosis. \n7.\n Links to the later modules that use the idea. \n8.\n Practice problems, about six of the module's sixty. \n9.\n A short oral check of understanding. \nPage 12\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \n6.4\n\nLearning\n\nactivities\n\nActivity\n\nDescription\n\nDaily practice 60 problems per module, solved on paper and then verified computationally; at least 20 submitted with code and results \nLaboratories\n Between 2 and 12 per module, each with acceptance criteria and a record of the environment and settings used \nFailure laboratories Injected faults traced to their cause and classified as specification, model, algorithm, implementation or measurement errors \nResearch reproduction One published claim per module reimplemented independently, with any deviation analysed \nIndustry technical sessions Case studies presented by practitioners, followed within 48 hours by a one-page technical report \nEngineering decision records Written justifications of design choices: context, options, evidence, decision and consequences \nModule assignment An integrated system that addresses a defined research question \nQuiz\n Five questions per module with explanations, used as a formative check before the viva \nTechnical viva Oral examination involving derivation, code walkthrough and diagnosis of failures \n6.5\n\nVirtual\n\nlaboratories\n\nThe programme overview identifies eight signature laboratories. Each is delivered within the modules shown. \nLaboratory\n\nLearners\n\nModules"
+    },
+    {
+      "rank": 13,
+      "similarity": 0.6876,
+      "lesson_id": "02a783dc-1b1d-5162-8dac-1dc9a612cf4d",
+      "chunk_id": "3eef0c24-77cc-4379-a51b-d6f98634e4d2",
+      "position": 45,
+      "heading": "TUTOR",
+      "text": "Decision-Making IV 45-46 M21, M22 M24 Aerospace Intelligence and Mission Simulation IV 47-48 M04, M22, M23 M25 Scientific Machine Learning V 49-50 M04, M08, M09-M15, M19, M20 Page 10\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \nM26\n World Models and Model-Based Intelligence V 51-52 M14, M21, M23, M25 \nM27\n Continual Learning and Adaptive Intelligence V 53-54 M08, M15, M18, M19, M26 \nM28\n AI Safety, Governance and Secure Deployment V 55-56 M17-M19, M23, M27 \nM29\n AI Research Engineering V 57-58 M08 and all preceding modules \nM30\n Intelligent Systems Capstone V 55-68 All preceding modules \nPage 11\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \n6.\n\nTeaching\n\nand\n\nlearning\n\napproach\n\n6.1\n\nWeekly\n\nlearning\n\ncycle\n\nEach module is taught over two weeks of five live lessons each. Every week follows the same seven-day cycle, so \nlearners\n\nalways\n\nderive,\n\nbuild,\n\nmeasure,\n\nbreak\n\nand\n\ndefend\n\nwhat\n\nthey\n\nstudy.\n\nFigure 4. The seven-day learning cycle used in every module. \n6.2\n\nModule\n\ntemplate\n\nFigure 5. Components of every module. \n6.3\n\nLesson\n\nstructure\n\nEach lesson is developed to a common structure: \n1.\n A learning objective linked to a module outcome. \n2.\n Prerequisite knowledge, with references to earlier lessons. \n3.\n Derivation of the central idea, with notation, dimensions and assumptions stated. \n4.\n Implementation from first principles; frameworks are introduced only after they have been checked \nagainst\n\nthis"
+    },
+    {
+      "rank": 14,
+      "similarity": 0.687,
+      "lesson_id": "c8b17af7-bf53-5d7c-b30a-abe9898f424c",
+      "chunk_id": "c7b60102-ab12-4321-a113-6b995c3f434a",
+      "position": 6,
+      "heading": "M02 Technical Viva Defense Questions",
+      "text": "Linear\n\nAlgebra\n\nfor\n\nIntelligent\n\nSystems\n • Why is matrix multiplication composition rather than element-wise \nmultiplication?\n\n•\n\nWhy\n\nis\n\nSVD\n\nmore\n\ngeneral\n\nthan\n\ndiagonalisation?\n\n•\n\nDistinguish\n\nconditioning\n\nfrom\n\nalgorithmic\n\nstability."
+    },
+    {
+      "rank": 15,
+      "similarity": 0.6864,
+      "lesson_id": "02a783dc-1b1d-5162-8dac-1dc9a612cf4d",
+      "chunk_id": "dce80c44-f7e5-49ab-854d-65148e3b58e5",
+      "position": 21,
+      "heading": "TUTOR",
+      "text": "45 \nPage 2\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \nM15 Foundation Models and Fine-Tuning .......................................................................................................... 47 \nM16 Retrieval, RAG and Knowledge Systems ......................................................................................................"
+    },
+    {
+      "rank": 16,
+      "similarity": 0.686,
+      "lesson_id": "afb05e46-7a1a-5f41-bf9c-6296ea7a5ce4",
+      "chunk_id": "15255d9b-f038-4504-ac77-b2462ad66bea",
+      "position": 0,
+      "heading": "M30 Syllabus & Labs",
+      "text": "TUTOR Frontier · Intelligent Systems Engineering Course Curriculum \n•\n\nSystem\n\nrepository\n\nand\n\nreproducible\n\nenvironment\n\n•\n\nIndependent\n\nevaluator\n\nand\n\nstress\n\nharness\n\n•\n\nResearch\n\ndossier\n\nwith\n\na\n\n12-source\n\nliterature\n\nmatrix\n\n•\n\nRisk\n\nand\n\nsafety\n\ndossier\n\n•\n\nTechnical\n\npaper,\n\ndefence\n\npresentation\n\nand\n\nrelease\n\nnote\n\nASSESSMENT\n\nProblem and \nspecification\n\nTechnical \nintegration\n\nExperimental \ndesign\n\nEmpirical \nevidence\n\nReliability \nand\n\nsecurity\n\nResearch \nquality\n\nReproducibility\n\nDefence\n\n10%\n\n20%\n\n15%\n\n15%\n\n10%\n\n10%\n\n10%\n\n10%\n\nSAMPLE\n\nVIVA\n\nQUESTIONS\n\n•\n\nWhat\n\nchanged,\n\nwhat\n\nwas\n\ncontrolled,\n\nhow\n\nwas\n\nit\n\nmeasured,\n\nand\n\nwhere\n\ndoes\n\nit\n\nfail?\n\n•\n\nWhich\n\nassumption,\n\nif\n\nwrong,\n\nwould\n\nmost\n\nchange\n\nyour\n\nconclusion?\n\n•\n\nHow\n\nwould\n\nan\n\nengineer\n\nwho\n\ndid\n\nnot\n\nbuild\n\nthis\n\nsystem\n\nreproduce\n\nyour\n\nmain\n\nresult?\n\nPage 79\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \n12.\n\nPortfolio\n\nprojects\n\nand\n\ncapstone\n\n12.1\n\nPortfolio\n\nprojects\n\nLearners graduate with evidence of capability, not only a completion record. Each portfolio project is a two-week \nassignment\n\nset\n\nalongside\n\nthe\n\nfollowing\n\nmodule\n\nand\n\nassessed\n\nin\n\nthe\n\nsame\n\nway\n\nas\n\na\n\nmodule\n\nproject:\n\nspecification,\n\ndesign,\n\nbaseline,\n\ncontrolled\n\nexperiments,\n\nfailure\n\nanalysis,\n\nreproducibility\n\nand\n\na\n\nten-minute\n\npresentation.\n\nCode\n\nProject\n\nWeeks\n\nDraws\n\non\n\nDeliverable\n\nP02\n Predictive Industrial \nIntelligence\n\n17-18\n\nM06-M08\n Anomaly detection, failure prediction and decision support for simulated equipment telemetry, with a \nleakage\n\naudit\n\nand\n\nuncertainty\n\nestimates.\n\nP01\n\nIntelligent\n\nVision\n\nSystem\n\n25-26\n\nM08,\n\nM12\n End-to-end perception pipeline with a robustness matrix, \nerror\n\nanalysis\n\nand\n\ndeployment\n\nplan.\n\nP03\n Research and Knowledge \nAgent\n\n37-38"
+    },
+    {
+      "rank": 17,
+      "similarity": 0.6805,
+      "lesson_id": "02a783dc-1b1d-5162-8dac-1dc9a612cf4d",
+      "chunk_id": "17d9eb8f-6de3-48e0-bf00-b4ac145e0855",
+      "position": 38,
+      "heading": "TUTOR",
+      "text": "performance\n\nlevels\n\nfor\n\nevery\n\nmodule. \nPage 4\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \n2.\n\nCurriculum\n\ndesign\n\napproach\n\n2.1\n\nSource\n\nmaterial\n\nThe curriculum is based on two sets of documents. The programme overview defines the purpose of the \nprogramme,\n\nits\n\ngraduate\n\noutcomes,\n\nthe\n\nfive-level\n\narchitecture,\n\nthe\n\nvirtual\n\nlaboratories\n\nand\n\nthe\n\nportfolio\n\nprojects.\n\nEach\n\nof\n\nthe\n\nthirty\n\nmodule\n\npacks\n\nis\n\na\n\nfaculty\n\nmaster\n\npack\n\ncontaining: \n•\n a module charter and learning outcomes with the evidence required for each \n•\n topic sections with derivations, worked examples and engineering rules \n•\n a sequence of laboratories, a failure laboratory and a research reproduction task \n•\n a bank of 60 daily practice problems and a bank of viva questions \n•\n a module project specification, an assessment scheme and a faculty quality checklist \n2.2\n\nDesign\n\nmethod\n\nStep\n\nActivity\n\nWhat\n\nwas\n\ndone"
+    },
+    {
+      "rank": 18,
+      "similarity": 0.6805,
+      "lesson_id": "85e743dd-ab71-5665-bc0b-dcbf4936d9c7",
+      "chunk_id": "b676739f-77a5-4c35-8662-7808392c13cb",
+      "position": 0,
+      "heading": "M26 Syllabus & Labs",
+      "text": "TUTOR Frontier · Intelligent Systems Engineering Course Curriculum \n•\n\nImagination-based\n\nplanning\n\ncomponent\n\n•\n\nOOD\n\nstress\n\ntests\n\nand\n\ndecision\n\nmemo\n\nLearners also complete the module's 60 daily practice problems, one research reproduction and a one-page report on the \nindustry\n\ntechnical\n\nsession.\n\nASSESSMENT\n\nWritten \nexamination\n\nLaboratories\n\nDaily\n\npractice\n Research \nreproduction\n\nTechnical\n\nviva\n\nModule\n\ncapstone\n\n20%\n\n25%\n\n15%\n\n10%\n\n10%\n\n20%\n\nSAMPLE\n\nVIVA\n\nQUESTIONS\n\n•\n\nHow\n\nwould\n\nyou\n\ntest\n\nwhether\n\na\n\nlatent\n\nstate\n\nis\n\nsufficient\n\nfor\n\nthe\n\ndownstream\n\ntask?\n\n•\n\nWhy\n\ncan\n\ndeeper\n\nmodel-based\n\nsearch\n\nmake\n\ndecisions\n\nworse?\n\n•\n\nWhat\n\nassumptions\n\nmake\n\nan\n\naction\n\ncounterfactual\n\nmeaningful?\n\nPage 71\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \nM27\n\nContinual\n\nLearning\n\nand\n\nAdaptive\n\nIntelligence\n\nWeeks\n\nPrerequisites\n\nLessons\n\nLaboratories\n\nQuiz\n\n53-54\n\nM08,\n\nM15,\n\nM18,\n\nM19,\n\nM26\n\n10\n\n9\n\n5\n\nquestions\n\nTreats an intelligent system as operating across time. Learners detect change, decide what to retain, update only \nwhat\n\nshould\n\nmove,\n\nand\n\nprove\n\nthat\n\nadaptation\n\ndid\n\nnot\n\nbreak\n\nexisting\n\ncapability.\n\nLEARNING\n\nOBJECTIVES\n\nOn completing the module, learners will be able to: \n•\n\ndefine\n\ncovariate,\n\nlabel\n\nand\n\nconcept\n\nshift,\n\nand\n\nbuild\n\ndrift\n\ndetectors\n\nwith\n\nmeasured\n\ndelay\n\nand\n\nfalse-alarm\n\nrates;\n\n•\n\nbalance\n\nnew\n\nlearning\n\nagainst\n\nretention\n\nusing\n\nreplay,\n\nregularisation,\n\nparameter\n\nisolation\n\nand\n\nconflict-aware\n\nupdates;\n\n•\n\napply\n\nonline,\n\nactive\n\nand\n\ntest-time\n\nadaptation\n\nwithout\n\nleakage\n\nor\n\nfeedback\n\nloops;\n\n•\n\ngate\n\nupdates\n\nwith\n\nregression,\n\ncalibration\n\nand\n\nresource\n\nchecks,\n\nand\n\nroll\n\nback\n\non\n\nevidence.\n\nLESSON\n\nPLAN\n\nNo.\n\nLesson\n\nContent\n\nL01\n\nStationary\n\nlearning\n\nand\n\nchange\n\nWhat\n\nit\n\nmeans\n\nfor\n\nthe\n\nworld\n\nto\n\nchange.\n\nL02\n\nCovariate,\n\nlabel\n\nand\n\nconcept\n\nshift\n\nAbrupt\n\nand\n\ngradual"
+    },
+    {
+      "rank": 19,
+      "similarity": 0.6802,
+      "lesson_id": "ef3521be-161b-5bc3-86e5-9b89518303ce",
+      "chunk_id": "81d4e8ba-cbaa-4c33-96b3-5021e16fcdf6",
+      "position": 0,
+      "heading": "M18 Syllabus & Labs",
+      "text": "TUTOR Frontier · Intelligent Systems Engineering Course Curriculum \n•\n\nResidual\n\nknown\n\nfailures\n\nand\n\nmonitoring\n\nplan\n\n•\n\nRelease\n\nor\n\nhold\n\ndecision\n\nwith\n\ncriteria\n\nLearners also complete the module's 60 daily practice problems, one research reproduction and a one-page report on the \nindustry\n\ntechnical\n\nsession.\n\nASSESSMENT\n\nDaily\n\npractice\n\nLaboratories\n\nControlled\n\nstudy\n Research \nreproduction\n\nProject\n\nTechnical\n\nviva\n\n15%\n\n35%\n\n15%\n\n10%\n\n15%\n\n10%\n\nSAMPLE\n\nVIVA\n\nQUESTIONS\n\n•\n\nWhat\n\nis\n\na\n\nreliability\n\ncontract?\n\n•\n\nWhat\n\nis\n\nindirect\n\nprompt\n\ninjection?\n\n•\n\nWhat\n\nis\n\ngraceful\n\ndegradation?\n\nPage 53\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \nM19\n\nML\n\nSystems,\n\nMLOps\n\nand\n\nInference\n\nWeeks\n\nPrerequisites\n\nLessons\n\nLaboratories\n\nQuiz\n\n37-38\n\nM05,\n\nM06,\n\nM18\n\n10\n\n9\n\n5\n\nquestions\n\nCovers the systems layer between an evaluated model and its runtime: packaging, inference interfaces, latency \nand\n\nthroughput,\n\nbatching\n\nand\n\ncaching,\n\ncontrolled\n\ndeployment,\n\nobservability\n\nand\n\nincident\n\nanalysis.\n\nLEARNING\n\nOBJECTIVES\n\nOn completing the module, learners will be able to: \n•\n\npackage\n\na\n\nmodel\n\nreproducibly\n\nwith\n\nits\n\npreprocessing\n\ncontract\n\nand\n\nverify\n\ntraining-serving\n\nparity;\n\n•\n\ndesign\n\ntyped\n\ninference\n\ninterfaces\n\nand\n\nmeasure\n\nlatency\n\npercentiles,\n\nthroughput\n\nand\n\nsaturation;\n\n•\n\nimplement\n\nbatching,\n\ncaching,\n\nautoscaling\n\nand\n\nbackpressure\n\nto\n\nmeet\n\na\n\nservice\n\nlevel;\n\n•\n\ndeploy\n\nthrough\n\ncanary\n\nand\n\nshadow\n\nreleases\n\nand\n\ncarry\n\nout\n\nverified\n\nrollbacks;\n\n•\n\ninstrument\n\nlogs,\n\nmetrics\n\nand\n\ntraces\n\nand\n\nreconstruct\n\nproduction\n\nincidents.\n\nLESSON\n\nPLAN\n\nNo.\n\nLesson\n\nContent\n\nL01\n\nThe\n\nmodel\n\nartifact\n\nEverything\n\na\n\nmodel\n\ndepends\n\non,\n\nand\n\ntraining-serving\n\nparity.\n\nL02\n Inference interfaces and serving \narchitectures\n\nTyped\n\ncontracts,\n\ntimeouts\n\nand\n\nin-process\n\nversus\n\ndedicated\n\nservers.\n\nL03\n\nLatency,\n\nthroughput\n\nand\n\nqueueing\n\nPercentiles,\n\nsaturation\n\nand\n\nservice\n\nversus\n\nqueue\n\ntime."
+    },
+    {
+      "rank": 20,
+      "similarity": 0.6794,
+      "lesson_id": "c8b17af7-bf53-5d7c-b30a-abe9898f424c",
+      "chunk_id": "cdc599ec-0533-4c7b-afe3-c22311fc8379",
+      "position": 1,
+      "heading": "M02 Syllabus & Labs",
+      "text": "OBJECTIVES\n\nOn completing the module, learners will be able to: \n•\n construct probability models of real phenomena and apply conditional probability and Bayes' theorem \ncorrectly; \n•\n derive maximum likelihood and maximum a posteriori estimators and state their assumptions; \n•\n calculate and interpret entropy, cross-entropy, KL divergence and mutual information; \n•\n quantify uncertainty using bootstrap resampling, confidence intervals and permutation tests; \n•\n separate a predicted probability from a decision, taking account of thresholds, costs, calibration and \nabstention. \nLESSON\n\nPLAN\n\nNo.\n\nLesson\n\nContent"
+    },
+    {
+      "rank": 21,
+      "similarity": 0.6775,
+      "lesson_id": "16161616-1616-1616-1616-161616161616",
+      "chunk_id": "890fa4de-c0a7-4f7b-8975-d735124d646a",
+      "position": 0,
+      "heading": "M16 Syllabus & Labs",
+      "text": "TUTOR Frontier · Intelligent Systems Engineering Course Curriculum \n•\n\nStructured\n\ncitations\n\nin\n\nanswers\n\n•\n\nSupported\n\nversus\n\nunsupported\n\nclaim\n\nanalysis\n\n•\n\nSecurity\n\ntest\n\nresults\n\nLearners also complete the module's 60 daily practice problems, one research reproduction and a one-page report on the \nindustry\n\ntechnical\n\nsession.\n\nASSESSMENT\n\nDaily\n\npractice\n\nLaboratories\n\nControlled\n\nstudy\n Research \nreproduction\n\nProject\n\nTechnical\n\nviva\n\n15%\n\n35%\n\n15%\n\n10%\n\n15%\n\n10%\n\nSAMPLE\n\nVIVA\n\nQUESTIONS\n\n•\n\nWhat\n\nis\n\nBM25\n\nchanging\n\nrelative\n\nto\n\nraw\n\nterm\n\ncounts?\n\n•\n\nWhy\n\ncan\n\nlexical\n\nand\n\ndense\n\nretrieval\n\ncomplement\n\neach\n\nother?\n\n•\n\nWhy\n\nmust\n\nmetadata\n\nfilters\n\nbe\n\nenforced\n\nbefore\n\ngeneration?\n\nPage 49\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \nM17\n\nAgentic\n\nSystems\n\nand\n\nTool\n\nUse\n\nWeeks\n\nPrerequisites\n\nLessons\n\nLaboratories\n\nQuiz\n\n33-34\n\nM11,\n\nM14-M16\n\n10\n\n9\n\n5\n\nquestions\n\nMoves from systems that answer to systems that act. Learners build agents as closed loops of goal, state, action \nand\n\nobservation,\n\nwith\n\ntyped\n\ntools,\n\nmemory,\n\nverification,\n\nrecovery\n\nand\n\nsecurity\n\nboundaries.\n\nLEARNING\n\nOBJECTIVES\n\nOn completing the module, learners will be able to: \n•\n\nspecify\n\nan\n\nagent\n\nas\n\na\n\nstate-action-observation\n\nloop\n\nwith\n\ngoals,\n\nconstraints\n\nand\n\ntermination\n\nconditions;\n\n•\n\ndesign\n\ntyped\n\ntool\n\ncontracts,\n\nallow-lists\n\nand\n\nread/write\n\npermission\n\nboundaries;\n\n•\n\nimplement\n\nplanning,\n\nreplanning,\n\nmemory,\n\nverification\n\nand\n\nrecovery;\n\n•\n\nprotect\n\nagents\n\nagainst\n\nprompt\n\ninjection,\n\nmalicious\n\ntool\n\noutput\n\nand\n\nprivilege\n\nescalation;\n\n•\n\nevaluate\n\ncomplete\n\ntrajectories\n\nfor\n\nsuccess,\n\ncost,\n\nrecovery\n\nand\n\npolicy\n\ncompliance.\n\nLESSON\n\nPLAN\n\nNo.\n\nLesson\n\nContent\n\nL01\n\nThe\n\nagent\n\nas\n\na\n\nstate-transition\n\nsystem\n\nGoals,\n\nconstraints\n\nand\n\nsuccess\n\nconditions.\n\nL02\n\nTools\n\nas\n\ntyped\n\ncontracts\n\nSchemas,\n\nside\n\neffects,"
+    },
+    {
+      "rank": 22,
+      "similarity": 0.6765,
+      "lesson_id": "c8b17af7-bf53-5d7c-b30a-abe9898f424c",
+      "chunk_id": "dc7fc9a1-1b3b-4b3c-9284-a5547a50a934",
+      "position": 0,
+      "heading": "M02 Syllabus & Labs",
+      "text": "TUTOR Frontier · Intelligent Systems Engineering Course Curriculum \nASSIGNMENT\n\nRepresentation and Compression Study \nRepresent a chosen dataset or image collection as matrices or tensors, analyse its geometry, apply at least one factorisation or projection, and report the trade-off between representation size, reconstruction error and computation. \nDeliverables\n\n•\n Representation record with dimensions, axes and units \n•\n One operator implemented without a high-level routine \n•\n Rank or component sweep with residual and error analysis \n•\n One injected numerical or semantic failure \n•\n Research memo comparing one source-backed result \nLearners also complete the module's 60 daily practice problems, one research reproduction and a one-page report on the \nindustry\n\ntechnical\n\nsession.\n\nASSESSMENT\n\nDaily practice Laboratories Research reproduction Project Technical viva Engineering record \n20%\n 30% 10% 20% 15% 5% \nSAMPLE\n\nVIVA\n\nQUESTIONS\n\n•\n Why is matrix multiplication composition rather than element-wise multiplication? \n•\n Why is SVD more general than diagonalisation? \n•\n Distinguish conditioning from algorithmic stability. \nPage 19\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \nM03\n\nProbability,\n\nStatistics\n\nand\n\nInformation\n\nWeeks\n\nPrerequisites\n\nLessons\n\nLaboratories\n\nQuiz\n\n5-6\n M01, M02 10 3 5 questions \n Gives learners a formal language for uncertainty: probability models, inference from evidence, estimation, information measures and decisions under uncertainty, applied to language, vision and decision systems. \nLEARNING\n\nOBJECTIVES"
+    },
+    {
+      "rank": 23,
+      "similarity": 0.6762,
+      "lesson_id": "85e743dd-ab71-5665-bc0b-dcbf4936d9c7",
+      "chunk_id": "e33cf2b4-e7d5-4345-85e4-adca9f7b56b5",
+      "position": 3,
+      "heading": "M26 Official Quiz Questions and Answers",
+      "text": "Question Q5: Imagined observations must be kept out of …\nOptions: A: the factual state history | B: the planner | C: the evaluation | D: the logs\nCorrect Answer: A\nPedagogical Explanation: Otherwise the system confuses what it imagined with what it observed."
+    },
+    {
+      "rank": 24,
+      "similarity": 0.6754,
+      "lesson_id": "c8b17af7-bf53-5d7c-b30a-abe9898f424c",
+      "chunk_id": "435ef411-694a-4c79-b5ac-6a626dd917a6",
+      "position": 2,
+      "heading": "M02 Syllabus & Labs",
+      "text": "PLAN\n\nNo.\n\nLesson\n\nContent\n\nL01\n Counting, sample spaces and the axioms Permutations, combinations, events and the rules any probability measure must satisfy. \nL02\n Random variables and their moments Distributions, expectation, variance, covariance and correlation, verified by simulation. \nL03\n Conditional probability and independence Conditioning, total probability, and why zero correlation does not imply independence. \nL04\n Bayes' theorem Prior, likelihood, evidence and posterior, with the rare-condition test example and base-rate neglect. \nL05\n Likelihood, MLE and MAP Data as evidence about parameters, and how a Gaussian prior becomes an L2 penalty. \nL06\n Entropy, cross-entropy, KL and mutual information Measuring uncertainty and distributional mismatch, and why KL divergence is directional. \nL07\n Bayes decision theory and classification Loss functions, posterior expected loss, cost-sensitive thresholds and abstention. \nL08\n Calibration, intervals and the bootstrap Whether predicted probabilities match observed frequencies, and how to show sampling variability. \nL09\n Hypothesis testing, permutation tests and Monte Carlo p-values with effect sizes, randomisation tests and simulation-based estimation. \nL10\n Probability in vision and language Uncertainty around pixels and labels, sequence probability, and common statistical failures. \nLABORATORY\n\nWORK\n\n•\n Lab 1: Bayes inference simulator with three or more hypotheses and contradictory evidence. \n•\n Lab 2: language inference from corrupted text, recovering \"WHAT\" from \"WAST\" in context. \n•\n Lab 3: statistical inference on image data, with bootstrap accuracy intervals and class-imbalance effects. \nASSIGNMENT"
+    },
+    {
+      "rank": 25,
+      "similarity": 0.6753,
+      "lesson_id": "b704a9fd-fd8e-51ba-8805-93175e7cdc00",
+      "chunk_id": "a2955966-672f-4b00-b5a3-610d060365ea",
+      "position": 0,
+      "heading": "M12 Syllabus & Labs",
+      "text": "TUTOR Frontier · Intelligent Systems Engineering Course Curriculum \nLearners also complete the module's 60 daily practice problems, one research reproduction and a one-page report on the \nindustry\n\ntechnical\n\nsession.\n\nASSESSMENT\n\nDaily\n\npractice\n\nLaboratories\n\nControlled\n\nstudy\n Research \nreproduction\n\nProject\n\nTechnical\n\nviva\n\n15%\n\n35%\n\n15%\n\n10%\n\n15%\n\n10%\n\nSAMPLE\n\nVIVA\n\nQUESTIONS\n\n•\n\nWhy\n\nis\n\na\n\ndigital\n\nimage\n\na\n\nsampled\n\nsignal?\n\n•\n\nWhat\n\nis\n\nthe\n\ndifference\n\nbetween\n\nconvolution\n\nand\n\ncross-correlation?\n\n•\n\nWhy\n\ncan\n\ndownsampling\n\nimprove\n\nefficiency\n\nand\n\nharm\n\nlocalisation?\n\nPage 41\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \nM13\n\nLanguage\n\nand\n\nSpeech\n\nIntelligence\n\nWeeks\n\nPrerequisites\n\nLessons\n\nLaboratories\n\nQuiz\n\n25-26\n\nM03,\n\nM11\n\n10\n\n8\n\n5\n\nquestions\n\nDevelops language from discrete symbols and probability, and speech from the acoustic signal, then connects \nthem\n\nthrough\n\nlearned\n\nrepresentations\n\nin\n\nrecognition,\n\nsynthesis\n\nand\n\nmultilingual\n\nsystems.\n\nLEARNING\n\nOBJECTIVES\n\nOn completing the module, learners will be able to: \n•\n\nmodel\n\nlanguage\n\nas\n\na\n\nprobabilistic\n\nsequence\n\nusing\n\ntokenisation,\n\nn-grams,\n\nperplexity\n\nand\n\nembeddings;\n\n•\n\nprocess\n\nspeech\n\nas\n\na\n\nsampled\n\nsignal\n\nusing\n\nframing,\n\nthe\n\nshort-time\n\nFourier\n\ntransform\n\nand\n\nmel\n\nfeatures;\n\n•\n\nbuild\n\nand\n\nevaluate\n\nspeech\n\nrecognition\n\nwith\n\nCTC,\n\ntransducer\n\nand\n\nattention\n\nmodels\n\nand\n\nbeam\n\nsearch;\n\n•\n\nbuild\n\na\n\ncompact\n\ntext-to-speech\n\nchain\n\nand\n\nanalyse\n\nprosody\n\nand\n\ntiming;\n\n•\n\nevaluate\n\nmultilingual,\n\ncode-switched\n\nand\n\nnoisy\n\nspeech.\n\nLESSON\n\nPLAN\n\nNo.\n\nLesson\n\nContent\n\nL01\n\nLanguage\n\nas\n\nsymbolic\n\ndata\n\nTokenisation\n\nas\n\nthe\n\ncomputational\n\ninterface\n\nof\n\na\n\nmodel.\n\nL02\n\nn-grams,\n\ncross-entropy\n\nand\n\nperplexity\n\nConditional\n\nprobability\n\ntables,\n\nsmoothing\n\nand\n\nwhat\n\nperplexity\n\nmeasures.\n\nL03\n\nEmbeddings,\n\nsyntax\n\nand\n\nmeaning\n\nDistributional\n\nrepresentation,\n\ncomposition\n\nand"
+    },
+    {
+      "rank": 26,
+      "similarity": 0.6748,
+      "lesson_id": "6d7c5a3d-7bf0-5655-8e0e-333e605ba8cf",
+      "chunk_id": "1bd324e0-552d-4e82-8c65-ce49e1c3401a",
+      "position": 3,
+      "heading": "M14 (Generative Models) Quiz",
+      "text": "[M14 Q5] Why is one good sample per condition insufficient evidence?\nOptions: A: A generator is a conditional distribution and must be evaluated as one | B: Samples are random | C: It takes too long | D: Conditions are discrete\nAnswer: A\nExplanation: Coverage, diversity and failures only appear across many samples."
+    },
+    {
+      "rank": 27,
+      "similarity": 0.6738,
+      "lesson_id": "f32e1479-03d2-5cd2-8d41-1807184d433b",
+      "chunk_id": "cad9f190-3610-447d-8212-0207b2855dd7",
+      "position": 2,
+      "heading": "M03 Syllabus & Labs",
+      "text": "drift. \nASSIGNMENT\n\nOptimisation Component \nEmbed an optimisation procedure in an intelligent-system problem, such as a constrained route or a model fit, and show convergence evidence rather than a single final value. \nPage 22"
+    },
+    {
+      "rank": 28,
+      "similarity": 0.6736,
+      "lesson_id": "65e75989-9c6f-553f-b882-43361520d860",
+      "chunk_id": "767caec0-673b-410b-9d91-37145634712f",
+      "position": 0,
+      "heading": "M17 Syllabus & Labs",
+      "text": "TUTOR Frontier · Intelligent Systems Engineering Course Curriculum \n•\n\nTyped\n\ntool\n\nregistry\n\nwith\n\nallow-list\n\n•\n\nVerification\n\nand\n\nrecovery\n\npolicies\n\n•\n\nSecurity\n\ntest\n\nresults\n\n•\n\nEvaluation\n\nacross\n\nseeded\n\ntasks\n\nLearners also complete the module's 60 daily practice problems, one research reproduction and a one-page report on the \nindustry\n\ntechnical\n\nsession.\n\nASSESSMENT\n\nDaily\n\npractice\n\nLaboratories\n\nControlled\n\nstudy\n Research \nreproduction\n\nProject\n\nTechnical\n\nviva\n\n15%\n\n35%\n\n15%\n\n10%\n\n15%\n\n10%\n\nSAMPLE\n\nVIVA\n\nQUESTIONS\n\n•\n\nWhat\n\nmakes\n\na\n\nsystem\n\nagentic?\n\n•\n\nWhat\n\nis\n\na\n\ntyped\n\ntool\n\ncontract?\n\n•\n\nWhy\n\ncan\n\na\n\ntool\n\nsucceed\n\nwhile\n\nthe\n\ntask\n\nfails?\n\nPage 51\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \nM18\n\nAI\n\nEvaluation,\n\nRed\n\nTeaming\n\nand\n\nReliability\n\nWeeks\n\nPrerequisites\n\nLessons\n\nLaboratories\n\nQuiz\n\n35-36\n\nM08,\n\nM15-M17\n\n10\n\n10\n\n5\n\nquestions\n\nBrings evaluation, robustness, calibration, security testing and incident handling together into one reliability \ndiscipline,\n\nending\n\nwith\n\nevidence-based\n\nrelease\n\ndecisions.\n\nLEARNING\n\nOBJECTIVES\n\nOn completing the module, learners will be able to: \n•\n\ndefine\n\nmeasurable\n\nreliability\n\nrequirements,\n\ntest\n\noracles\n\nand\n\nerror\n\ntaxonomies;\n\n•\n\nbuild\n\ndeterministic\n\nevaluation\n\nharnesses,\n\nmetamorphic\n\ntests\n\nand\n\nrobustness\n\nmatrices;\n\n•\n\nevaluate\n\ncalibration,\n\nout-of-distribution\n\ndetection\n\nand\n\nabstention;\n\n•\n\nred-team\n\nmodels,\n\nretrieval\n\nsystems\n\nand\n\nagents;\n\n•\n\nrun\n\nfault\n\ninjection\n\nand\n\nincident\n\nreviews,\n\nand\n\ndefine\n\nevidence-based\n\nrelease\n\ngates.\n\nLESSON\n\nPLAN\n\nNo.\n\nLesson\n\nContent\n\nL01\n\nReliability\n\ncontracts\n\nInputs,\n\noutputs,\n\ninvariants,\n\nbudgets\n\nand\n\nfailure\n\nbehaviour.\n\nL02\n\nTest\n\noracles\n\nand\n\nerror\n\ntaxonomies\n\nDeciding\n\nwhat\n\ncorrect\n\nmeans,\n\nand\n\nseparating\n\nsymptom\n\nfrom\n\nroot\n\ncause.\n\nL03\n\nMetamorphic\n\ntesting\n\nand\n\ninvariants\n\nInput\n\ntransformations\n\nwith\n\nknown\n\noutput\n\nrelations.\n\nL04\n\nShift,"
+    },
+    {
+      "rank": 29,
+      "similarity": 0.6716,
+      "lesson_id": "02a783dc-1b1d-5162-8dac-1dc9a612cf4d",
+      "chunk_id": "0d271580-1b30-4809-accd-72a7cf3cb60f",
+      "position": 37,
+      "heading": "TUTOR",
+      "text": "numerical\n\nmethods,\n\nscientific\n\nsoftware\n\nand\n\ndata\n\nengineering. \n•\n Level II, Machine Intelligence (Weeks 13-22): Classical machine learning, experiment design, neural \nnetworks\n\nfrom\n\nfirst\n\nprinciples,\n\ndeep\n\nlearning\n\nsystems\n\nand\n\ntransformers. \n•\n Level III, AI Systems Engineering (Weeks 23-40): Vision, language and speech, generative models, \nfoundation\n\nmodels,\n\nretrieval,\n\nagents,\n\nreliability,\n\ndeployment\n\nand\n\nGPU\n\nperformance. \n•\n Level IV, Autonomous and Embodied Intelligence (Weeks 41-48): Reinforcement learning, robotics, \nautonomous\n\ndecision-making\n\nand\n\naerospace\n\nmission\n\nsimulation,\n\nall\n\nin\n\nvirtual\n\nenvironments. \n•\n Level V, Frontier Intelligence and Research (Weeks 49-68): Scientific ML, world models, continual \nlearning,\n\nAI\n\nsafety\n\nand\n\ngovernance,\n\nresearch\n\nengineering\n\nand\n\nthe\n\ncapstone. \n1.2\n\nMain\n\ndesign\n\ndecisions\n\n•\n Every module follows one two-week template with objectives, ten lessons, laboratories, an assignment, a \nquiz,\n\nviva\n\nquestions\n\nand\n\na\n\ngrading\n\nscheme. \n•\n Modules are sequenced by their stated prerequisites, so each level builds directly on the one before it. \n•\n Each week follows the seven-day learning cycle from the packs: concept, first principles, experiment, \nfailure\n\nlaboratory,\n\nintegration,\n\nresearch\n\nand\n\ndefence. \n•\n Six portfolio projects are placed at the end of the relevant modules, so learners build a portfolio as they \nprogress. \n•\n Assessment is based on evidence (derivations, code, experiments and oral defence), with fixed weights \nand\n\nperformance\n\nlevels\n\nfor\n\nevery\n\nmodule. \nPage 4\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \n2.\n\nCurriculum\n\ndesign\n\napproach"
+    },
+    {
+      "rank": 30,
+      "similarity": 0.6699,
+      "lesson_id": "7159534b-8d11-570b-a941-6e852e19c732",
+      "chunk_id": "dc0cb4b7-58e4-4dfc-8c97-b6fcc5e0bdc5",
+      "position": 2,
+      "heading": "M25 Syllabus & Labs",
+      "text": "•\n\nLab\n\n6:\n\nobject-centric\n\nor\n\nspatial\n\nworld\n\nstate.\n\n•\n\nLab\n\n7:\n\ncounterfactual\n\nintervention\n\nengine.\n\n•\n\nLab\n\n8:\n\nhybrid\n\nscientific\n\nworld\n\nmodel.\n\n•\n\nLab\n\n9:\n\nreliability\n\ntesting\n\nand\n\nresearch\n\nreproduction.\n\nASSIGNMENT\n\nModule Capstone: Model-Based Intelligent System \nBuild an internal environment model and use it to support a downstream decision, showing that it helps and exposing a regime where it fails. \nDeliverables\n\n•\n\nSystem\n\nboundary\n\nand\n\nobservation\n\nstream\n\n•\n\nState\n\nrepresentation\n\nwith\n\nsufficiency\n\nargument\n\n•\n\nSingle-step\n\nand\n\nmulti-step\n\nevaluation\n\nPage 70"
+    }
+  ],
+  "keyword_results": [
+    {
+      "rank": 1,
+      "lesson_id": "02a783dc-1b1d-5162-8dac-1dc9a612cf4d",
+      "chunk_id": "ced752f0-4e1d-4a96-b0e2-e15cd86ad158",
+      "position": 0,
+      "heading": "TUTOR",
+      "text": "FRONTIER \nIntelligent\n\nSystems\n\nEngineering \nCourse Curriculum Design \nDocument\n Complete course curriculum: programme design, module specifications, assessment and \nquestion\n\nbanks\n\nProgramme\n Five levels, 30 modules, 68 teaching weeks (12-16 month programme) \nSource material TUTOR Frontier programme overview and module packs M01-M30 \nVersion\n 1.0, October 2026\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \nContents \n1. Executive summary ................................................................................................................................................"
+    },
+    {
+      "rank": 2,
+      "lesson_id": "02a783dc-1b1d-5162-8dac-1dc9a612cf4d",
+      "chunk_id": "227b9465-7e75-4ed7-886f-61dd7e404fa4",
+      "position": 12,
+      "heading": "TUTOR",
+      "text": "14 \n6.6 Technical environment ................................................................................................................................... 15 \n7. Level I: Computational Intelligence Foundations ................................................................................................."
+    },
+    {
+      "rank": 3,
+      "lesson_id": "02a783dc-1b1d-5162-8dac-1dc9a612cf4d",
+      "chunk_id": "c18c1b47-e972-4e95-9f9a-a3ad72d69c41",
+      "position": 13,
+      "heading": "TUTOR",
+      "text": "16 \nM01 Computational Thinking and Problem Formulation .................................................................................... 17 \nM02 Linear Algebra for Intelligent Systems ........................................................................................................"
+    },
+    {
+      "rank": 4,
+      "lesson_id": "02a783dc-1b1d-5162-8dac-1dc9a612cf4d",
+      "chunk_id": "dce0313e-cb87-4360-b33a-bc5445b047b6",
+      "position": 16,
+      "heading": "TUTOR",
+      "text": "27 \n8. Level II: Machine Intelligence ............................................................................................................................... 29 \nM07 Classical Machine Learning ........................................................................................................................."
+    },
+    {
+      "rank": 5,
+      "lesson_id": "02a783dc-1b1d-5162-8dac-1dc9a612cf4d",
+      "chunk_id": "c028528c-019d-4c3e-bc48-4ea95fc23546",
+      "position": 20,
+      "heading": "TUTOR",
+      "text": "41 \nM13 Language and Speech Intelligence .............................................................................................................. 43 \nM14 Generative Models ..................................................................................................................................... 45 \nPage 2"
+    },
+    {
+      "rank": 6,
+      "lesson_id": "02a783dc-1b1d-5162-8dac-1dc9a612cf4d",
+      "chunk_id": "dce80c44-f7e5-49ab-854d-65148e3b58e5",
+      "position": 21,
+      "heading": "TUTOR",
+      "text": "45 \nPage 2\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \nM15 Foundation Models and Fine-Tuning .......................................................................................................... 47 \nM16 Retrieval, RAG and Knowledge Systems ......................................................................................................"
+    },
+    {
+      "rank": 7,
+      "lesson_id": "02a783dc-1b1d-5162-8dac-1dc9a612cf4d",
+      "chunk_id": "6ef02442-e565-4200-9dbc-eec30a6c2485",
+      "position": 24,
+      "heading": "TUTOR",
+      "text": "57 \n10. Level IV: Autonomous and Embodied Intelligence ............................................................................................. 59 \nM21 Reinforcement Learning and Sequential Decision-Making ......................................................................... 60 \nM22 Robotics and Embodied Intelligence ..........................................................................................................."
+    },
+    {
+      "rank": 8,
+      "lesson_id": "02a783dc-1b1d-5162-8dac-1dc9a612cf4d",
+      "chunk_id": "936959b6-50ed-4474-8ee2-df37af3a7b6a",
+      "position": 25,
+      "heading": "TUTOR",
+      "text": "62 \nM23 Autonomous Systems and Decision-Making ............................................................................................... 64 \nM24 Aerospace Intelligence and Mission Simulation ......................................................................................... 66 \n11."
+    },
+    {
+      "rank": 9,
+      "lesson_id": "02a783dc-1b1d-5162-8dac-1dc9a612cf4d",
+      "chunk_id": "bb191bfb-36f5-4d5d-9ec4-29dca415eb76",
+      "position": 26,
+      "heading": "TUTOR",
+      "text": "66 \n11. Level V: Frontier Intelligence and Research ....................................................................................................... 68 \nM25 Scientific Machine Learning ........................................................................................................................"
+    },
+    {
+      "rank": 10,
+      "lesson_id": "02a783dc-1b1d-5162-8dac-1dc9a612cf4d",
+      "chunk_id": "431aa3d3-5cb5-4643-a992-6c92cf090f94",
+      "position": 27,
+      "heading": "TUTOR",
+      "text": "69 \nM26 World Models and Model-Based Intelligence ............................................................................................. 71 \nM27 Continual Learning and Adaptive Intelligence ............................................................................................ 73 \nM28 AI Safety, Governance and Secure Deployment .........................................................................................."
+    },
+    {
+      "rank": 11,
+      "lesson_id": "02a783dc-1b1d-5162-8dac-1dc9a612cf4d",
+      "chunk_id": "30386b6f-a6e7-4bb3-8596-705a5e833b12",
+      "position": 28,
+      "heading": "TUTOR",
+      "text": "75 \nM29 AI Research Engineering ............................................................................................................................. 77 \nM30 Intelligent Systems Capstone ...................................................................................................................... 79 \n12."
+    },
+    {
+      "rank": 12,
+      "lesson_id": "02a783dc-1b1d-5162-8dac-1dc9a612cf4d",
+      "chunk_id": "93e6ca0c-c059-402c-a7b6-66d28192ccb8",
+      "position": 35,
+      "heading": "TUTOR",
+      "text": "87 \nAppendix B. Viva question bank ............................................................................................................................ 107 \nAppendix C. Source materials ................................................................................................................................ 110\n\nPage 3\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \n1.\n\nExecutive\n\nsummary\n\nThis document sets out the complete curriculum for the TUTOR Frontier programme in Intelligent Systems \nEngineering.\n\nIt\n\nwas\n\ndesigned"
+    },
+    {
+      "rank": 13,
+      "lesson_id": "02a783dc-1b1d-5162-8dac-1dc9a612cf4d",
+      "chunk_id": "d970423e-eef1-4d37-9cea-66a45c88ccd5",
+      "position": 36,
+      "heading": "TUTOR",
+      "text": "110\n\nPage 3\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \n1.\n\nExecutive\n\nsummary\n\nThis document sets out the complete curriculum for the TUTOR Frontier programme in Intelligent Systems \nEngineering.\n\nIt\n\nwas\n\ndesigned\n\nfrom\n\nthe\n\nprogramme\n\noverview\n\nand\n\nthe\n\nthirty\n\nmodule\n\npacks,\n\nand\n\norganises\n\ntheir\n\ncontent\n\ninto\n\na\n\ncourse\n\nthat\n\ncan\n\nbe\n\ndeveloped\n\nand\n\ntaught\n\nas\n\nit\n\nstands. \nThe course takes learners from computational and mathematical foundations through machine learning, AI \nsystems\n\nengineering,\n\nautonomy\n\nand\n\nsimulation\n\nto\n\nfrontier\n\nresearch.\n\nIt\n\nends\n\nwith\n\nan\n\nindependent\n\ncapstone\n\nin\n\nwhich\n\neach\n\nlearner\n\ndesigns,\n\nbuilds,\n\nevaluates\n\nand\n\ndefends\n\na\n\ncomplete\n\nintelligent\n\nsystem. \nItem\n\nSpecification\n\nProgramme\n TUTOR Frontier: Intelligent Systems Engineering \nDuration\n 68 weeks of teaching (a 12-16 month programme) \nStructure\n 5 levels, 30 modules, 300 lessons (10 per module) \nPractical work 231 laboratories, including failure laboratories; 60 daily practice problems per module \nKnowledge checks 29 module quizzes with 145 questions and an answer key \nAssignments\n 30 module assignments, 6 portfolio projects and an independent capstone \nOral assessment A technical viva in every module and a 50-minute capstone defence \nDelivery\n Fully online, in a Linux virtual machine or container per learner; simulation-first\n\n1.1\n\nWhat\n\nthe\n\ncourse\n\ncovers\n\n•\n Level I, Computational Intelligence Foundations (Weeks 1-12): Problem formulation, the mathematics of \nrepresentation\n\nand\n\nuncertainty,\n\nnumerical\n\nmethods,\n\nscientific\n\nsoftware\n\nand\n\ndata\n\nengineering. \n•\n Level II, Machine Intelligence (Weeks 13-22): Classical machine learning, experiment design, neural \nnetworks\n\nfrom\n\nfirst\n\nprinciples,\n\ndeep\n\nlearning\n\nsystems\n\nand"
+    },
+    {
+      "rank": 14,
+      "lesson_id": "02a783dc-1b1d-5162-8dac-1dc9a612cf4d",
+      "chunk_id": "0d271580-1b30-4809-accd-72a7cf3cb60f",
+      "position": 37,
+      "heading": "TUTOR",
+      "text": "numerical\n\nmethods,\n\nscientific\n\nsoftware\n\nand\n\ndata\n\nengineering. \n•\n Level II, Machine Intelligence (Weeks 13-22): Classical machine learning, experiment design, neural \nnetworks\n\nfrom\n\nfirst\n\nprinciples,\n\ndeep\n\nlearning\n\nsystems\n\nand\n\ntransformers. \n•\n Level III, AI Systems Engineering (Weeks 23-40): Vision, language and speech, generative models, \nfoundation\n\nmodels,\n\nretrieval,\n\nagents,\n\nreliability,\n\ndeployment\n\nand\n\nGPU\n\nperformance. \n•\n Level IV, Autonomous and Embodied Intelligence (Weeks 41-48): Reinforcement learning, robotics, \nautonomous\n\ndecision-making\n\nand\n\naerospace\n\nmission\n\nsimulation,\n\nall\n\nin\n\nvirtual\n\nenvironments. \n•\n Level V, Frontier Intelligence and Research (Weeks 49-68): Scientific ML, world models, continual \nlearning,\n\nAI\n\nsafety\n\nand\n\ngovernance,\n\nresearch\n\nengineering\n\nand\n\nthe\n\ncapstone. \n1.2\n\nMain\n\ndesign\n\ndecisions\n\n•\n Every module follows one two-week template with objectives, ten lessons, laboratories, an assignment, a \nquiz,\n\nviva\n\nquestions\n\nand\n\na\n\ngrading\n\nscheme. \n•\n Modules are sequenced by their stated prerequisites, so each level builds directly on the one before it. \n•\n Each week follows the seven-day learning cycle from the packs: concept, first principles, experiment, \nfailure\n\nlaboratory,\n\nintegration,\n\nresearch\n\nand\n\ndefence. \n•\n Six portfolio projects are placed at the end of the relevant modules, so learners build a portfolio as they \nprogress. \n•\n Assessment is based on evidence (derivations, code, experiments and oral defence), with fixed weights \nand\n\nperformance\n\nlevels\n\nfor\n\nevery\n\nmodule. \nPage 4\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \n2.\n\nCurriculum\n\ndesign\n\napproach"
+    },
+    {
+      "rank": 15,
+      "lesson_id": "02a783dc-1b1d-5162-8dac-1dc9a612cf4d",
+      "chunk_id": "17d9eb8f-6de3-48e0-bf00-b4ac145e0855",
+      "position": 38,
+      "heading": "TUTOR",
+      "text": "performance\n\nlevels\n\nfor\n\nevery\n\nmodule. \nPage 4\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \n2.\n\nCurriculum\n\ndesign\n\napproach\n\n2.1\n\nSource\n\nmaterial\n\nThe curriculum is based on two sets of documents. The programme overview defines the purpose of the \nprogramme,\n\nits\n\ngraduate\n\noutcomes,\n\nthe\n\nfive-level\n\narchitecture,\n\nthe\n\nvirtual\n\nlaboratories\n\nand\n\nthe\n\nportfolio\n\nprojects.\n\nEach\n\nof\n\nthe\n\nthirty\n\nmodule\n\npacks\n\nis\n\na\n\nfaculty\n\nmaster\n\npack\n\ncontaining: \n•\n a module charter and learning outcomes with the evidence required for each \n•\n topic sections with derivations, worked examples and engineering rules \n•\n a sequence of laboratories, a failure laboratory and a research reproduction task \n•\n a bank of 60 daily practice problems and a bank of viva questions \n•\n a module project specification, an assessment scheme and a faculty quality checklist \n2.2\n\nDesign\n\nmethod\n\nStep\n\nActivity\n\nWhat\n\nwas\n\ndone"
+    },
+    {
+      "rank": 16,
+      "lesson_id": "02a783dc-1b1d-5162-8dac-1dc9a612cf4d",
+      "chunk_id": "2354826e-54ac-4285-b4cd-41b4c14574cc",
+      "position": 40,
+      "heading": "TUTOR",
+      "text": "Design\n\nprinciples\n\nThe following principles are taken from the module packs and applied throughout the curriculum. \nPrinciple\n\nHow\n\nit\n\nis\n\napplied\n\nSpecification before code Every substantial task starts with a written problem specification: objective, inputs, outputs, state, actions, constraints, assumptions, success metric and failure condition. \nFirst principles before frameworks Methods are derived and implemented with basic data structures and NumPy before framework abstractions such as PyTorch are introduced and checked against them. \nFailure as a learning activity Each module includes a failure laboratory in which known faults are injected and traced to their root cause. \nEvidence over output A correct result is not accepted without an explanation of why the method works, what it assumes, how it scales and where it fails. \nReproducibility\n Work runs in a reproducible environment with recorded code versions, data, seeds and configuration, so an assessor can rerun the main result. \nSimulation first Robotics, industrial and aerospace problems are studied in virtual environments, so no physical hardware is needed. \nHuman and AI workflow AI tools may speed up implementation, but assessment concentrates on specification, reasoning, verification, experimentation and engineering judgement. \nPage 5\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \n2.4\n\nSequencing\n\nfrom\n\nbasic\n\nto\n\nadvanced\n\nEach module pack states the modules it depends on and the modules that build on it. These statements were \nused\n\nto\n\norder\n\nthe\n\nthirty\n\nmodules\n\ninto\n\na\n\nsingle\n\npath.\n\nLevel\n\nI\n\nprovides\n\nthe\n\nmathematics,\n\nprogramming\n\nand\n\ndata\n\nskills\n\nthat\n\nevery\n\nlater\n\nmodule\n\nassumes.\n\nLevel\n\nII\n\nintroduces\n\nlearning\n\nsystems\n\nand\n\nevaluation.\n\nLevel\n\nIII\n\nturns\n\nmodels\n\ninto\n\ncomplete\n\nsystems.\n\nLevel\n\nIV\n\napplies\n\nthese\n\nsystems\n\nto\n\naction\n\nin"
+    },
+    {
+      "rank": 17,
+      "lesson_id": "02a783dc-1b1d-5162-8dac-1dc9a612cf4d",
+      "chunk_id": "2e44dc03-60b1-47c8-9452-763d17e92571",
+      "position": 41,
+      "heading": "TUTOR",
+      "text": "Level\n\nI\n\nprovides\n\nthe\n\nmathematics,\n\nprogramming\n\nand\n\ndata\n\nskills\n\nthat\n\nevery\n\nlater\n\nmodule\n\nassumes.\n\nLevel\n\nII\n\nintroduces\n\nlearning\n\nsystems\n\nand\n\nevaluation.\n\nLevel\n\nIII\n\nturns\n\nmodels\n\ninto\n\ncomplete\n\nsystems.\n\nLevel\n\nIV\n\napplies\n\nthese\n\nsystems\n\nto\n\naction\n\nin\n\nsimulated\n\nphysical\n\nworlds,\n\nand\n\nLevel\n\nV\n\nbrings\n\nthem\n\ntogether\n\nin\n\nresearch-level\n\nwork\n\nand\n\nthe\n\ncapstone. \nPage 6\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \n3.\n\nProgramme\n\noverview\n\n3.1\n\nAim\n\nThe programme aims to develop engineering capability rather than familiarity with particular tools. Graduates \nshould\n\nbe\n\nable\n\nto\n\ntake\n\nan\n\nunfamiliar\n\nproblem,\n\nformulate\n\nand\n\nmodel\n\nit,\n\nbuild\n\na\n\nsolution,\n\nevaluate\n\nhow\n\nit\n\nfails\n\nand\n\ncontinue\n\nlearning\n\nbeyond\n\nthe\n\ntaught\n\nmaterial. \n3.2\n\nDelivery\n\nmodel\n\nFeature\n\nDescription\n\nFully online Structured digital teaching with virtual engineering environments; no physical campus is required \nVirtual machine A controlled workspace for coding, experiments, simulation, version control and reproducible work \nSimulation first Robotics, industrial and aerospace problems are explored without physical hardware \nResearch workflow Version control, experiment tracking, technical reports, reproducibility and review \nProgressive difficulty Foundations, then core intelligence, systems, autonomy and frontier research \nHuman and AI workflow AI tools may accelerate implementation; assessment concentrates on reasoning, verification and judgement \n3.3\n\nEntry\n\npoint\n\nM01, Computational Thinking and Problem Formulation, is the entry module and a prerequisite for all other \nmodules.\n\nLearners\n\nwork\n\nin\n\nPython\n\nin\n\na\n\nLinux\n\nenvironment\n\nfrom\n\nthe\n\nfirst\n\nweek,\n\nand\n\nC\n\nand\n\nC++\n\nare\n\nintroduced\n\nfor\n\nperformance\n\nwork. \nPage 7\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \n4.\n\nProgramme\n\nlearning\n\noutcomes"
+    },
+    {
+      "rank": 18,
+      "lesson_id": "02a783dc-1b1d-5162-8dac-1dc9a612cf4d",
+      "chunk_id": "7f3c54bd-c996-4f15-a269-d687183cb90a",
+      "position": 42,
+      "heading": "TUTOR",
+      "text": "Learners\n\nwork\n\nin\n\nPython\n\nin\n\na\n\nLinux\n\nenvironment\n\nfrom\n\nthe\n\nfirst\n\nweek,\n\nand\n\nC\n\nand\n\nC++\n\nare\n\nintroduced\n\nfor\n\nperformance\n\nwork. \nPage 7\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \n4.\n\nProgramme\n\nlearning\n\noutcomes\n\nOn successful completion of the programme, graduates will be able to demonstrate the following outcomes. \nEach\n\nmodule\n\nobjective\n\ncontributes\n\nto\n\nat\n\nleast\n\none\n\nof\n\nthem. \nCode\n\nOutcome\n\nGraduates\n\nwill\n\nbe\n\nable\n\nto\n\nPLO1\n Computational reasoning Translate real problems into mathematical, computational and algorithmic formulations. \nPLO2\n Machine learning Design, train, evaluate and improve ML and deep learning systems, and explain why they work and where they fail. \nPLO3\n AI systems engineering Integrate models with data, retrieval, memory, tools, inference, monitoring and evaluation. \nPLO4\n Generative and agentic AI Build grounded generative systems and agents that complete multi-step tasks with tools. \nPLO5\n Simulation and autonomy Build and test perception, decision, planning and action loops in virtual environments. \nPLO6\n Research engineering Reproduce a technical method, form hypotheses, run controlled experiments and report evidence. \nPLO7\n Deployment thinking Reason about latency, throughput, memory, compute, reliability and observability. \nPLO8\n Independent problem solving Approach unfamiliar technical problems without step-by-step tutorials.\n\nFigure 1. Mapping of programme learning outcomes to levels. Primary indicates the level where the outcome is mainly developed; \nsupports\n\nindicates\n\nfurther\n\npractice.\n\nPage 8\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \n5.\n\nProgramme\n\nstructure\n\nThe course is organised into five levels and thirty modules. Each module lasts two weeks and contains ten \nlessons.\n\nSix\n\nportfolio\n\nprojects\n\nrun\n\nas\n\ntwo-week\n\nassignments\n\nalongside\n\nthe\n\nmodule"
+    },
+    {
+      "rank": 19,
+      "lesson_id": "02a783dc-1b1d-5162-8dac-1dc9a612cf4d",
+      "chunk_id": "7747d9f5-6a5a-46cb-8b8d-cea44a3287c4",
+      "position": 43,
+      "heading": "TUTOR",
+      "text": "Programme\n\nstructure\n\nThe course is organised into five levels and thirty modules. Each module lasts two weeks and contains ten \nlessons.\n\nSix\n\nportfolio\n\nprojects\n\nrun\n\nas\n\ntwo-week\n\nassignments\n\nalongside\n\nthe\n\nmodule\n\nthat\n\nfollows\n\nthem,\n\nand\n\nthe\n\ncapstone\n\nruns\n\nfrom\n\nWeek\n\n55\n\nto\n\nWeek\n\n68.\n\nFigure 2. Programme structure by level. Shaded boxes are portfolio projects; M30 is the capstone. \nLevel\n\nTitle\n\nWeeks\n\nModules\n\nI\n Computational Intelligence Foundations 1-12 M01, M02, M03, M04, M05, M06 \nII\n Machine Intelligence 13-22 M07, M08, M09, M10, M11 \nIII\n AI Systems Engineering 23-40 M12, M13, M14, M15, M16, M17, M18, M19, M20 \nIV\n Autonomous and Embodied Intelligence 41-48 M21, M22, M23, M24 \nV\n Frontier Intelligence and Research 49-68 M25, M26, M27, M28, M29, M30\n\nPage 9\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum\n\nFigure 3. Programme timeline over 68 teaching weeks. \n5.1\n\nModule\n\nschedule\n\nCode\n\nModule\n\nLevel\n\nWeeks\n\nPrerequisites\n\nM01\n Computational Thinking and Problem Formulation I 1-2 None."
+    },
+    {
+      "rank": 20,
+      "lesson_id": "02a783dc-1b1d-5162-8dac-1dc9a612cf4d",
+      "chunk_id": "3ded368b-c713-4524-a788-bac284c14d16",
+      "position": 44,
+      "heading": "TUTOR",
+      "text": "Entry module for M02-M30 M02 Linear Algebra for Intelligent Systems I 3-4 M01 M03 Probability, Statistics and Information I 5-6 M01, M02 M04 Optimisation and Numerical Methods I 7-8 M02, M03 M05 Scientific Programming and Software Engineering I 9-10 M01 and working knowledge of Python M06 Data Engineering and Representation I 11-12 M03, M05 M07 Classical Machine Learning II 13-14 M02-M06 M08 Generalisation and Experiment Design II 15-16 M07 M09 Neural Networks from First Principles II 17-18 M04, M07, M08 M10 Deep Learning Systems II 19-20 M09 M11 Transformers and Representation Learning II 21-22 M10 M12 Computer Vision and Multimodal Perception III 23-24 M02, M03, M07-M11 M13 Language and Speech Intelligence III 25-26 M03, M11 M14 Generative Models III 27-28 M03, M04, M09-M11 M15 Foundation Models and Fine-Tuning III 29-30 M11-M14 M16 Retrieval, RAG and Knowledge Systems III 31-32 M06, M08, M11, M15 M17 Agentic Systems and Tool Use III 33-34 M11, M14-M16 M18 AI Evaluation, Red Teaming and Reliability III 35-36 M08, M15-M17 M19 ML Systems, MLOps and Inference III 37-38 M05, M06, M18 M20 GPU Computing and Performance Engineering III 39-40 M05, M10, M19 M21 Reinforcement Learning and Sequential Decision-Making IV 41-42 M03, M04, M09, M17 M22 Robotics and Embodied Intelligence IV 43-44 M02, M04, M21 M23 Autonomous Systems and"
+    },
+    {
+      "rank": 21,
+      "lesson_id": "02a783dc-1b1d-5162-8dac-1dc9a612cf4d",
+      "chunk_id": "3eef0c24-77cc-4379-a51b-d6f98634e4d2",
+      "position": 45,
+      "heading": "TUTOR",
+      "text": "Decision-Making IV 45-46 M21, M22 M24 Aerospace Intelligence and Mission Simulation IV 47-48 M04, M22, M23 M25 Scientific Machine Learning V 49-50 M04, M08, M09-M15, M19, M20 Page 10\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \nM26\n World Models and Model-Based Intelligence V 51-52 M14, M21, M23, M25 \nM27\n Continual Learning and Adaptive Intelligence V 53-54 M08, M15, M18, M19, M26 \nM28\n AI Safety, Governance and Secure Deployment V 55-56 M17-M19, M23, M27 \nM29\n AI Research Engineering V 57-58 M08 and all preceding modules \nM30\n Intelligent Systems Capstone V 55-68 All preceding modules \nPage 11\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \n6.\n\nTeaching\n\nand\n\nlearning\n\napproach\n\n6.1\n\nWeekly\n\nlearning\n\ncycle\n\nEach module is taught over two weeks of five live lessons each. Every week follows the same seven-day cycle, so \nlearners\n\nalways\n\nderive,\n\nbuild,\n\nmeasure,\n\nbreak\n\nand\n\ndefend\n\nwhat\n\nthey\n\nstudy.\n\nFigure 4. The seven-day learning cycle used in every module. \n6.2\n\nModule\n\ntemplate\n\nFigure 5. Components of every module. \n6.3\n\nLesson\n\nstructure\n\nEach lesson is developed to a common structure: \n1.\n A learning objective linked to a module outcome. \n2.\n Prerequisite knowledge, with references to earlier lessons. \n3.\n Derivation of the central idea, with notation, dimensions and assumptions stated. \n4.\n Implementation from first principles; frameworks are introduced only after they have been checked \nagainst\n\nthis"
+    },
+    {
+      "rank": 22,
+      "lesson_id": "02a783dc-1b1d-5162-8dac-1dc9a612cf4d",
+      "chunk_id": "8accdf61-0b0e-468e-8f05-a8c99c428940",
+      "position": 46,
+      "heading": "TUTOR",
+      "text": "this\n\nimplementation. \n5.\n A controlled experiment with repeated trials. \n6.\n A deliberately introduced fault and its diagnosis. \n7.\n Links to the later modules that use the idea. \n8.\n Practice problems, about six of the module's sixty. \n9.\n A short oral check of understanding. \nPage 12\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \n6.4\n\nLearning\n\nactivities\n\nActivity\n\nDescription\n\nDaily practice 60 problems per module, solved on paper and then verified computationally; at least 20 submitted with code and results \nLaboratories\n Between 2 and 12 per module, each with acceptance criteria and a record of the environment and settings used \nFailure laboratories Injected faults traced to their cause and classified as specification, model, algorithm, implementation or measurement errors \nResearch reproduction One published claim per module reimplemented independently, with any deviation analysed \nIndustry technical sessions Case studies presented by practitioners, followed within 48 hours by a one-page technical report \nEngineering decision records Written justifications of design choices: context, options, evidence, decision and consequences \nModule assignment An integrated system that addresses a defined research question \nQuiz\n Five questions per module with explanations, used as a formative check before the viva \nTechnical viva Oral examination involving derivation, code walkthrough and diagnosis of failures \n6.5\n\nVirtual\n\nlaboratories\n\nThe programme overview identifies eight signature laboratories. Each is delivered within the modules shown. \nLaboratory\n\nLearners\n\nModules"
+    },
+    {
+      "rank": 23,
+      "lesson_id": "02a783dc-1b1d-5162-8dac-1dc9a612cf4d",
+      "chunk_id": "24cf75c8-bcd0-4342-a6c2-d5c17ac63599",
+      "position": 47,
+      "heading": "TUTOR",
+      "text": "Virtual\n\nlaboratories\n\nThe programme overview identifies eight signature laboratories. Each is delivered within the modules shown. \nLaboratory\n\nLearners\n\nModules\n\nNeural Network from First Principles construct forward pass, loss and gradient updates before using framework abstractions M09, M10 \nModel Failure Laboratory create overfitting, leakage, distribution shift and robustness failures, then diagnose and repair them M06, M08, M18 \nVision Intelligence Lab build an end-to-end perception system and analyse its failure modes under changed conditions M12 \nGenerative Intelligence Lab build a grounded retrieval and generation system with an evaluation harness M14, M16 \nAgent Engineering Lab create an agent with tools, memory, planning and a controlled execution environment M17 \nInference and Systems Lab measure latency, throughput and memory, and optimise inference under resource limits M19, M20 \nAutonomous Robotics Simulation develop perception, localisation, planning and control loops in simulation M22, M23 \nAerospace Intelligence Simulation solve a mission-planning problem with state estimation, constraints and trajectory decisions M24 \n6.6\n\nTechnical\n\nenvironment\n\nComponent\n\nSpecification\n\nWorkspace\n Ubuntu Linux virtual machine or equivalent reproducible container for each learner \nLanguages\n Python 3 throughout; C and C++ for performance work (M01, M05, M20); SQL in M06 \nSoftware\n Jupyter, Git, pytest, NumPy, SciPy and Matplotlib; scikit-learn from M07; PyTorch from M09 \nCompute\n CPU for Levels I and II; GPU allocation for M10, M15, M19, M20 and the capstone as required \nRepository layout README, environment file and folders for source, tests, notebooks, experiments, reports and decision records \nPage 13"
+    },
+    {
+      "rank": 24,
+      "lesson_id": "02a783dc-1b1d-5162-8dac-1dc9a612cf4d",
+      "chunk_id": "d24af0a1-68e2-4bae-83af-c5965a399146",
+      "position": 48,
+      "heading": "TUTOR",
+      "text": "TUTOR Frontier · Intelligent Systems Engineering Course Curriculum \nReproducibility standard An assessor can clone the repository, build the environment, run the tests and reproduce the main experiment without private files \nPage 14\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \n7.\n\nLevel\n\nI:\n\nComputational\n\nIntelligence\n\nFoundations\n\nProblem formulation, the mathematics of representation and uncertainty, numerical methods, scientific software \nand\n\ndata\n\nengineering.\n\nThis\n\nlevel\n\nruns\n\nin\n\nWeeks\n\n1-12. \nCode\n\nModule\n\nWeeks\n\nLessons\n\n/\n\nlabs\n\nM01\n Computational Thinking and Problem Formulation 1-2 10 / 3 \nM02\n Linear Algebra for Intelligent Systems 3-4 10 / 5 \nM03\n Probability, Statistics and Information 5-6 10 / 3 \nM04\n Optimisation and Numerical Methods 7-8 10 / 4 \nM05\n Scientific Programming and Software Engineering 9-10 10 / 4 \nM06\n Data Engineering and Representation 11-12 10 / 4 \nPage 15"
+    },
+    {
+      "rank": 25,
+      "lesson_id": "0452e793-3dbc-5561-a6d9-c5803d612b53",
+      "chunk_id": "991e0eda-b8df-4d11-974f-9948a1e5b45e",
+      "position": 0,
+      "heading": "M19 Syllabus & Labs",
+      "text": "TUTOR Frontier · Intelligent Systems Engineering Course Curriculum \n•\n\nTyped\n\nrequest\n\nand\n\nresponse\n\nschema\n\n•\n\nLatency\n\nand\n\nthroughput\n\nreport\n\nat\n\nseveral\n\nloads\n\n•\n\nCanary\n\nevidence\n\nreport\n\n•\n\nRollback\n\nrecord\n\nand\n\nnew\n\nregression\n\ntest\n\nLearners also complete the module's 60 daily practice problems, one research reproduction and a one-page report on the \nindustry\n\ntechnical\n\nsession.\n\nASSESSMENT\n\nDaily\n\npractice\n\nLaboratories\n\nControlled\n\nstudy\n Research \nreproduction\n\nProject\n\nTechnical\n\nviva\n\n15%\n\n35%\n\n15%\n\n10%\n\n15%\n\n10%\n\nSAMPLE\n\nVIVA\n\nQUESTIONS\n\n•\n\nWhat\n\nis\n\na\n\ndeployable\n\nmodel\n\nartifact?\n\n•\n\nWhy\n\ncan\n\nbatching\n\nhurt\n\nlatency?\n\n•\n\nWhat\n\nmakes\n\nrollback\n\nnontrivial?\n\nPage 55\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \nM20\n\nGPU\n\nComputing\n\nand\n\nPerformance\n\nEngineering\n\nWeeks\n\nPrerequisites\n\nLessons\n\nLaboratories\n\nQuiz\n\n39-40\n\nM05,\n\nM10,\n\nM19\n\n10\n\n10\n\n5\n\nquestions\n\nTeaches performance from first principles. Learners model where time and energy go, write and optimise \nkernels,\n\nand\n\ndefend\n\nevery\n\noptimisation\n\nwith\n\nprofiler\n\nevidence\n\nand\n\na\n\ncausal\n\nexplanation.\n\nLEARNING\n\nOBJECTIVES\n\nOn completing the module, learners will be able to: \n•\n\nmodel\n\nexecution\n\ntime\n\nacross\n\narithmetic,\n\nmemory\n\ntraffic,\n\nlaunches,\n\nsynchronisation\n\nand\n\ncommunication;\n\n•\n\nclassify\n\nbottlenecks\n\nusing\n\narithmetic\n\nintensity\n\nand\n\nthe\n\nroofline\n\nmodel;\n\n•\n\nwrite,\n\nverify\n\nand\n\noptimise\n\nkernels\n\nwith\n\ncoalescing,\n\ntiling,\n\nreductions,\n\nfusion\n\nand\n\nprecision\n\nchanges;\n\n•\n\ninterpret\n\noccupancy\n\nand\n\nprofiler\n\ntraces\n\ncorrectly;\n\n•\n\nanalyse\n\nmulti-device\n\nscaling\n\nand\n\nproduce\n\nreproducible\n\nperformance\n\nreports.\n\nLESSON\n\nPLAN\n\nNo.\n\nLesson\n\nContent\n\nL01\n\nA\n\nfirst\n\nperformance\n\nmodel\n\nFrom\n\narithmetic\n\nto\n\nexecution,\n\nand\n\nestimating\n\nwork\n\nand\n\nbytes\n\nmoved.\n\nL02\n\nArithmetic\n\nintensity\n\nand\n\nthe\n\nroofline\n\nCompute-bound\n\nversus\n\nmemory-bound\n\noperations.\n\nL03\n\nMemory\n\nhierarchy\n\nand\n\nlocality\n\nRegisters\n\nto\n\nglobal\n\nmemory,\n\ntemporal\n\nand"
+    },
+    {
+      "rank": 26,
+      "lesson_id": "090b15c5-146b-5feb-8f2c-9a8e888988fc",
+      "chunk_id": "aed4ca64-a27a-46ab-b629-50f7d2c27d71",
+      "position": 0,
+      "heading": "M27 Syllabus & Labs",
+      "text": "TUTOR Frontier · Intelligent Systems Engineering Course Curriculum \n•\n\nStream\n\nand\n\nchange\n\nmodel\n\n•\n\nProtected\n\ncapability\n\nset\n\nand\n\nfrozen\n\nbaseline\n\n•\n\nDrift\n\ndetector\n\nwith\n\nmeasured\n\ncharacteristics\n\n•\n\nMemory\n\nand\n\nadaptation\n\npolicies\n\n•\n\nRegression\n\ninjection\n\nfollowed\n\nby\n\nfreeze\n\nor\n\nrollback\n\nLearners also complete the module's 60 daily practice problems, one research reproduction and a one-page report on the \nindustry\n\ntechnical\n\nsession.\n\nASSESSMENT\n\nWritten \nexamination\n\nLaboratories\n\nDaily\n\npractice\n Research \nreproduction\n\nTechnical\n\nviva\n\nModule\n\ncapstone\n\n20%\n\n25%\n\n15%\n\n10%\n\n10%\n\n20%\n\nSAMPLE\n\nVIVA\n\nQUESTIONS\n\n•\n\nWhat\n\nmakes\n\ncontinual\n\nlearning\n\ndifferent\n\nfrom\n\nordinary\n\nretraining?\n\n•\n\nHow\n\nwould\n\nyou\n\ndecide\n\nwhat\n\ndeserves\n\nlong-term\n\nstorage?\n\n•\n\nWhat\n\nartifacts\n\nare\n\nnecessary\n\nfor\n\nan\n\nexact\n\nrollback?\n\nPage 73\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \nM28\n\nAI\n\nSafety,\n\nGovernance\n\nand\n\nSecure\n\nDeployment\n\nWeeks\n\nPrerequisites\n\nLessons\n\nLaboratories\n\nQuiz\n\n55-56\n\nM17-M19,\n\nM23,\n\nM27\n\n10\n\n9\n\n5\n\nquestions\n\nTreats safety as a property of the whole socio-technical system. Learners produce threat models, hazard \nanalyses,\n\ncontrols,\n\nsafety\n\ncases,\n\nrelease\n\ngates\n\nand\n\nincident\n\nplans\n\nthat\n\nanother\n\nengineer\n\ncan\n\naudit.\n\nLEARNING\n\nOBJECTIVES\n\nOn completing the module, learners will be able to: \n•\n\nproduce\n\na\n\nrisk\n\nregister,\n\nthreat\n\nmodel,\n\nhazard\n\nanalysis\n\n(FMEA\n\nor\n\nSTPA)\n\nand\n\nprivacy\n\ndata-flow\n\nanalysis;\n\n•\n\ndesign\n\ncontrols\n\nagainst\n\npoisoning,\n\nprompt\n\ninjection,\n\ntool\n\nand\n\nagent\n\nmisuse,\n\ncredential\n\nexposure,\n\nleakage\n\nand\n\nadversarial\n\ninputs;\n\n•\n\nbuild\n\na\n\nsafety\n\ncase\n\nlinking\n\neach\n\nclaim\n\nto\n\nevidence\n\nand\n\nassumptions;\n\n•\n\noperate\n\nrelease\n\ngates,\n\ncanary\n\ndeployment,\n\nrollback\n\nand\n\nincident\n\nresponse;\n\n•\n\nmap\n\ncontrols\n\nto\n\ngovernance\n\nframeworks\n\nsuch\n\nas\n\nthe\n\nNIST\n\nAI\n\nRMF\n\nand\n\nISO/IEC"
+    },
+    {
+      "rank": 27,
+      "lesson_id": "090b15c5-146b-5feb-8f2c-9a8e888988fc",
+      "chunk_id": "4be6e283-1cca-4762-b500-01490d8cbec9",
+      "position": 4,
+      "heading": "M27 Technical Viva Defense Questions",
+      "text": "Continual Learning and Adaptive \nIntelligence\n\n•\n\nWhat\n\nmakes\n\ncontinual\n\nlearning\n\ndifferent\n\nfrom\n\nordinary\n\nretraining?\n\n•\n\nHow\n\nwould\n\nyou\n\ndecide\n\nwhat\n\ndeserves\n\nlong-term\n\nstorage?\n\n•\n\nWhat\n\nartifacts\n\nare\n\nnecessary\n\nfor\n\nan\n\nexact\n\nrollback?"
+    },
+    {
+      "rank": 28,
+      "lesson_id": "0a52f6d4-bb16-575b-a84f-6dcbcd83b3aa",
+      "chunk_id": "0d35ebd3-449e-4f66-9557-303e72f925a6",
+      "position": 0,
+      "heading": "M01 Syllabus & Labs",
+      "text": "TUTOR Frontier · Intelligent Systems Engineering Course Curriculum \nASSIGNMENT\n\nAdaptive Route Planner \nBuild a reproducible simulation in which an agent reaches a target through a constrained grid, with at least two search strategies and one objective variation. Answer the research question: under what environmental conditions does heuristic search give a measurable benefit over uninformed search? \nDeliverables\n\n•\n Environment generator with fixed seeds \n•\n At least two search implementations behind one interface \n•\n Metric collector and path visualisation \n•\n Test suite covering reachable, unreachable and cyclic graphs \n•\n Technical report with an engineering decision record \nLearners also complete the module's 60 daily practice problems, one research reproduction and a one-page report on the \nindustry\n\ntechnical\n\nsession.\n\nASSESSMENT\n\nDaily practice Laboratories Research reproduction Project Technical viva Engineering record \n20%\n 30% 10% 20% 15% 5% \nSAMPLE\n\nVIVA\n\nQUESTIONS\n\n•\n State the binary-search invariant without looking at your code. \n•\n Why does BFS give shortest paths only under particular cost assumptions? \n•\n What evidence would make you reject your own engineering decision? \nPage 17\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \nM02\n\nLinear\n\nAlgebra\n\nfor\n\nIntelligent\n\nSystems\n\nWeeks\n\nPrerequisites\n\nLessons\n\nLaboratories\n\nQuiz\n\n3-4\n M01 10 5 5 questions \n Builds the representation layer of intelligent systems: vectors, matrices, transformations, projections, \neigenstructure\n\nand\n\nlow-rank\n\nstructure.\n\nEvery\n\nobject\n\nis\n\nderived,\n\nimplemented,\n\ntested,\n\nvisualised\n\nand\n\nlinked\n\nto\n\na\n\nreal\n\ncapability\n\nsuch\n\nas\n\nimages\n\nor\n\nembeddings. \nLEARNING\n\nOBJECTIVES\n\nOn completing the module, learners will be able to: \n•\n represent images, text, datasets and system states as vectors, matrices and tensors with defined \ndimensions\n\nand\n\naxis"
+    },
+    {
+      "rank": 29,
+      "lesson_id": "0af501c2-a125-5575-94a3-040192b6f181",
+      "chunk_id": "f687ccec-fd5c-4961-89a9-fee1d7b19748",
+      "position": 2,
+      "heading": "M02 (Linear Algebra for Intelligent Systems) Quiz",
+      "text": "[M02 Q1] For A in R^(m×n) and x in R^n, the product Ax lies in …\nOptions: A: R^n | B: R^m | C: R^(m×n) | D: R^(n×m)\nAnswer: B\nExplanation: The inner dimensions agree and the result takes the output dimension m.\n\n[M02 Q2] The rank–nullity theorem for an m×n matrix states that …\nOptions: A: rank + nullity = m | B: rank = nullity | C: rank + nullity = n | D: rank × nullity = n\nAnswer: C\nExplanation: The input space splits into directions that affect the output and directions the map annihilates.\n\n[M02 Q3] Why is QR often preferred to the normal equations for least squares?\nOptions: A: Forming A ᵀ A can worsen conditioning | B: QR always uses less memory | C: Normal equations only work for square matrices | D: QR does not need a residual check\nAnswer: A\nExplanation: A ᵀ A squares the condition number, so sensitivity grows; orthogonal factorisation avoids that.\n\n[M02 Q4] What does PCA optimise?\nOptions: A: Classification accuracy | B: Business importance of features | C: Retained variance along orthogonal directions of centred data | D: Sparsity of the representation\nAnswer: C\nExplanation: PCA is a specific linear projection under a variance objective; interpretation is a separate step."
+    },
+    {
+      "rank": 30,
+      "lesson_id": "0af501c2-a125-5575-94a3-040192b6f181",
+      "chunk_id": "1d95fc15-68a3-4b12-8ec4-1eb3b3b1bcac",
+      "position": 3,
+      "heading": "M02 (Linear Algebra for Intelligent Systems) Quiz",
+      "text": "[M02 Q5] Why must data be centred before PCA?\nOptions: A: Otherwise the principal directions are contaminated by the mean | B: It makes the SVD faster | C: It removes outliers | D: It guarantees full rank\nAnswer: A\nExplanation: Uncentred PCA is one of the module's injected failures: the first component points towards the mean."
+    },
+    {
+      "rank": 31,
+      "lesson_id": "0bba40b2-f962-5a54-bbfa-324c92e1e767",
+      "chunk_id": "7590e9e3-f6e2-4da5-ab05-8a94dfe64834",
+      "position": 0,
+      "heading": "Assessment & QA",
+      "text": "TUTOR Frontier · Intelligent Systems Engineering Course Curriculum \n14.\n\nCourse\n\ndevelopment\n\nand\n\nquality\n\nassurance\n\n14.1\n\nMaterials\n\nto\n\ndevelop\n\nfor\n\neach\n\nmodule\n\n•\n\nLecture\n\nmaterials\n\nfor\n\nthe\n\nten\n\nlessons,\n\nfollowing\n\nthe\n\nlesson\n\nstructure\n\nin\n\nSection\n\n6.3\n\n•\n\nLaboratory\n\nstarter\n\nrepositories\n\nwith\n\nreference\n\ntests\n\nand\n\nfixed\n\nrandom\n\nseeds\n\n•\n\nVersioned\n\ndatasets\n\nor\n\nsimulators\n\nfor\n\neach\n\nlaboratory\n\n•\n\nThe\n\n60-problem\n\ndaily\n\npractice\n\nbank\n\nwith\n\nworked\n\nsolutions\n\nfor\n\nfaculty\n\n•\n\nAssignment\n\nbrief,\n\nmarking\n\nrubric\n\nmapped\n\nto\n\nthe\n\nlearning\n\nobjectives,\n\nand\n\nexemplar\n\nsubmissions\n\n•\n\nQuiz\n\n(Appendix\n\nA)\n\nand\n\nviva\n\nquestion\n\nbank\n\n(Appendix\n\nB)\n\n•\n\nModule\n\ncompletion\n\nrecord\n\nfor\n\nfaculty\n\nsign-off\n\n14.2\n\nRelease\n\nchecklist\n\nNo assignment is released until it meets every item below, as required by the faculty quality checklist in the \nmodule\n\npacks.\n\nCheck\n\nRequirement\n\nSpecification\n\nThe\n\ntask\n\nhas\n\nan\n\nobjective,\n\ninputs,\n\noutputs,\n\nconstraints\n\nand\n\nsuccess\n\ncriteria\n\nPrerequisites\n\nRequired\n\nmathematics\n\nand\n\nprogramming\n\nknowledge\n\nis\n\nstated\n\nEnvironment\n\nThe\n\nvirtual\n\nmachine\n\nor\n\ncontainer\n\nset-up\n\nis\n\nreproducible\n\nTests\n\nReference\n\ntests\n\ncover\n\nnormal\n\nand\n\nedge\n\ncases\n\nMeasurement\n\nThe\n\nbenchmark\n\nprotocol\n\ncontrols\n\nthe\n\nrelevant\n\nvariables\n\nFailure\n\nAt\n\nleast\n\none\n\ndeliberate\n\nfailure\n\nmode\n\nexists\n\nEvidence\n\nSubmission\n\nartifacts\n\nare\n\nlisted\n\nexplicitly\n\nRubric\n\nAssessment\n\ncriteria\n\nmap\n\ndirectly\n\nto\n\nlearning\n\noutcomes\n\nViva\n\nThe\n\nlearner\n\nmust\n\nexplain\n\nreasoning,\n\nnot\n\nonly\n\ndemonstrate\n\nexecution\n\nVersioning\n\nAssignment,\n\ndatasets\n\nand\n\nexpected\n\noutputs\n\nare\n\nversioned\n\nPage 84\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \nAppendix\n\nA.\n\nModule\n\nquiz\n\nbank\n\nand\n\nanswer\n\nkey\n\nEach module from M01 to M29 has a five-question quiz. The correct answer is marked and followed by the \nexplanation\n\ngiven\n\nto\n\nlearners.\n\nM01\n\nComputational\n\nThinking\n\nand\n\nProblem\n\nFormulation"
+    },
+    {
+      "rank": 32,
+      "lesson_id": "0bba40b2-f962-5a54-bbfa-324c92e1e767",
+      "chunk_id": "424bd0db-7035-415c-a73a-a368c22205d3",
+      "position": 2,
+      "heading": "Assessment & QA",
+      "text": "to\n\nbe\n\nreturned\n\nfirst.\n\nQ4. Two different situations map to the same state but require different optimal actions. What does this \nshow?\n A. The search algorithm is incomplete B. The heuristic is inadmissible C. The benchmark is not reproducible D. The state representation is insufficient for the decision problem Answer D. This is the module's representation test: the state must contain everything needed to choose the optimal \naction.\n\nQ5.\n\nIn\n\nthe\n\nloop-invariant\n\nprotocol,\n\nthe\n\nmaintenance\n\nstep\n\nshows\n\nthat\n…\n A. the loop terminates B. if the invariant holds at the start of an iteration, it still holds after it C. the invariant holds before the first iteration D. the postcondition follows at exit Answer B. Initialisation, maintenance and termination are three separate obligations; maintenance is the inductive \nstep.\n\nM02\n\nLinear\n\nAlgebra\n\nfor\n\nIntelligent\n\nSystems\n\nQ1.\n\nFor\n\nA\n\nin\n\nR^(m×n)\n\nand\n\nx\n\nin\n\nR^n,\n\nthe\n\nproduct\n\nAx\n\nlies\n\nin\n…\n A. R^n B. R^m C. R^(m×n) D. R^(n×m) \nAnswer\n\nB.\n\nThe\n\ninner\n\ndimensions\n\nagree\n\nand\n\nthe\n\nresult\n\ntakes\n\nthe\n\noutput\n\ndimension\n\nm.\n\nPage 85\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \nQ2.\n\nThe\n\nrank-nullity\n\ntheorem\n\nfor\n\nan\n\nm×n\n\nmatrix\n\nstates\n\nthat\n…\n A. rank + nullity = m B. rank = nullity C. rank + nullity = n D. rank × nullity = n \nAnswer\n\nC.\n\nThe\n\ninput\n\nspace\n\nsplits\n\ninto\n\ndirections\n\nthat\n\naffect\n\nthe\n\noutput\n\nand\n\ndirections\n\nthe\n\nmap\n\nannihilates."
+    },
+    {
+      "rank": 33,
+      "lesson_id": "16161616-1616-1616-1616-161616161616",
+      "chunk_id": "890fa4de-c0a7-4f7b-8975-d735124d646a",
+      "position": 0,
+      "heading": "M16 Syllabus & Labs",
+      "text": "TUTOR Frontier · Intelligent Systems Engineering Course Curriculum \n•\n\nStructured\n\ncitations\n\nin\n\nanswers\n\n•\n\nSupported\n\nversus\n\nunsupported\n\nclaim\n\nanalysis\n\n•\n\nSecurity\n\ntest\n\nresults\n\nLearners also complete the module's 60 daily practice problems, one research reproduction and a one-page report on the \nindustry\n\ntechnical\n\nsession.\n\nASSESSMENT\n\nDaily\n\npractice\n\nLaboratories\n\nControlled\n\nstudy\n Research \nreproduction\n\nProject\n\nTechnical\n\nviva\n\n15%\n\n35%\n\n15%\n\n10%\n\n15%\n\n10%\n\nSAMPLE\n\nVIVA\n\nQUESTIONS\n\n•\n\nWhat\n\nis\n\nBM25\n\nchanging\n\nrelative\n\nto\n\nraw\n\nterm\n\ncounts?\n\n•\n\nWhy\n\ncan\n\nlexical\n\nand\n\ndense\n\nretrieval\n\ncomplement\n\neach\n\nother?\n\n•\n\nWhy\n\nmust\n\nmetadata\n\nfilters\n\nbe\n\nenforced\n\nbefore\n\ngeneration?\n\nPage 49\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \nM17\n\nAgentic\n\nSystems\n\nand\n\nTool\n\nUse\n\nWeeks\n\nPrerequisites\n\nLessons\n\nLaboratories\n\nQuiz\n\n33-34\n\nM11,\n\nM14-M16\n\n10\n\n9\n\n5\n\nquestions\n\nMoves from systems that answer to systems that act. Learners build agents as closed loops of goal, state, action \nand\n\nobservation,\n\nwith\n\ntyped\n\ntools,\n\nmemory,\n\nverification,\n\nrecovery\n\nand\n\nsecurity\n\nboundaries.\n\nLEARNING\n\nOBJECTIVES\n\nOn completing the module, learners will be able to: \n•\n\nspecify\n\nan\n\nagent\n\nas\n\na\n\nstate-action-observation\n\nloop\n\nwith\n\ngoals,\n\nconstraints\n\nand\n\ntermination\n\nconditions;\n\n•\n\ndesign\n\ntyped\n\ntool\n\ncontracts,\n\nallow-lists\n\nand\n\nread/write\n\npermission\n\nboundaries;\n\n•\n\nimplement\n\nplanning,\n\nreplanning,\n\nmemory,\n\nverification\n\nand\n\nrecovery;\n\n•\n\nprotect\n\nagents\n\nagainst\n\nprompt\n\ninjection,\n\nmalicious\n\ntool\n\noutput\n\nand\n\nprivilege\n\nescalation;\n\n•\n\nevaluate\n\ncomplete\n\ntrajectories\n\nfor\n\nsuccess,\n\ncost,\n\nrecovery\n\nand\n\npolicy\n\ncompliance.\n\nLESSON\n\nPLAN\n\nNo.\n\nLesson\n\nContent\n\nL01\n\nThe\n\nagent\n\nas\n\na\n\nstate-transition\n\nsystem\n\nGoals,\n\nconstraints\n\nand\n\nsuccess\n\nconditions.\n\nL02\n\nTools\n\nas\n\ntyped\n\ncontracts\n\nSchemas,\n\nside\n\neffects,"
+    },
+    {
+      "rank": 34,
+      "lesson_id": "26cfb33f-4a5d-58b4-86df-578b0d597ab4",
+      "chunk_id": "da1f17be-277d-42a0-a743-161352cc9b77",
+      "position": 0,
+      "heading": "M07 Syllabus & Labs",
+      "text": "TUTOR Frontier · Intelligent Systems Engineering Course Curriculum \nLearners also complete the module's 60 daily practice problems, one research reproduction and a one-page report on the \nindustry\n\ntechnical\n\nsession.\n\nASSESSMENT\n\nDaily practice Laboratories Research reproduction Project Technical viva Engineering record \n20%\n 30% 10% 20% 15% 5% \nSAMPLE\n\nVIVA\n\nQUESTIONS\n\n•\n Derive the least-squares normal equations. \n•\n How can bagging reduce variance? \n•\n When should an ML system abstain? \nPage 30\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \nM08\n\nGeneralisation\n\nand\n\nExperiment\n\nDesign\n\nWeeks\n\nPrerequisites\n\nLessons\n\nLaboratories\n\nQuiz\n\n15-16\n M07 10 6 5 questions \n Turns evaluation into a scientific discipline. Learners design experiments that separate generalisation from \nleakage,\n\nchance\n\nand\n\ndistribution\n\nmismatch,\n\nand\n\nlearn\n\nto\n\nbenchmark\n\nnew\n\ncomputing\n\nmethods,\n\nincluding\n\nhybrid\n\nquantum-classical\n\nones,\n\nfairly. \nLEARNING\n\nOBJECTIVES\n\nOn completing the module, learners will be able to: \n•\n state a testable hypothesis, with experimental unit, control, metric and decision rule, before running an \nexperiment; \n•\n design stratified, grouped, time-ordered and nested evaluation schemes that avoid leakage; \n•\n quantify uncertainty with the bootstrap, intervals, paired comparisons and repeated runs, and reason \nabout\n\nstatistical\n\npower; \n•\n run ablation, calibration, threshold and robustness studies; \n•\n benchmark new computational methods against fair classical baselines with full resource accounting. \nLESSON\n\nPLAN\n\nNo.\n\nLesson\n\nContent"
+    },
+    {
+      "rank": 35,
+      "lesson_id": "29afadee-7c8f-5b7d-8100-42c17f3ff579",
+      "chunk_id": "801b51fb-813d-4941-b1c8-65a78653075b",
+      "position": 0,
+      "heading": "M23 Syllabus & Labs",
+      "text": "TUTOR Frontier · Intelligent Systems Engineering Course Curriculum \nBuild a closed-loop autonomous mission in simulation covering perception, belief, prediction, planning, a safety monitor, action and recovery. \nDeliverables\n\n•\n\nBelief\n\nstate\n\nwith\n\nage\n\nand\n\nuncertainty\n\n•\n\nForecasts\n\nwith\n\nerror\n\nreport\n\n•\n\nFeasible\n\nplans\n\nunder\n\na\n\ncompute\n\ndeadline\n\n•\n\nIndependent\n\nconstraint\n\ncheck\n\n•\n\nScenario\n\nmatrix\n\nwith\n\nrecovery\n\nmetrics\n\nLearners also complete the module's 60 daily practice problems, one research reproduction and a one-page report on the \nindustry\n\ntechnical\n\nsession.\n\nASSESSMENT\n\nDaily\n\npractice\n\nLaboratories\n\nControlled\n\nstudy\n Research \nreproduction\n\nProject\n\nTechnical\n\nviva\n\n15%\n\n35%\n\n15%\n\n10%\n\n15%\n\n10%\n\nSAMPLE\n\nVIVA\n\nQUESTIONS\n\n•\n\nWhat\n\ndistinguishes\n\nautonomy\n\nfrom\n\nautomation?\n\n•\n\nWhy\n\ndoes\n\na\n\nPOMDP\n\nseparate\n\nstate\n\nand\n\nobservation?\n\n•\n\nWhat\n\nis\n\nreceding-horizon\n\ndecision-making?\n\nPage 64\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \nM24\n\nAerospace\n\nIntelligence\n\nand\n\nMission\n\nSimulation\n\nWeeks\n\nPrerequisites\n\nLessons\n\nLaboratories\n\nQuiz\n\n47-48\n\nM04,\n\nM22,\n\nM23\n\n10\n\n10\n\n5\n\nquestions\n\nThe aerospace specialisation. Learners derive the structures that make vehicles observable, predictable and \ncontrollable,\n\nthen\n\nbuild\n\nautonomous\n\nmissions\n\nthat\n\nrespect\n\nphysics,\n\ntime\n\nand\n\nmission\n\nconstraints.\n\nLEARNING\n\nOBJECTIVES\n\nOn completing the module, learners will be able to: \n•\n\napply\n\naerospace\n\nframes\n\nand\n\ntime\n\nsystems,\n\nand\n\npropagate\n\ntwo-body\n\nand\n\nperturbed\n\norbits;\n\n•\n\nmodel\n\nsix-degree-of-freedom\n\nflight\n\ndynamics;\n\n•\n\ndesign\n\nnavigation\n\nfilters\n\nand\n\nintegrated\n\nguidance,\n\nnavigation\n\nand\n\ncontrol\n\n(GNC)\n\nloops;\n\n•\n\nplan\n\nconstrained\n\nmissions\n\nand\n\ntrajectories;\n\n•\n\nrun\n\nMonte\n\nCarlo\n\ncampaigns,\n\nFDIR\n\nand\n\ncommunication-loss\n\nscenarios\n\nin\n\na\n\ndigital\n\nmission\n\ntwin.\n\nLESSON\n\nPLAN\n\nNo.\n\nLesson\n\nContent\n\nL01\n\nAerospace\n\nas\n\na"
+    },
+    {
+      "rank": 36,
+      "lesson_id": "29afadee-7c8f-5b7d-8100-42c17f3ff579",
+      "chunk_id": "87ab6463-06e1-4e08-89ea-85dce07fbd61",
+      "position": 2,
+      "heading": "M23 Syllabus & Labs",
+      "text": "6:\n\nmission\n\nplanner.\n\n•\n\nLab\n\n7:\n\nMonte\n\nCarlo\n\nmission\n\nanalysis.\n\n•\n\nLab\n\n8:\n\nFDIR\n\nand\n\ncommunication\n\nloss.\n\n•\n\nLab\n\n9:\n\ndigital\n\nmission\n\ntwin.\n\n•\n\nLab\n\n10:\n\nautonomous\n\naerospace\n\nmission.\n\nASSIGNMENT\n\nFeeds Portfolio Project P05: Aerospace Intelligence \nBuild a simulated mission covering dynamics, navigation, guidance, control, mission logic and recovery, with at least three injected failures. \nDeliverables\n\n•\n\nPhysics-based\n\npropagation\n\nwith\n\nvalidation\n\nPage 65"
+    },
+    {
+      "rank": 37,
+      "lesson_id": "2d2005c6-e2d3-52fd-80b4-a80f28d9ff36",
+      "chunk_id": "f66cdc0e-7f73-4ef5-8aa7-7ca769a07aad",
+      "position": 0,
+      "heading": "Portfolio Projects & Capstone",
+      "text": "TUTOR Frontier · Intelligent Systems Engineering Course Curriculum \n12.\n\nPortfolio\n\nprojects\n\nand\n\ncapstone\n\n12.1\n\nPortfolio\n\nprojects\n\nLearners graduate with evidence of capability, not only a completion record. Each portfolio project is a two-week \nassignment\n\nset\n\nalongside\n\nthe\n\nfollowing\n\nmodule\n\nand\n\nassessed\n\nin\n\nthe\n\nsame\n\nway\n\nas\n\na\n\nmodule\n\nproject:\n\nspecification,\n\ndesign,\n\nbaseline,\n\ncontrolled\n\nexperiments,\n\nfailure\n\nanalysis,\n\nreproducibility\n\nand\n\na\n\nten-minute\n\npresentation.\n\nCode\n\nProject\n\nWeeks\n\nDraws\n\non\n\nDeliverable\n\nP02\n Predictive Industrial \nIntelligence\n\n17-18\n\nM06-M08\n Anomaly detection, failure prediction and decision support for simulated equipment telemetry, with a \nleakage\n\naudit\n\nand\n\nuncertainty\n\nestimates.\n\nP01\n\nIntelligent\n\nVision\n\nSystem\n\n25-26\n\nM08,\n\nM12\n End-to-end perception pipeline with a robustness matrix, \nerror\n\nanalysis\n\nand\n\ndeployment\n\nplan.\n\nP03\n Research and Knowledge \nAgent\n\n37-38\n\nM16-M18\n Agent combining retrieval, evidence grounding, tool use and reasoning, with a cited experiment report and \nreliability\n\ncase.\n\nP04\n\nAutonomous\n\nSystem\n\n47-48\n\nM21-M23\n Simulated perception, state estimation, planning and \naction,\n\nwith\n\na\n\nsafety\n\nmonitor\n\nand\n\nfault\n\ncampaign.\n\nP05\n\nAerospace\n\nIntelligence\n\n49-50\n\nM24\n Simulated mission planning, trajectory optimisation and \nanomaly\n\nresponse\n\nin\n\na\n\ndigital\n\nmission\n\ntwin.\n\nP06\n\nResearch\n\nReproduction\n\n57-58\n\nM29\n Reproduction of a technical paper, a modified method \nand\n\nnew\n\nexperimental\n\nevidence.\n\n12.2\n\nThe\n\ncapstone\n\n(M30)\n\nEach learner receives a problem rather than a tutorial. They define the architecture, build the system, run \nexperiments,\n\nevaluate\n\nits\n\nlimitations\n\nand\n\ndefend\n\ntheir\n\nengineering\n\ndecisions.\n\nThe\n\nsystem\n\nmust\n\noperate\n\nas\n\na\n\nclosed\n\nloop:\n\nit\n\ngathers\n\nevidence,\n\nbuilds\n\nan\n\ninternal"
+    },
+    {
+      "rank": 38,
+      "lesson_id": "2d2005c6-e2d3-52fd-80b4-a80f28d9ff36",
+      "chunk_id": "e1799919-f2bf-4cd5-9a0b-9dc9f4a65410",
+      "position": 1,
+      "heading": "Portfolio Projects & Capstone",
+      "text": "evaluate\n\nits\n\nlimitations\n\nand\n\ndefend\n\ntheir\n\nengineering\n\ndecisions.\n\nThe\n\nsystem\n\nmust\n\noperate\n\nas\n\na\n\nclosed\n\nloop:\n\nit\n\ngathers\n\nevidence,\n\nbuilds\n\nan\n\ninternal\n\nrepresentation,\n\nmakes\n\nan\n\ninference\n\nor\n\ndecision,\n\nacts\n\nor\n\nrecommends,\n\nobserves\n\nthe\n\noutcome\n\nand\n\nchecks\n\nit\n\nagainst\n\nstated\n\nconstraints.\n\nFigure\n\n6.\n\nCapstone\n\nphases\n\nand\n\nreview\n\ngates.\n\nGate\n\nPhase\n\nWeeks\n\nRequirement\n\nfor\n\npassing\n\nthe\n\ngate\n\nG0\n\nFraming\n\n55\n\nOne\n\nmeasurable\n\nquestion\n\nand\n\na\n\ndefined\n\nscope\n\nG1\n\nSpecification\n\n56\n\nRequirements,\n\nconstraints,\n\nmetrics\n\nand\n\nfailure\n\ncriteria\n\napproved\n\nG2\n\nDesign\n\n57-58\n\nArchitecture,\n\ninterfaces,\n\ndata\n\nand\n\nenvironment\n\ndescriptions,\n\nand\n\nthreat\n\nmodel\n\nG3\n\nBaseline\n\n59-60\n\nBaseline\n\nsystem\n\nrunning\n\nand\n\nevaluated\n\nG4\n\nPrototype\n\n61-62\n\nEnd-to-end\n\nsystem\n\noperating\n\non\n\nrepresentative\n\ncases\n\nG5\n\nEvidence\n\n63-65\n\nMain,\n\nablation,\n\nrobustness\n\nand\n\nrecovery\n\nstudies\n\ncomplete\n\nG6\n\nRelease\n\n66-67\n\nReproducible\n\nenvironment,\n\ndocumentation,\n\ntests\n\nand\n\nrelease\n\ncandidate\n\nG7\n\nDefence\n\n68\n\nClaims,\n\nevidence\n\nand\n\nlimitations\n\ndefended\n\nunder\n\nexamination\n\nPage 80\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \nResearch\n\nquestion\n\nUnder [stated environment and constraints], can [mechanism or system] improve [measurable outcome] compared with [defined baseline], while meeting [safety, resource and reliability requirements]? \nTracks\n\nTrack\n\nExample\n\nsystem\n\nIntelligent\n\nlanguage\n\nsystems\n\nGrounded\n\nresearch\n\nagent\n\nwith\n\nplanning,\n\nretrieval,\n\nverification\n\nand\n\ncalibrated\n\nrefusal\n\nPerception\n\nand\n\nmultimodal\n\nintelligence\n\nVision,\n\nlanguage\n\nand\n\nsensor\n\npipeline\n\nwith\n\nuncertainty-aware\n\nfusion\n\nEmbodied\n\nand\n\nrobotic\n\nintelligence\n\nSimulated\n\nrobot\n\nautonomy\n\nloop\n\nwith\n\nestimation,\n\nplanning\n\nand\n\nrecovery\n\nAerospace\n\nand\n\nmission\n\nintelligence\n\nMission\n\nmanager\n\nwith\n\ntrajectory\n\nsimulation,\n\nreplanning\n\nand\n\nfault\n\nmanagement\n\nScientific\n\nand\n\nphysics-based\n\nintelligence\n\nHybrid\n\nsimulator\n\nwith\n\na\n\nlearned\n\nsurrogate\n\nor\n\noperator\n\nand\n\nuncertainty\n\nanalysis\n\nAdaptive\n\nand\n\nagentic"
+    },
+    {
+      "rank": 39,
+      "lesson_id": "2d2005c6-e2d3-52fd-80b4-a80f28d9ff36",
+      "chunk_id": "0c2389fb-ffac-4a1c-8f52-7158d82f11b7",
+      "position": 2,
+      "heading": "Portfolio Projects & Capstone",
+      "text": "with\n\nestimation,\n\nplanning\n\nand\n\nrecovery\n\nAerospace\n\nand\n\nmission\n\nintelligence\n\nMission\n\nmanager\n\nwith\n\ntrajectory\n\nsimulation,\n\nreplanning\n\nand\n\nfault\n\nmanagement\n\nScientific\n\nand\n\nphysics-based\n\nintelligence\n\nHybrid\n\nsimulator\n\nwith\n\na\n\nlearned\n\nsurrogate\n\nor\n\noperator\n\nand\n\nuncertainty\n\nanalysis\n\nAdaptive\n\nand\n\nagentic\n\nintelligence\n Adaptive agent with memory, evaluation, safety gates and a continual-update \nprocedure\n\nFinal\n\ndeliverables\n\n•\n\nVersion-controlled\n\nrepository\n\nwith\n\nsource,\n\nconfiguration,\n\ntests\n\nand\n\ndocumentation\n\n•\n\nReproducible\n\nenvironment\n\nand\n\ndata\n\nor\n\nenvironment\n\nmanifests\n\n•\n\nIndependent\n\nevaluation\n\nand\n\nstress-testing\n\nharness\n\n•\n\nResearch\n\ndossier\n\nwith\n\na\n\nliterature\n\nreview\n\nof\n\nat\n\nleast\n\n12\n\nsources\n\n•\n\nRisk\n\nand\n\nsafety\n\ndossier\n\nwith\n\nthreat\n\nmodel\n\nand\n\nfailure\n\ntaxonomy\n\n•\n\nTechnical\n\npaper,\n\ndefence\n\npresentation\n\nand\n\nrelease\n\nnote\n\nOral\n\ndefence\n\n(50\n\nminutes)\n\nMinutes\n\nContent\n\n0-5\n\nProblem,\n\nstakes\n\nand\n\nsystem\n\nboundary\n\n5-12\n\nArchitecture\n\nand\n\nmathematical\n\ncore\n\n12-20\n\nBaseline\n\nand\n\nexperimental\n\ndesign\n\n20-28\n\nMain\n\nresults,\n\nablation\n\nand\n\nrobustness\n\n28-34\n\nFailure,\n\nrecovery\n\nand\n\nsecurity\n\n34-40\n\nReproducibility\n\ndemonstration\n\n40-50\n\nQuestions\n\nPage 81\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \n13.\n\nAssessment\n\nframework\n\nLearners are assessed on the evidence they produce: derivations, code, experimental results, failure analyses, \nreproducible\n\nartifacts\n\nand\n\noral\n\nexamination.\n\nEach\n\nmodule\n\ncombines\n\ncontinuous\n\npractice,\n\nlaboratory\n\nwork,\n\na\n\nproject\n\nand\n\na\n\ntechnical\n\nviva.\n\n13.1\n\nModule\n\nweightings\n\nFigure\n\n7.\n\nAssessment\n\nweightings\n\nby\n\nmodule\n\ngroup.\n\nModules\n\nComponents\n\nand\n\nweights\n\nM01-M07\n Daily practice 20% · Laboratories 30% · Research reproduction 10% · Project 20% · Technical viva 15% · \nEngineering\n\nrecord\n\n5%"
+    },
+    {
+      "rank": 40,
+      "lesson_id": "2d2005c6-e2d3-52fd-80b4-a80f28d9ff36",
+      "chunk_id": "7ebd04b9-3396-4c16-aa33-6f01722081a0",
+      "position": 4,
+      "heading": "Portfolio Projects & Capstone",
+      "text": "Level\n\nDescriptor\n\nThe\n\nlearner\n\ncan\n\nL1\n\nReproduce\n\nApply\n\na\n\nknown\n\nmethod\n\ncorrectly\n\nL2\n\nModify\n\nChange\n\na\n\ncomponent\n\nwhile\n\npreserving\n\nits\n\nrequirements\n\nL3\n\nDiagnose\n\nIsolate\n\nand\n\nexplain\n\na\n\nfailure\n\nPage 82\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \nL4\n\nIntegrate\n\nCombine\n\nseveral\n\ncomponents\n\ninto\n\na\n\nworking\n\nsystem\n\nL5\n\nEngineer\n\nSelect\n\nmethods\n\non\n\nthe\n\nbasis\n\nof\n\nconstraints\n\nand\n\nevidence\n\nL6\n\nResearch\n\nFormulate\n\nand\n\ninvestigate\n\na\n\nnew\n\nquestion\n\nwith\n\ndefensible\n\nevidence\n\n13.3\n\nAssessment\n\nmethods\n\nMethod\n\nWhat\n\nis\n\nassessed\n\nDaily\n\npractice\n\nSelected\n\nderivations,\n\ncode\n\nand\n\nreasoning\n\nfrom\n\nthe\n\n60-problem\n\nbank\n\nLaboratories\n Correctness, reproducibility, derived analysis, repeated measurement, root-cause \ndiagnosis\n\nand\n\nreporting\n\nQuiz\n\nUnderstanding\n\nof\n\ncore\n\nconcepts;\n\nformative,\n\nwith\n\nexplanations\n\nfor\n\neach\n\nanswer\n\nResearch\n\nreproduction\n Claim, assumptions, independent implementation, experiment, results, deviation and \nconclusion\n\nProject\n\nor\n\ncontrolled\n\nstudy\n Pre-declared question, baseline, controls, uncertainty estimates and at least one \ndeliberate\n\nfailure\n\nTechnical\n\nviva\n\nLive\n\nderivation,\n\ncode\n\nwalkthrough,\n\nfailure\n\ndiagnosis\n\nand\n\ndefence\n\nof\n\ndesign\n\ndecisions\n\nEngineering\n\nrecord\n\nDecision\n\nrecords,\n\nenvironment\n\nmanifest,\n\nversion\n\nhistory\n\nand\n\nknown\n\nlimitations\n\n13.4\n\nProgression\n\nand\n\naward\n\nStage\n\nRequirement\n\nModule\n\ncompletion\n All items on the module completion record submitted and verified by faculty, at the \nrequired\n\nperformance\n\nlevel\n\nM28\n\nprogression\n Identified risks have owners, mandatory controls are demonstrated and recovery is \ntested\n\nM29\n\nprogression\n The evidence chain is complete enough to audit and the conclusion does not exceed \nthe\n\nmeasurements\n\nCapstone\n Gates G0 to G7 passed; work without a measurable question, a credible baseline or \nreproducible\n\nresults\n\nis\n\nreturned\n\nfor\n\nrevision\n\nProgramme\n\ncompletion\n\nAll\n\n30\n\nmodules\n\ncomplete,\n\nsix\n\nportfolio\n\nprojects\n\npassed\n\nand\n\nthe\n\ncapstone\n\ndefended"
+    },
+    {
+      "rank": 41,
+      "lesson_id": "311d3cad-f8c7-517b-841f-1f8bd7a84257",
+      "chunk_id": "caf31852-3d5d-431f-b16d-7b5a6584a7ad",
+      "position": 0,
+      "heading": "M08 Syllabus & Labs",
+      "text": "TUTOR Frontier · Intelligent Systems Engineering Course Curriculum \nRun a pre-specified, end-to-end experiment on the M07 pipeline with uncertainty estimates, robustness tests and explicit decision rules. \nDeliverables\n\n•\n Pre-registered hypothesis and decision rule \n•\n Leakage-safe split protocol \n•\n Uncertainty analysis (bootstrap or repeated runs) \n•\n Robustness and shift matrix \n•\n Reproducibility record \nLearners also complete the module's 60 daily practice problems, one research reproduction and a one-page report on the \nindustry\n\ntechnical\n\nsession.\n\nASSESSMENT\n\nDaily practice Laboratories Research reproduction Integrated experiment Technical viva Engineering record \n20%\n 35% 10% 20% 10% 5% \nSAMPLE\n\nVIVA\n\nQUESTIONS\n\n•\n Why is the experimental unit important? \n•\n What does an ablation establish? \n•\n Why is a quantum speed-up claim incomplete without a classical baseline? \nPage 32\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \nM09\n\nNeural\n\nNetworks\n\nfrom\n\nFirst\n\nPrinciples\n\nWeeks\n\nPrerequisites\n\nLessons\n\nLaboratories\n\nQuiz\n\n17-18\n M04, M07, M08 10 9 5 questions \n Derives neural networks as compositions of functions with parameters, losses and gradients. Learners build and \nverify\n\na\n\nNumPy\n\nnetwork\n\nbefore\n\nmoving\n\nto\n\nPyTorch,\n\nand\n\nlearn\n\nto\n\ndiagnose\n\ntraining\n\nfailures\n\nwith\n\nevidence. \nLEARNING\n\nOBJECTIVES\n\nOn completing the module, learners will be able to: \n•\n derive a multilayer network, its computational graph and backpropagation, recording tensor shapes at \nevery\n\nstep; \n•\n implement and gradient-check a NumPy network, then reproduce it in PyTorch with matching outputs; \n•\n explain how initialisation, normalisation and regularisation affect training, and diagnose dead, saturated, \nvanishing\n\nor\n\nexploding"
+    },
+    {
+      "rank": 42,
+      "lesson_id": "426a091d-9cf8-54ac-97c8-046c7de905b6",
+      "chunk_id": "f307963a-57a9-4d8e-957a-3ee186141414",
+      "position": 0,
+      "heading": "M13 Syllabus & Labs",
+      "text": "TUTOR Frontier · Intelligent Systems Engineering Course Curriculum \n•\n\nRobustness\n\nresults\n\nby\n\nSNR\n\nand\n\nspeech\n\nrate\n\n•\n\nError\n\nanalysis\n\nwith\n\nexamples\n\nLearners also complete the module's 60 daily practice problems, one research reproduction and a one-page report on the \nindustry\n\ntechnical\n\nsession.\n\nASSESSMENT\n\nDaily\n\npractice\n\nLaboratories\n\nControlled\n\nstudy\n Research \nreproduction\n\nProject\n\nTechnical\n\nviva\n\n15%\n\n35%\n\n15%\n\n10%\n\n15%\n\n10%\n\nSAMPLE\n\nVIVA\n\nQUESTIONS\n\n•\n\nWhy\n\nis\n\ntokenisation\n\npart\n\nof\n\nthe\n\nmodel\n\ninterface?\n\n•\n\nWhat\n\nis\n\nperplexity\n\nmeasuring?\n\n•\n\nWhy\n\ncan\n\ndownsampling\n\nspeech\n\ncreate\n\naliasing?\n\nPage 43\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \nM14\n\nGenerative\n\nModels\n\nWeeks\n\nPrerequisites\n\nLessons\n\nLaboratories\n\nQuiz\n\n27-28\n\nM03,\n\nM04,\n\nM09-M11\n\n10\n\n8\n\n5\n\nquestions\n\nDevelops generative modelling from simple distributions to modern deep generators: autoregressive models, \nVAEs,\n\nflows,\n\nGANs,\n\nscore-based\n\nand\n\ndiffusion\n\nmodels,\n\nand\n\ntheir\n\nevaluation\n\nas\n\ndistributions.\n\nLEARNING\n\nOBJECTIVES\n\nOn completing the module, learners will be able to: \n•\n\ndistinguish\n\na\n\ndistribution,\n\na\n\ngenerator,\n\na\n\ntraining\n\nobjective\n\nand\n\na\n\nsample-quality\n\nmeasure;\n\n•\n\nderive\n\nautoregressive\n\nmodels,\n\nVAEs,\n\nnormalising\n\nflows,\n\nGANs,\n\nscore-based\n\nand\n\ndiffusion\n\nmodels;\n\n•\n\ncontrol\n\ngeneration\n\nthrough\n\nconditioning,\n\nguidance\n\nand\n\ndecoding\n\nsettings;\n\n•\n\nevaluate\n\ngenerators\n\nfor\n\nlikelihood,\n\ncoverage,\n\ndiversity\n\nand\n\nmemorisation.\n\nLESSON\n\nPLAN\n\nNo.\n\nLesson\n\nContent\n\nL01\n Generative models and maximum \nlikelihood\n\nDistribution\n\nfitting\n\nand\n\nwhy\n\nlog-probability\n\nis\n\nused.\n\nL02\n\nAutoregressive\n\ngeneration\n\nThe\n\nchain\n\nrule\n\nof\n\nprobability\n\nand\n\nexact\n\nsequence\n\nlikelihood.\n\nL03\n\nLatent\n\nvariables\n\nand\n\nVAEs\n\nThe\n\nELBO,\n\nthe\n\nreparameterisation\n\ntrick\n\nand\n\nposterior\n\ncollapse.\n\nL04\n\nNormalising\n\nflows\n\nInvertible\n\nmaps,\n\ncoupling\n\nlayers\n\nand\n\nexact\n\ndensities.\n\nL05\n\nGenerative"
+    },
+    {
+      "rank": 43,
+      "lesson_id": "426a091d-9cf8-54ac-97c8-046c7de905b6",
+      "chunk_id": "b9d38bef-12bd-47cf-ad36-af175a720bcb",
+      "position": 3,
+      "heading": "M13 Technical Viva Defense Questions",
+      "text": "Language\n\nand\n\nSpeech\n\nIntelligence\n • Why is tokenisation part of the model interface? \n•\n\nWhat\n\nis\n\nperplexity\n\nmeasuring?\n\n•\n\nWhy\n\ncan\n\ndownsampling\n\nspeech\n\ncreate\n\naliasing?"
+    },
+    {
+      "rank": 44,
+      "lesson_id": "46559cd8-9a68-501c-907b-1c2f03171a79",
+      "chunk_id": "ebc29edd-d225-4dfd-af63-6c8701d17d9b",
+      "position": 0,
+      "heading": "M10 Syllabus & Labs",
+      "text": "TUTOR Frontier · Intelligent Systems Engineering Course Curriculum \n•\n Conclusion stating what the evidence does and does not establish \nLearners also complete the module's 60 daily practice problems, one research reproduction and a one-page report on the \nindustry\n\ntechnical\n\nsession.\n\nASSESSMENT\n\nDaily practice Laboratories Controlled study Research reproduction Project Technical viva \n15%\n 35% 15% 10% 15% 10% \nSAMPLE\n\nVIVA\n\nQUESTIONS\n\n•\n Why can residual connections help optimisation? \n•\n How would you prove that a checkpoint resume is correct? \n•\n What is a fair architecture comparison? \nPage 36\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \nM11\n\nTransformers\n\nand\n\nRepresentation\n\nLearning\n\nWeeks\n\nPrerequisites\n\nLessons\n\nLaboratories\n\nQuiz\n\n21-22\n M10 10 8 5 questions \n Derives the transformer as a composition of explicit tensor operations: tokens, embeddings, positional \ninformation,\n\nattention,\n\nmasking\n\nand\n\nresidual\n\nblocks,\n\nand\n\nstudies\n\nwhat\n\ntraining\n\nobjectives\n\ndo\n\nto\n\nthe\n\nlearned\n\nrepresentation. \nLEARNING\n\nOBJECTIVES\n\nOn completing the module, learners will be able to: \n•\n represent discrete symbols as embeddings and incorporate positional information; \n•\n derive scaled dot-product and multi-head attention with masking, and build a transformer block from \nprimitives; \n•\n\nexplain\n\ntraining\n\nobjectives,\n\narchitecture\n\nfamilies,\n\nattention\n\ncost\n\nand\n\nefficient\n\nattention;\n\n•\n\ntrain,\n\ndiagnose\n\nand\n\nprobe\n\na\n\nsmall\n\ntransformer,\n\nand\n\nreproduce\n\na\n\npublished\n\nresult.\n\nLESSON\n\nPLAN\n\nNo.\n\nLesson\n\nContent"
+    },
+    {
+      "rank": 45,
+      "lesson_id": "46a1bb44-d503-58b9-8d3f-3f7884f89f63",
+      "chunk_id": "80e966b2-96e5-4c55-b4c6-71bc897bd6d8",
+      "position": 0,
+      "heading": "M21 Syllabus & Labs",
+      "text": "TUTOR Frontier · Intelligent Systems Engineering Course Curriculum \n•\n\nMulti-seed\n\nlearning\n\ncurves\n\nwith\n\nuncertainty\n\n•\n\nTrajectory\n\nanalysis\n\n•\n\nViolation\n\nand\n\nintervention\n\nrates\n\nwith\n\nand\n\nwithout\n\nthe\n\nshield\n\n•\n\nFailure\n\nanalysis\n\nLearners also complete the module's 60 daily practice problems, one research reproduction and a one-page report on the \nindustry\n\ntechnical\n\nsession.\n\nASSESSMENT\n\nDaily\n\npractice\n\nLaboratories\n\nControlled\n\nstudy\n Research \nreproduction\n\nProject\n\nTechnical\n\nviva\n\n15%\n\n35%\n\n15%\n\n10%\n\n15%\n\n10%\n\nSAMPLE\n\nVIVA\n\nQUESTIONS\n\n•\n\nWhat\n\nis\n\nthe\n\nBellman\n\nprinciple?\n\n•\n\nWhy\n\ndoes\n\nexploration\n\nmatter?\n\n•\n\nWhy\n\ncan\n\nmodel-based\n\nRL\n\nfail?\n\nPage 60\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \nM22\n\nRobotics\n\nand\n\nEmbodied\n\nIntelligence\n\nWeeks\n\nPrerequisites\n\nLessons\n\nLaboratories\n\nQuiz\n\n43-44\n\nM02,\n\nM04,\n\nM21\n\n10\n\n10\n\n5\n\nquestions\n\nTreats a robot as a coupled estimation, control and decision system. Learners build geometry, kinematics, \ndynamics,\n\ncontrol,\n\nestimation,\n\nmapping\n\nand\n\nplanning\n\nin\n\nsimulation,\n\nand\n\nkeep\n\nlearned\n\ncomponents\n\ninside\n\nphysical\n\nsafety\n\nlimits.\n\nLEARNING\n\nOBJECTIVES\n\nOn completing the module, learners will be able to: \n•\n\nrepresent\n\nframes,\n\nrotations\n\nand\n\nrigid\n\ntransforms,\n\nand\n\nderive\n\nforward\n\nand\n\ninverse\n\nkinematics\n\nand\n\nJacobians;\n\n•\n\nformulate\n\nand\n\nsimulate\n\nrobot\n\ndynamics\n\nand\n\ntrack\n\ntrajectories\n\nwith\n\nfeedback\n\ncontrol;\n\n•\n\nestimate\n\nstate\n\nwith\n\nKalman-family\n\nfilters\n\nand\n\nfuse\n\nsensors;\n\n•\n\nbuild\n\nmaps,\n\nplan\n\ncollision-free\n\nmotion\n\nand\n\nanalyse\n\ncontact;\n\n•\n\nassess\n\nthe\n\nsimulation-to-reality\n\ngap\n\nwhile\n\nkeeping\n\nsafety\n\nconstraints\n\naround\n\nlearned\n\ncomponents.\n\nLESSON\n\nPLAN\n\nNo.\n\nLesson\n\nContent\n\nL01\n\nRobots\n\nas\n\nclosed-loop\n\nsystems\n\nSensing,\n\nestimation,\n\ndecision,\n\nactuation\n\nand\n\nfeedback;\n\ncoordinate\n\nframes.\n\nL02\n\nRotations\n\nand\n\nrigid\n\ntransforms\n\nRotation\n\nmatrices,"
+    },
+    {
+      "rank": 46,
+      "lesson_id": "46a1bb44-d503-58b9-8d3f-3f7884f89f63",
+      "chunk_id": "708219a3-1744-4963-8c81-78ebfa6d39da",
+      "position": 1,
+      "heading": "M21 Syllabus & Labs",
+      "text": "safety\n\nconstraints\n\naround\n\nlearned\n\ncomponents.\n\nLESSON\n\nPLAN\n\nNo.\n\nLesson\n\nContent\n\nL01\n\nRobots\n\nas\n\nclosed-loop\n\nsystems\n\nSensing,\n\nestimation,\n\ndecision,\n\nactuation\n\nand\n\nfeedback;\n\ncoordinate\n\nframes.\n\nL02\n\nRotations\n\nand\n\nrigid\n\ntransforms\n\nRotation\n\nmatrices,\n\nquaternions,\n\nhomogeneous\n\ntransforms\n\nand\n\nLie\n\ngroups.\n\nL03\n\nVelocities,\n\nsensors\n\nand\n\ncalibration\n\nTwists,\n\nmeasurement\n\nmodels\n\nand\n\nintrinsic\n\nand\n\nextrinsic\n\ncalibration.\n\nL04\n\nKinematics\n\nand\n\nJacobians\n\nForward\n\nand\n\ninverse\n\nkinematics\n\nand\n\nsingular\n\nconfigurations.\n\nL05\n\nDynamics\n\nand\n\ntrajectories\n\nEquations\n\nof\n\nmotion\n\nand\n\nfeasible\n\ntrajectories.\n\nL06\n\nFeedback\n\nand\n\nfeedforward\n\ncontrol\n\nPID,\n\nstate\n\nfeedback\n\nand\n\ntracking\n\nunder\n\nlimits.\n\nL07\n\nState\n\nestimation\n\nand\n\nsensor\n\nfusion\n\nKalman,\n\nextended\n\nand\n\nunscented\n\nfilters.\n\nL08\n\nMapping\n\nand\n\nmotion\n\nplanning\n\nSLAM,\n\noccupancy\n\nmaps,\n\nsearch\n\nand\n\nsampling-based\n\nplanning.\n\nL09\n\nManipulation,\n\ncontact\n\nand\n\nlocomotion\n\nGrasping,\n\ncontact\n\nforces\n\nand\n\nwhole-body\n\ncontrol.\n\nL10\n\nReal\n\ntime\n\nand\n\nsim-to-real\n\nTiming,\n\nlatency,\n\nsimulator\n\nfidelity\n\nand\n\nphysical\n\nsafety.\n\nLABORATORY\n\nWORK\n\n•\n\nLab\n\n1:\n\nframe\n\nand\n\ntransform\n\nengine.\n\n•\n\nLab\n\n2:\n\nforward\n\nand\n\ninverse\n\nkinematics.\n\n•\n\nLab\n\n3:\n\ndynamics\n\nsimulator.\n\n•\n\nLab\n\n4:\n\ntrajectory-tracking\n\ncontroller.\n\n•\n\nLab\n\n5:\n\nstate\n\nestimation.\n\n•\n\nLab\n\n6:\n\nsensor\n\nfusion\n\nwith\n\ndropout.\n\n•\n\nLab\n\n7:\n\nmapping\n\nand\n\nplanning.\n\n•\n\nLab\n\n8:\n\nmanipulation\n\nand\n\ncontact\n\nsimulation.\n\n•\n\nLab\n\n9:\n\nsim-to-real\n\nstress\n\ntest.\n\n•\n\nLab\n\n10:\n\nclosed-loop\n\nembodied\n\nintelligence.\n\nASSIGNMENT\n\nClosed-Loop Embodied System \nIntegrate perception, estimation, planning, control and actuation in simulation, with an independent safety monitor and evidence of robustness to physical parameter changes. \nDeliverables\n\n•\n\nSystem\n\narchitecture\n\nand\n\nframe\n\nconventions\n\nPage 61"
+    },
+    {
+      "rank": 47,
+      "lesson_id": "51e898c3-40b5-5538-b8ea-95f978e7a5ce",
+      "chunk_id": "d867846d-3b24-4e9f-836e-ef00d49c8c88",
+      "position": 0,
+      "heading": "M24 Syllabus & Labs",
+      "text": "TUTOR Frontier · Intelligent Systems Engineering Course Curriculum \n•\n\nNavigation\n\nestimate\n\nand\n\nuncertainty\n\n•\n\nGNC\n\nresponse\n\ntraces\n\n•\n\nMission\n\nphase\n\nand\n\ncontingency\n\nlogic\n\n•\n\nMonte\n\nCarlo\n\nsuccess\n\nand\n\nrecovery\n\nmetrics\n\nLearners also complete the module's 60 daily practice problems, one research reproduction and a one-page report on the \nindustry\n\ntechnical\n\nsession.\n\nASSESSMENT\n\nDaily\n\npractice\n\nLaboratories\n\nControlled\n\nstudy\n Research \nreproduction\n\nProject\n\nTechnical\n\nviva\n\n15%\n\n35%\n\n15%\n\n10%\n\n15%\n\n10%\n\nSAMPLE\n\nVIVA\n\nQUESTIONS\n\n•\n\nWhy\n\nis\n\nframe\n\ndiscipline\n\nfundamental\n\nin\n\naerospace?\n\n•\n\nWhat\n\nare\n\norbital\n\nelements\n\nused\n\nfor?\n\n•\n\nWhat\n\nis\n\ndynamic\n\npressure?\n\nPage 66\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \n11.\n\nLevel\n\nV:\n\nFrontier\n\nIntelligence\n\nand\n\nResearch\n\nScientific ML, world models, continual learning, AI safety and governance, research engineering and the \ncapstone.\n\nThis\n\nlevel\n\nruns\n\nin\n\nWeeks\n\n49-68.\n\nCode\n\nModule\n\nWeeks\n\nLessons\n\n/\n\nlabs\n\nM25\n\nScientific\n\nMachine\n\nLearning\n\n49-50\n\n10\n\n/\n\n9\n\nM26\n\nWorld\n\nModels\n\nand\n\nModel-Based\n\nIntelligence\n\n51-52\n\n10\n\n/\n\n9\n\nM27\n\nContinual\n\nLearning\n\nand\n\nAdaptive\n\nIntelligence\n\n53-54\n\n10\n\n/\n\n9\n\nM28\n\nAI\n\nSafety,\n\nGovernance\n\nand\n\nSecure\n\nDeployment\n\n55-56\n\n10\n\n/\n\n9\n\nM29\n\nAI\n\nResearch\n\nEngineering\n\n57-58\n\n10\n\n/\n\n9\n\nM30\n\nIntelligent\n\nSystems\n\nCapstone\n\n55-68\n\n10\n\n/\n\n10\n\nPage 67"
+    },
+    {
+      "rank": 48,
+      "lesson_id": "51e898c3-40b5-5538-b8ea-95f978e7a5ce",
+      "chunk_id": "94668c18-3cfe-4878-809f-b96d6faa635d",
+      "position": 2,
+      "heading": "M24 Technical Viva Defense Questions",
+      "text": "Aerospace Intelligence and Mission \nSimulation\n\n•\n\nWhy\n\nis\n\nframe\n\ndiscipline\n\nfundamental\n\nin\n\naerospace?\n\n•\n\nWhat\n\nare\n\norbital\n\nelements\n\nused\n\nfor?\n\n•\n\nWhat\n\nis\n\ndynamic\n\npressure?"
+    },
+    {
+      "rank": 49,
+      "lesson_id": "65e75989-9c6f-553f-b882-43361520d860",
+      "chunk_id": "767caec0-673b-410b-9d91-37145634712f",
+      "position": 0,
+      "heading": "M17 Syllabus & Labs",
+      "text": "TUTOR Frontier · Intelligent Systems Engineering Course Curriculum \n•\n\nTyped\n\ntool\n\nregistry\n\nwith\n\nallow-list\n\n•\n\nVerification\n\nand\n\nrecovery\n\npolicies\n\n•\n\nSecurity\n\ntest\n\nresults\n\n•\n\nEvaluation\n\nacross\n\nseeded\n\ntasks\n\nLearners also complete the module's 60 daily practice problems, one research reproduction and a one-page report on the \nindustry\n\ntechnical\n\nsession.\n\nASSESSMENT\n\nDaily\n\npractice\n\nLaboratories\n\nControlled\n\nstudy\n Research \nreproduction\n\nProject\n\nTechnical\n\nviva\n\n15%\n\n35%\n\n15%\n\n10%\n\n15%\n\n10%\n\nSAMPLE\n\nVIVA\n\nQUESTIONS\n\n•\n\nWhat\n\nmakes\n\na\n\nsystem\n\nagentic?\n\n•\n\nWhat\n\nis\n\na\n\ntyped\n\ntool\n\ncontract?\n\n•\n\nWhy\n\ncan\n\na\n\ntool\n\nsucceed\n\nwhile\n\nthe\n\ntask\n\nfails?\n\nPage 51\n\nTUTOR Frontier · Intelligent Systems Engineering Course Curriculum \nM18\n\nAI\n\nEvaluation,\n\nRed\n\nTeaming\n\nand\n\nReliability\n\nWeeks\n\nPrerequisites\n\nLessons\n\nLaboratories\n\nQuiz\n\n35-36\n\nM08,\n\nM15-M17\n\n10\n\n10\n\n5\n\nquestions\n\nBrings evaluation, robustness, calibration, security testing and incident handling together into one reliability \ndiscipline,\n\nending\n\nwith\n\nevidence-based\n\nrelease\n\ndecisions.\n\nLEARNING\n\nOBJECTIVES\n\nOn completing the module, learners will be able to: \n•\n\ndefine\n\nmeasurable\n\nreliability\n\nrequirements,\n\ntest\n\noracles\n\nand\n\nerror\n\ntaxonomies;\n\n•\n\nbuild\n\ndeterministic\n\nevaluation\n\nharnesses,\n\nmetamorphic\n\ntests\n\nand\n\nrobustness\n\nmatrices;\n\n•\n\nevaluate\n\ncalibration,\n\nout-of-distribution\n\ndetection\n\nand\n\nabstention;\n\n•\n\nred-team\n\nmodels,\n\nretrieval\n\nsystems\n\nand\n\nagents;\n\n•\n\nrun\n\nfault\n\ninjection\n\nand\n\nincident\n\nreviews,\n\nand\n\ndefine\n\nevidence-based\n\nrelease\n\ngates.\n\nLESSON\n\nPLAN\n\nNo.\n\nLesson\n\nContent\n\nL01\n\nReliability\n\ncontracts\n\nInputs,\n\noutputs,\n\ninvariants,\n\nbudgets\n\nand\n\nfailure\n\nbehaviour.\n\nL02\n\nTest\n\noracles\n\nand\n\nerror\n\ntaxonomies\n\nDeciding\n\nwhat\n\ncorrect\n\nmeans,\n\nand\n\nseparating\n\nsymptom\n\nfrom\n\nroot\n\ncause.\n\nL03\n\nMetamorphic\n\ntesting\n\nand\n\ninvariants\n\nInput\n\ntransformations\n\nwith\n\nknown\n\noutput\n\nrelations.\n\nL04\n\nShift,"
+    },
+    {
+      "rank": 50,
+      "lesson_id": "6d7c5a3d-7bf0-5655-8e0e-333e605ba8cf",
+      "chunk_id": "20021ee9-cb33-40be-a2c1-3a42596099a3",
+      "position": 1,
+      "heading": "M13 (Language and Speech Intelligence) Quiz",
+      "text": "[M13 Q1] Perplexity is a function of …\nOptions: A: vocabulary size only | B: the average negative log-probability of the observed tokens | C: the number of layers | D: word error rate\nAnswer: B\nExplanation: Lower perplexity means the model assigns higher probability to the data.\n\n[M13 Q2] Why does tokenisation affect perplexity comparisons?\nOptions: A: It changes the unit over which probability is measured | B: It changes the hardware | C: It removes punctuation | D: It has no effect\nAnswer: A\nExplanation: Perplexities from different tokenisers are not directly comparable.\n\n[M13 Q3] The short-time Fourier transform trades off …\nOptions: A: accuracy and speed | B: pitch and loudness | C: time resolution and frequency resolution | D: training and inference\nAnswer: C\nExplanation: A longer window resolves frequency better but blurs timing.\n\n[M13 Q4] CTC allows training a recogniser without …\nOptions: A: audio | B: a loss function | C: frame-level alignment between audio and transcript | D: a decoder\nAnswer: C\nExplanation: CTC sums over all valid alignments.\n\n[M13 Q5] Word error rate counts …\nOptions: A: substitutions, deletions and insertions relative to the reference length | B: only incorrect words | C: characters per second | D: the decoder beam width\nAnswer: A\nExplanation: Edit distance at word level, normalised by reference length."
+    }
+  ]
+}

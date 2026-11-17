@@ -1,0 +1,1256 @@
+{
+  "test_name": "Tutor AI 10 Concurrent Student Load Test",
+  "timestamp": "2026-10-31T03:14:37.460115+00:00",
+  "server": "http://127.0.0.1:8001",
+  "endpoint": "http://127.0.0.1:8001/v1/tutor/turns",
+  "provider": "Gemini + Ollama embeddings",
+  "lesson": {
+    "title": "M19 Syllabus & Labs",
+    "lesson_id": "0452e793-3dbc-5561-a6d9-c5803d612b53",
+    "lesson_version_id": "dd78edc5-91e3-5289-8c95-682895561174"
+  },
+  "configuration": {
+    "concurrent_students": 10,
+    "timeout_seconds": 180
+  },
+  "summary": {
+    "total_requests": 10,
+    "successful_requests": 10,
+    "failed_requests": 0,
+    "success_rate_percent": 100.0,
+    "total_execution_time_seconds": 4.394,
+    "average_response_time_seconds": 3.463,
+    "fastest_response_seconds": 3.023,
+    "slowest_response_seconds": 4.099
+  },
+  "results": [
+    {
+      "student": 1,
+      "learner_ref": "lr_load_student_001",
+      "question": "Explain the main concepts covered in this lesson.",
+      "status_code": 200,
+      "success": true,
+      "response_time_seconds": 4.099,
+      "events_received": 13,
+      "answer": "Based on the lesson, the main concepts cover performance engineering from first principles, where learners model time and energy, write and optimise kernels, and defend optimisations using profiler evidence and causal explanations [P1]. \n\nKey topics include:\n* **Execution models and arithmetic intensity:** Estimating work and bytes moved, and looking at compute-bound versus memory-bound operations using the roofline model [P1, P2].\n* **Memory and execution:** Studying the memory hierarchy, spatial and temporal locality, SIMD, GPU execution models (grids, blocks, threads), coalescing, and tiling [P2].\n* **Optimisation and profiling:** Checking occupancy, dealing with divergence, synchronisation, overlapping communication, profiling, Amdahl's law, and kernel fusion [P2].\n* **Scaling:** Looking at multi-GPU communication, data parallelism, and end-to-end inference performance [P2].\n\n**Short Example:** In lesson L02, you learn about arithmetic intensity and the roofline to see if an operation is compute-bound or memory-bound [P1, P2].\n\nSources: [P1], [P2]",
+      "error": null,
+      "event_details": [
+        {
+          "event": "meta",
+          "data": {
+            "chat_id": "a61543ff-100e-45ff-9187-4e49e6434e1d",
+            "model": "gemini-3.5-flash-lite",
+            "provider": "gemini",
+            "prompt_version": "tutor/v1",
+            "safety_version": "safety/v1",
+            "mode": "explain",
+            "pinned_chunk_ids": [
+              "991e0eda-b8df-4d11-974f-9948a1e5b45e",
+              "b57a345c-d952-4f9f-a763-534126e3232d"
+            ]
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "Based on the lesson, the main concepts cover perf"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "ormance engineering from first principles, where learners model time and energy, write and optimise kernels, and defend optim"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "isations using profiler evidence and causal explanations [P1]. \n\nKey topics include:\n* **Execution models and arithmetic intensity:** Estimat"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "ing work and bytes moved, and looking at compute-bound versus memory-bound operations using t"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "he roofline model [P1, P2].\n* **Memory and execution:** Studying the memory hierarchy, spatial and temporal locality, "
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "SIMD, GPU execution models (grids, blocks, threads), coalescing, and tiling [P2].\n* **Optimisation and profiling:** Check"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "ing occupancy, dealing with divergence, synchronisation, overlapping communication, profiling, Amdah"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "l's law, and kernel fusion [P2].\n* **Scaling:** Looking at multi-GPU communication, data parallelism, and "
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "end-to-end inference performance [P2].\n\n**Short Example:** In lesson L02, you learn about arithmetic intensity and "
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "the roofline to see if an opera"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "tion is compute-bound or memory-bound [P1, P2].\n\nSources: [P1], [P2]"
+          }
+        },
+        {
+          "event": "final",
+          "data": {
+            "text": "Based on the lesson, the main concepts cover performance engineering from first principles, where learners model time and energy, write and optimise kernels, and defend optimisations using profiler evidence and causal explanations [P1]. \n\nKey topics include:\n* **Execution models and arithmetic intensity:** Estimating work and bytes moved, and looking at compute-bound versus memory-bound operations using the roofline model [P1, P2].\n* **Memory and execution:** Studying the memory hierarchy, spatial and temporal locality, SIMD, GPU execution models (grids, blocks, threads), coalescing, and tiling [P2].\n* **Optimisation and profiling:** Checking occupancy, dealing with divergence, synchronisation, overlapping communication, profiling, Amdahl's law, and kernel fusion [P2].\n* **Scaling:** Looking at multi-GPU communication, data parallelism, and end-to-end inference performance [P2].\n\n**Short Example:** In lesson L02, you learn about arithmetic intensity and the roofline to see if an operation is compute-bound or memory-bound [P1, P2].\n\nSources: [P1], [P2]",
+            "message": "Explain the main concepts covered in this lesson.",
+            "blocked": false,
+            "replaced": false,
+            "off_topic": false,
+            "citations": [
+              {
+                "label": "P1",
+                "chunk_id": "991e0eda-b8df-4d11-974f-9948a1e5b45e",
+                "heading": "M19 Syllabus & Labs"
+              },
+              {
+                "label": "P2",
+                "chunk_id": "b57a345c-d952-4f9f-a763-534126e3232d",
+                "heading": "M19 Syllabus & Labs"
+              }
+            ],
+            "safety": {
+              "input": {
+                "category": "ok",
+                "severity": "none",
+                "flagged": false
+              },
+              "output": {
+                "category": "ok",
+                "severity": "none",
+                "flagged": false
+              },
+              "personal_data": [],
+              "grounding": 0.723
+            },
+            "flags": [],
+            "context": {
+              "pinned_chunk_ids": [
+                "991e0eda-b8df-4d11-974f-9948a1e5b45e",
+                "b57a345c-d952-4f9f-a763-534126e3232d"
+              ],
+              "repinned": false,
+              "extra_retrieval": false,
+              "similarity": null
+            },
+            "usage": {
+              "prompt_tokens_estimate": 855,
+              "reply_tokens_estimate": 142,
+              "history_used": 0,
+              "history_dropped": 0,
+              "cost": 0.0
+            },
+            "latency_ms": 3942,
+            "model": "gemini-3.5-flash-lite",
+            "prompt_version": "tutor/v1",
+            "safety_version": "safety/v1",
+            "mode": "explain"
+          }
+        }
+      ]
+    },
+    {
+      "student": 2,
+      "learner_ref": "lr_load_student_002",
+      "question": "What is an intelligent system? Explain with an example.",
+      "status_code": 200,
+      "success": true,
+      "response_time_seconds": 3.412,
+      "events_received": 6,
+      "answer": "The lesson does not cover the definition of an intelligent system. It only mentions building one probabilistic component of an intelligent system, such as a calibrated classifier or a Bayesian state estimator [P3]. \n\nLet's stick to our lesson passages! Do you have a question about the M19 syllabus, labs, or the technical viva questions from the text?",
+      "error": null,
+      "event_details": [
+        {
+          "event": "meta",
+          "data": {
+            "chat_id": "74c6b6c9-527d-40f7-8387-2b6e394d986e",
+            "model": "gemini-3.5-flash-lite",
+            "provider": "gemini",
+            "prompt_version": "tutor/v1",
+            "safety_version": "safety/v1",
+            "mode": "explain",
+            "pinned_chunk_ids": [
+              "991e0eda-b8df-4d11-974f-9948a1e5b45e",
+              "a10842f1-e3a2-4e00-948a-fe2215b3ccea",
+              "f3a0d650-1e2d-4660-b94a-4d0cc5761f2b",
+              "1efb38f8-1327-4966-9cfe-69d1e4aee663"
+            ]
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "The lesson does not cover the definition of an intelligent system. It "
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "only mentions building one probabilistic component of an intelligent system, such as a calibrated"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": " classifier or a Bayesian state estimator [P3]. \n\nLet's stick to our lesson passages! Do you have a question about th"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "e M19 syllabus, labs, or the technical viva questions from the text?"
+          }
+        },
+        {
+          "event": "final",
+          "data": {
+            "text": "The lesson does not cover the definition of an intelligent system. It only mentions building one probabilistic component of an intelligent system, such as a calibrated classifier or a Bayesian state estimator [P3]. \n\nLet's stick to our lesson passages! Do you have a question about the M19 syllabus, labs, or the technical viva questions from the text?",
+            "message": "What is an intelligent system? Explain with an example.",
+            "blocked": false,
+            "replaced": false,
+            "off_topic": false,
+            "citations": [
+              {
+                "label": "P3",
+                "chunk_id": "f3a0d650-1e2d-4660-b94a-4d0cc5761f2b",
+                "heading": "M02 Syllabus & Labs"
+              }
+            ],
+            "safety": {
+              "input": {
+                "category": "ok",
+                "severity": "none",
+                "flagged": false
+              },
+              "output": {
+                "category": "ok",
+                "severity": "none",
+                "flagged": false
+              },
+              "personal_data": [],
+              "grounding": 0.559
+            },
+            "flags": [],
+            "context": {
+              "pinned_chunk_ids": [
+                "991e0eda-b8df-4d11-974f-9948a1e5b45e",
+                "a10842f1-e3a2-4e00-948a-fe2215b3ccea",
+                "f3a0d650-1e2d-4660-b94a-4d0cc5761f2b",
+                "1efb38f8-1327-4966-9cfe-69d1e4aee663"
+              ],
+              "repinned": false,
+              "extra_retrieval": false,
+              "similarity": null
+            },
+            "usage": {
+              "prompt_tokens_estimate": 722,
+              "reply_tokens_estimate": 57,
+              "history_used": 0,
+              "history_dropped": 0,
+              "cost": 0.0
+            },
+            "latency_ms": 3334,
+            "model": "gemini-3.5-flash-lite",
+            "prompt_version": "tutor/v1",
+            "safety_version": "safety/v1",
+            "mode": "explain"
+          }
+        }
+      ]
+    },
+    {
+      "student": 3,
+      "learner_ref": "lr_load_student_003",
+      "question": "Explain the importance of typed schemas in software systems.",
+      "status_code": 200,
+      "success": true,
+      "response_time_seconds": 3.023,
+      "events_received": 7,
+      "answer": "The lesson does not cover typed schemas in software systems. It only mentions a question about data engineering and representation: \"Why is a schema more than a list of column names?\" [P3]. \n\nLet's stick to what is in our lesson passages [P1-P5]. Would you like to look at arithmetic intensity, memory hierarchy, or one of the lab topics from the lesson instead?",
+      "error": null,
+      "event_details": [
+        {
+          "event": "meta",
+          "data": {
+            "chat_id": "dfef7d45-442e-4745-8779-2098799c3c18",
+            "model": "gemini-3.5-flash-lite",
+            "provider": "gemini",
+            "prompt_version": "tutor/v1",
+            "safety_version": "safety/v1",
+            "mode": "explain",
+            "pinned_chunk_ids": [
+              "b57a345c-d952-4f9f-a763-534126e3232d",
+              "a10842f1-e3a2-4e00-948a-fe2215b3ccea",
+              "2947cf3a-a40b-4307-a18c-6de0db2b7f28",
+              "6e0a1518-9c15-4c20-9fef-fb5bd1bb44f0",
+              "c7b60102-ab12-4321-a113-6b995c3f434a"
+            ]
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "The lesson does not cover typed schemas in "
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "software systems. It only mentions a question about data engineering and representation: \"Wh"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "y is a schema more than a list of column names?\" [P3]. \n\nLet's stick to what is in our lesson passages [P1-P5]. Woul"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "d you like to look at arithmetic intensity,"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": " memory hierarchy, or one of the lab topics from the lesson instead?"
+          }
+        },
+        {
+          "event": "final",
+          "data": {
+            "text": "The lesson does not cover typed schemas in software systems. It only mentions a question about data engineering and representation: \"Why is a schema more than a list of column names?\" [P3]. \n\nLet's stick to what is in our lesson passages [P1-P5]. Would you like to look at arithmetic intensity, memory hierarchy, or one of the lab topics from the lesson instead?",
+            "message": "Explain the importance of typed schemas in software systems.",
+            "blocked": false,
+            "replaced": false,
+            "off_topic": false,
+            "citations": [
+              {
+                "label": "P3",
+                "chunk_id": "2947cf3a-a40b-4307-a18c-6de0db2b7f28",
+                "heading": "M06 Technical Viva Defense Questions"
+              }
+            ],
+            "safety": {
+              "input": {
+                "category": "ok",
+                "severity": "none",
+                "flagged": false
+              },
+              "output": {
+                "category": "ok",
+                "severity": "none",
+                "flagged": false
+              },
+              "personal_data": [],
+              "grounding": 0.564
+            },
+            "flags": [],
+            "context": {
+              "pinned_chunk_ids": [
+                "b57a345c-d952-4f9f-a763-534126e3232d",
+                "a10842f1-e3a2-4e00-948a-fe2215b3ccea",
+                "2947cf3a-a40b-4307-a18c-6de0db2b7f28",
+                "6e0a1518-9c15-4c20-9fef-fb5bd1bb44f0",
+                "c7b60102-ab12-4321-a113-6b995c3f434a"
+              ],
+              "repinned": false,
+              "extra_retrieval": false,
+              "similarity": null
+            },
+            "usage": {
+              "prompt_tokens_estimate": 755,
+              "reply_tokens_estimate": 62,
+              "history_used": 0,
+              "history_dropped": 0,
+              "cost": 0.0
+            },
+            "latency_ms": 2946,
+            "model": "gemini-3.5-flash-lite",
+            "prompt_version": "tutor/v1",
+            "safety_version": "safety/v1",
+            "mode": "explain"
+          }
+        }
+      ]
+    },
+    {
+      "student": 4,
+      "learner_ref": "lr_load_student_004",
+      "question": "How does system performance affect application reliability?",
+      "status_code": 200,
+      "success": true,
+      "response_time_seconds": 3.28,
+      "events_received": 6,
+      "answer": "The lesson passages do not cover how system performance affects application reliability. They only talk about things like typed requests, latency and throughput reports, canary evidence, and rollback records [P1]. \n\nLet's stick to our lesson! Do you have a question about the M19 Syllabus & Labs or the other modules shown in the text?",
+      "error": null,
+      "event_details": [
+        {
+          "event": "meta",
+          "data": {
+            "chat_id": "2ad130dc-0ae8-43e0-855b-66f1a3bd7f20",
+            "model": "gemini-3.5-flash-lite",
+            "provider": "gemini",
+            "prompt_version": "tutor/v1",
+            "safety_version": "safety/v1",
+            "mode": "explain",
+            "pinned_chunk_ids": [
+              "991e0eda-b8df-4d11-974f-9948a1e5b45e",
+              "a10842f1-e3a2-4e00-948a-fe2215b3ccea",
+              "609902d7-406a-499e-82d8-b6d8cdd80025",
+              "c1311449-c159-48f8-a02a-151bd67240ad",
+              "b9f9cbcf-5a5e-437a-b9c2-20a7cab9d23f"
+            ]
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "The lesson passages do not cover how system perf"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "ormance affects application reliability. They only talk about things like typed requests, latency and throughput repor"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "ts, canary evidence, and rollback records [P1]. \n\nLet's stick to our lesson! Do you have a question a"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "bout the M19 Syllabus & Labs or the other modules shown in the text?"
+          }
+        },
+        {
+          "event": "final",
+          "data": {
+            "text": "The lesson passages do not cover how system performance affects application reliability. They only talk about things like typed requests, latency and throughput reports, canary evidence, and rollback records [P1]. \n\nLet's stick to our lesson! Do you have a question about the M19 Syllabus & Labs or the other modules shown in the text?",
+            "message": "How does system performance affect application reliability?",
+            "blocked": false,
+            "replaced": false,
+            "off_topic": false,
+            "citations": [
+              {
+                "label": "P1",
+                "chunk_id": "991e0eda-b8df-4d11-974f-9948a1e5b45e",
+                "heading": "M19 Syllabus & Labs"
+              }
+            ],
+            "safety": {
+              "input": {
+                "category": "ok",
+                "severity": "none",
+                "flagged": false
+              },
+              "output": {
+                "category": "ok",
+                "severity": "none",
+                "flagged": false
+              },
+              "personal_data": [],
+              "grounding": 0.459
+            },
+            "flags": [],
+            "context": {
+              "pinned_chunk_ids": [
+                "991e0eda-b8df-4d11-974f-9948a1e5b45e",
+                "a10842f1-e3a2-4e00-948a-fe2215b3ccea",
+                "609902d7-406a-499e-82d8-b6d8cdd80025",
+                "c1311449-c159-48f8-a02a-151bd67240ad",
+                "b9f9cbcf-5a5e-437a-b9c2-20a7cab9d23f"
+              ],
+              "repinned": false,
+              "extra_retrieval": false,
+              "similarity": null
+            },
+            "usage": {
+              "prompt_tokens_estimate": 812,
+              "reply_tokens_estimate": 54,
+              "history_used": 0,
+              "history_dropped": 0,
+              "cost": 0.0
+            },
+            "latency_ms": 3204,
+            "model": "gemini-3.5-flash-lite",
+            "prompt_version": "tutor/v1",
+            "safety_version": "safety/v1",
+            "mode": "explain"
+          }
+        }
+      ]
+    },
+    {
+      "student": 5,
+      "learner_ref": "lr_load_student_005",
+      "question": "Explain the role of hardware and GPU in computing.",
+      "status_code": 200,
+      "success": true,
+      "response_time_seconds": 3.675,
+      "events_received": 10,
+      "answer": "Based on the lesson, the module on GPU Computing (M20) teaches performance from first principles [P1]. Learners model where time and energy go, write and optimise kernels, and defend every optimisation with profiler evidence and causal explanations [P1]. \n\nThe lesson plan covers how execution time spans across arithmetic, memory traffic, launches, synchronisation, and communication [P1]. It also looks at the GPU execution model using grids, blocks, and threads versus physical resources [P2], and managing memory from registers to global memory [P1]. \n\nFor example, learners study memory-access patterns and use the GPU to perform tasks like tiled matrix multiplication in the laboratory work [P2].\n\nSources used: [P1], [P2].",
+      "error": null,
+      "event_details": [
+        {
+          "event": "meta",
+          "data": {
+            "chat_id": "8673a462-56b6-4502-b13b-52a66f87597a",
+            "model": "gemini-3.5-flash-lite",
+            "provider": "gemini",
+            "prompt_version": "tutor/v1",
+            "safety_version": "safety/v1",
+            "mode": "explain",
+            "pinned_chunk_ids": [
+              "991e0eda-b8df-4d11-974f-9948a1e5b45e",
+              "b57a345c-d952-4f9f-a763-534126e3232d"
+            ]
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "Based on th"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "e lesson, the module on GPU Computing (M20) teaches performance from first principles [P1]. Learners model where time and energy go, write and op"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "timise kernels, and defend every optimisation with profiler evidence and causal explanations [P1]. \n\nThe lesson plan covers how execution time spa"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "ns across arithmetic, memory traffic, launches, synchronisation, and communication [P1]. It also looks at the GPU execution "
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "model using grids, blocks, and threads versus physical resources [P2], and managing memory from registers to global memor"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "y [P1]. \n\nFor example, learners study memory-access patterns and use the GPU to perform tasks like tiled mat"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "rix mu"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "ltiplication in the laboratory work [P2].\n\nSources used: [P1], [P2]."
+          }
+        },
+        {
+          "event": "final",
+          "data": {
+            "text": "Based on the lesson, the module on GPU Computing (M20) teaches performance from first principles [P1]. Learners model where time and energy go, write and optimise kernels, and defend every optimisation with profiler evidence and causal explanations [P1]. \n\nThe lesson plan covers how execution time spans across arithmetic, memory traffic, launches, synchronisation, and communication [P1]. It also looks at the GPU execution model using grids, blocks, and threads versus physical resources [P2], and managing memory from registers to global memory [P1]. \n\nFor example, learners study memory-access patterns and use the GPU to perform tasks like tiled matrix multiplication in the laboratory work [P2].\n\nSources used: [P1], [P2].",
+            "message": "Explain the role of hardware and GPU in computing.",
+            "blocked": false,
+            "replaced": false,
+            "off_topic": false,
+            "citations": [
+              {
+                "label": "P1",
+                "chunk_id": "991e0eda-b8df-4d11-974f-9948a1e5b45e",
+                "heading": "M19 Syllabus & Labs"
+              },
+              {
+                "label": "P2",
+                "chunk_id": "b57a345c-d952-4f9f-a763-534126e3232d",
+                "heading": "M19 Syllabus & Labs"
+              }
+            ],
+            "safety": {
+              "input": {
+                "category": "ok",
+                "severity": "none",
+                "flagged": false
+              },
+              "output": {
+                "category": "ok",
+                "severity": "none",
+                "flagged": false
+              },
+              "personal_data": [],
+              "grounding": 0.741
+            },
+            "flags": [],
+            "context": {
+              "pinned_chunk_ids": [
+                "991e0eda-b8df-4d11-974f-9948a1e5b45e",
+                "b57a345c-d952-4f9f-a763-534126e3232d"
+              ],
+              "repinned": false,
+              "extra_retrieval": false,
+              "similarity": null
+            },
+            "usage": {
+              "prompt_tokens_estimate": 856,
+              "reply_tokens_estimate": 107,
+              "history_used": 0,
+              "history_dropped": 0,
+              "cost": 0.0
+            },
+            "latency_ms": 3590,
+            "model": "gemini-3.5-flash-lite",
+            "prompt_version": "tutor/v1",
+            "safety_version": "safety/v1",
+            "mode": "explain"
+          }
+        }
+      ]
+    },
+    {
+      "student": 6,
+      "learner_ref": "lr_load_student_006",
+      "question": "What is latency, and why is it important?",
+      "status_code": 200,
+      "success": true,
+      "response_time_seconds": 3.42,
+      "events_received": 8,
+      "answer": "Based on the lesson, latency is a distribution [P2]. Reporting percentiles like p95 and p99 is important because these tails reveal queueing and the delays that users actually feel, rather than just looking at the mean [P2]. \n\nFor example, when a user waits for a web page or an app service to respond, the delay they experience is part of this latency distribution [P2]. \n\nSources used: [P2].",
+      "error": null,
+      "event_details": [
+        {
+          "event": "meta",
+          "data": {
+            "chat_id": "ad966974-6df8-44ba-9877-2065b8564a0d",
+            "model": "gemini-3.5-flash-lite",
+            "provider": "gemini",
+            "prompt_version": "tutor/v1",
+            "safety_version": "safety/v1",
+            "mode": "explain",
+            "pinned_chunk_ids": [
+              "b57a345c-d952-4f9f-a763-534126e3232d",
+              "fb7f7b11-8381-4564-9335-310dcf78aa17"
+            ]
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "Based on the "
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "lesson, latency is a distribution [P2]. Reporting percentiles like p95 and p99 is important because these tails reveal queuei"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "ng and the delays that users actually feel, rather than just looking at the mean [P2"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "]. \n\nFor example, when a user waits for a web page or an app service to respond, the delay they exper"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "ie"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "nce is part of this latency distribution [P2]. \n\nSources used: [P2]."
+          }
+        },
+        {
+          "event": "final",
+          "data": {
+            "text": "Based on the lesson, latency is a distribution [P2]. Reporting percentiles like p95 and p99 is important because these tails reveal queueing and the delays that users actually feel, rather than just looking at the mean [P2]. \n\nFor example, when a user waits for a web page or an app service to respond, the delay they experience is part of this latency distribution [P2]. \n\nSources used: [P2].",
+            "message": "What is latency, and why is it important?",
+            "blocked": false,
+            "replaced": false,
+            "off_topic": false,
+            "citations": [
+              {
+                "label": "P2",
+                "chunk_id": "fb7f7b11-8381-4564-9335-310dcf78aa17",
+                "heading": "M19 Official Quiz Questions and Answers"
+              }
+            ],
+            "safety": {
+              "input": {
+                "category": "ok",
+                "severity": "none",
+                "flagged": false
+              },
+              "output": {
+                "category": "ok",
+                "severity": "none",
+                "flagged": false
+              },
+              "personal_data": [],
+              "grounding": 0.523
+            },
+            "flags": [],
+            "context": {
+              "pinned_chunk_ids": [
+                "b57a345c-d952-4f9f-a763-534126e3232d",
+                "fb7f7b11-8381-4564-9335-310dcf78aa17"
+              ],
+              "repinned": false,
+              "extra_retrieval": false,
+              "similarity": null
+            },
+            "usage": {
+              "prompt_tokens_estimate": 850,
+              "reply_tokens_estimate": 67,
+              "history_used": 0,
+              "history_dropped": 0,
+              "cost": 0.0
+            },
+            "latency_ms": 3339,
+            "model": "gemini-3.5-flash-lite",
+            "prompt_version": "tutor/v1",
+            "safety_version": "safety/v1",
+            "mode": "explain"
+          }
+        }
+      ]
+    },
+    {
+      "student": 7,
+      "learner_ref": "lr_load_student_007",
+      "question": "Explain the difference between CPU and GPU processing.",
+      "status_code": 200,
+      "success": true,
+      "response_time_seconds": 3.38,
+      "events_received": 6,
+      "answer": "The provided lesson text does not cover the difference between CPU and GPU processing. It only discusses GPU computing topics like arithmetic intensity, memory hierarchy, threads, blocks, and grids [P1, P2]. \n\nLet's stick to our lesson! Would you like to know about GPU lesson topics like arithmetic intensity or memory hierarchy instead?",
+      "error": null,
+      "event_details": [
+        {
+          "event": "meta",
+          "data": {
+            "chat_id": "dedebc33-c43c-433d-ab26-bd12654f76d5",
+            "model": "gemini-3.5-flash-lite",
+            "provider": "gemini",
+            "prompt_version": "tutor/v1",
+            "safety_version": "safety/v1",
+            "mode": "explain",
+            "pinned_chunk_ids": [
+              "991e0eda-b8df-4d11-974f-9948a1e5b45e",
+              "b57a345c-d952-4f9f-a763-534126e3232d"
+            ]
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "The provided lesson text does not cover "
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "the difference between CPU and GPU processing. It only discusses GPU computing topics like arithmetic inten"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "sity, memory hierarchy, threads, blocks, and grids [P1, P2]. \n\nLet's stick to our lesson! Would you like to know about GPU "
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "lesson topics like arithmetic intensity or memory hierarchy instead?"
+          }
+        },
+        {
+          "event": "final",
+          "data": {
+            "text": "The provided lesson text does not cover the difference between CPU and GPU processing. It only discusses GPU computing topics like arithmetic intensity, memory hierarchy, threads, blocks, and grids [P1, P2]. \n\nLet's stick to our lesson! Would you like to know about GPU lesson topics like arithmetic intensity or memory hierarchy instead?",
+            "message": "Explain the difference between CPU and GPU processing.",
+            "blocked": false,
+            "replaced": false,
+            "off_topic": false,
+            "citations": [],
+            "safety": {
+              "input": {
+                "category": "ok",
+                "severity": "none",
+                "flagged": false
+              },
+              "output": {
+                "category": "ok",
+                "severity": "none",
+                "flagged": false
+              },
+              "personal_data": [],
+              "grounding": 0.537
+            },
+            "flags": [],
+            "context": {
+              "pinned_chunk_ids": [
+                "991e0eda-b8df-4d11-974f-9948a1e5b45e",
+                "b57a345c-d952-4f9f-a763-534126e3232d"
+              ],
+              "repinned": false,
+              "extra_retrieval": false,
+              "similarity": null
+            },
+            "usage": {
+              "prompt_tokens_estimate": 855,
+              "reply_tokens_estimate": 52,
+              "history_used": 0,
+              "history_dropped": 0,
+              "cost": 0.0
+            },
+            "latency_ms": 3304,
+            "model": "gemini-3.5-flash-lite",
+            "prompt_version": "tutor/v1",
+            "safety_version": "safety/v1",
+            "mode": "explain"
+          }
+        }
+      ]
+    },
+    {
+      "student": 8,
+      "learner_ref": "lr_load_student_008",
+      "question": "How can we improve the performance of an application?",
+      "status_code": 200,
+      "success": true,
+      "response_time_seconds": 3.34,
+      "events_received": 7,
+      "answer": "We can improve performance by writing and optimising code, and defending every optimisation with profiler evidence and a causal explanation [P1]. We can also use techniques like coalescing, tiling, reductions, fusion, and precision changes [P1]. \n\nFor example, kernel fusion can be used to make fewer launches with less traffic [P2].\n\nSources: [P1], [P2]",
+      "error": null,
+      "event_details": [
+        {
+          "event": "meta",
+          "data": {
+            "chat_id": "4c632dd1-db4a-4517-a6e5-a1dba97405b9",
+            "model": "gemini-3.5-flash-lite",
+            "provider": "gemini",
+            "prompt_version": "tutor/v1",
+            "safety_version": "safety/v1",
+            "mode": "explain",
+            "pinned_chunk_ids": [
+              "991e0eda-b8df-4d11-974f-9948a1e5b45e",
+              "b57a345c-d952-4f9f-a763-534126e3232d"
+            ]
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "We can improve performance by writing and optimising"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": " code, and defending every optimisation with profiler evidence and a causal explanation [P1]. We can also use techniques "
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "like coalescing, tiling, reductions, fusion, and precision changes [P1]. \n\nFor example, kernel fusion"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": " can be used"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": " to make fewer launches with less traffic [P2].\n\nSources: [P1], [P2]"
+          }
+        },
+        {
+          "event": "final",
+          "data": {
+            "text": "We can improve performance by writing and optimising code, and defending every optimisation with profiler evidence and a causal explanation [P1]. We can also use techniques like coalescing, tiling, reductions, fusion, and precision changes [P1]. \n\nFor example, kernel fusion can be used to make fewer launches with less traffic [P2].\n\nSources: [P1], [P2]",
+            "message": "How can we improve the performance of an application?",
+            "blocked": false,
+            "replaced": false,
+            "off_topic": false,
+            "citations": [
+              {
+                "label": "P1",
+                "chunk_id": "991e0eda-b8df-4d11-974f-9948a1e5b45e",
+                "heading": "M19 Syllabus & Labs"
+              },
+              {
+                "label": "P2",
+                "chunk_id": "b57a345c-d952-4f9f-a763-534126e3232d",
+                "heading": "M19 Syllabus & Labs"
+              }
+            ],
+            "safety": {
+              "input": {
+                "category": "ok",
+                "severity": "none",
+                "flagged": false
+              },
+              "output": {
+                "category": "ok",
+                "severity": "none",
+                "flagged": false
+              },
+              "personal_data": [],
+              "grounding": 0.615
+            },
+            "flags": [],
+            "context": {
+              "pinned_chunk_ids": [
+                "991e0eda-b8df-4d11-974f-9948a1e5b45e",
+                "b57a345c-d952-4f9f-a763-534126e3232d"
+              ],
+              "repinned": false,
+              "extra_retrieval": false,
+              "similarity": null
+            },
+            "usage": {
+              "prompt_tokens_estimate": 856,
+              "reply_tokens_estimate": 53,
+              "history_used": 0,
+              "history_dropped": 0,
+              "cost": 0.0
+            },
+            "latency_ms": 3260,
+            "model": "gemini-3.5-flash-lite",
+            "prompt_version": "tutor/v1",
+            "safety_version": "safety/v1",
+            "mode": "explain"
+          }
+        }
+      ]
+    },
+    {
+      "student": 9,
+      "learner_ref": "lr_load_student_009",
+      "question": "Explain the important topics in this lesson in simple words.",
+      "status_code": 200,
+      "success": true,
+      "response_time_seconds": 3.334,
+      "events_received": 12,
+      "answer": "In this lesson, we look at the M19 course curriculum and its assessments. \n\nThe course includes things like typed request and response schema, latency and throughput reports, canary evidence reports, and rollback records [P1]. \n\nLearners also do 60 daily practice problems, a research reproduction, and a one-page report on an industry technical session [P1]. \n\nFor the assessment, the marks are divided into:\n- Daily practice: 15% [P1]\n- Laboratories: 35% [P1]\n- Controlled study: 15% [P1]\n- Research reproduction: 10% [P1]\n- Project: 15% [P1]\n- Technical viva: 10% [P1]\n\nThere are also sample viva questions, such as asking what a deployable model artifact is, why batching can hurt latency, and what makes rollback nontrivial [P1, P2].\n\nSource used: [P1, P2]",
+      "error": null,
+      "event_details": [
+        {
+          "event": "meta",
+          "data": {
+            "chat_id": "afc0f725-46fb-4913-b765-c19382d79afa",
+            "model": "gemini-3.5-flash-lite",
+            "provider": "gemini",
+            "prompt_version": "tutor/v1",
+            "safety_version": "safety/v1",
+            "mode": "explain",
+            "pinned_chunk_ids": [
+              "991e0eda-b8df-4d11-974f-9948a1e5b45e",
+              "a10842f1-e3a2-4e00-948a-fe2215b3ccea",
+              "d6480740-8f99-45e7-962d-e72d2f3cc3c2",
+              "ddae1108-0b86-4519-8e8f-5cd66160f46b"
+            ]
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "In thi"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "s lesson, we look at the M19 course curriculum and its assessments. \n\nThe course includes things like typed request and response schema, latency and "
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "throughput reports, canary evidence reports, and rollback records [P1]. \n\nLearners also do 60 daily pra"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "ctice problems, a research reproduction, and a one-page report on an industry technical session [P1]."
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": " \n\nFor the assessment, the marks are divided into:\n- Daily"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": " practice: 15% [P1]\n- Laboratories: 35% [P1]\n- Contro"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "lled study: 15% [P1]\n- Research reproduction: 10% [P1]\n- Project: 15% [P"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "1]\n- Technical viva: 10% [P1]\n\nThere are also sample viva questions, such as asking what a deployable model artifact is, why "
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "batching can hurt latency,"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": " and what makes rollback nontrivial [P1, P2].\n\nSource used: [P1, P2]"
+          }
+        },
+        {
+          "event": "final",
+          "data": {
+            "text": "In this lesson, we look at the M19 course curriculum and its assessments. \n\nThe course includes things like typed request and response schema, latency and throughput reports, canary evidence reports, and rollback records [P1]. \n\nLearners also do 60 daily practice problems, a research reproduction, and a one-page report on an industry technical session [P1]. \n\nFor the assessment, the marks are divided into:\n- Daily practice: 15% [P1]\n- Laboratories: 35% [P1]\n- Controlled study: 15% [P1]\n- Research reproduction: 10% [P1]\n- Project: 15% [P1]\n- Technical viva: 10% [P1]\n\nThere are also sample viva questions, such as asking what a deployable model artifact is, why batching can hurt latency, and what makes rollback nontrivial [P1, P2].\n\nSource used: [P1, P2]",
+            "message": "Explain the important topics in this lesson in simple words.",
+            "blocked": false,
+            "replaced": false,
+            "off_topic": false,
+            "citations": [
+              {
+                "label": "P1",
+                "chunk_id": "991e0eda-b8df-4d11-974f-9948a1e5b45e",
+                "heading": "M19 Syllabus & Labs"
+              }
+            ],
+            "safety": {
+              "input": {
+                "category": "ok",
+                "severity": "none",
+                "flagged": false
+              },
+              "output": {
+                "category": "ok",
+                "severity": "none",
+                "flagged": false
+              },
+              "personal_data": [],
+              "grounding": 0.69
+            },
+            "flags": [],
+            "context": {
+              "pinned_chunk_ids": [
+                "991e0eda-b8df-4d11-974f-9948a1e5b45e",
+                "a10842f1-e3a2-4e00-948a-fe2215b3ccea",
+                "d6480740-8f99-45e7-962d-e72d2f3cc3c2",
+                "ddae1108-0b86-4519-8e8f-5cd66160f46b"
+              ],
+              "repinned": false,
+              "extra_retrieval": false,
+              "similarity": null
+            },
+            "usage": {
+              "prompt_tokens_estimate": 876,
+              "reply_tokens_estimate": 121,
+              "history_used": 0,
+              "history_dropped": 0,
+              "cost": 0.0
+            },
+            "latency_ms": 3256,
+            "model": "gemini-3.5-flash-lite",
+            "prompt_version": "tutor/v1",
+            "safety_version": "safety/v1",
+            "mode": "explain"
+          }
+        }
+      ]
+    },
+    {
+      "student": 10,
+      "learner_ref": "lr_load_student_010",
+      "question": "Give me a short summary of the lesson with practical examples.",
+      "status_code": 200,
+      "success": true,
+      "response_time_seconds": 3.668,
+      "events_received": 9,
+      "answer": "Based on the lesson, M19 and M20 cover engineering systems, performance, and GPU computing. \n\nLearners work on topics like latency and throughput reports, typed request and response schemas, and rollback records [P1]. They also study performance from first principles, writing and optimising code kernels, and classifying bottlenecks using arithmetic intensity and the roofline model [P1]. \n\nFor practical examples, laboratory work includes:\n• Comparing a reference kernel versus an optimised kernel [P2].\n• Studying memory-access patterns [P2].\n• Performing tiled matrix multiplication [P2]. \n\nStudents also complete assignments like tracing a service end-to-end to attribute latency to different components [P2].",
+      "error": null,
+      "event_details": [
+        {
+          "event": "meta",
+          "data": {
+            "chat_id": "b01d5736-78cd-4166-87a0-0efc401ed364",
+            "model": "gemini-3.5-flash-lite",
+            "provider": "gemini",
+            "prompt_version": "tutor/v1",
+            "safety_version": "safety/v1",
+            "mode": "explain",
+            "pinned_chunk_ids": [
+              "991e0eda-b8df-4d11-974f-9948a1e5b45e",
+              "b57a345c-d952-4f9f-a763-534126e3232d"
+            ]
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "Bas"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "ed on the lesson, M19 and M20 cover engineering systems, performance, and GPU computing. \n\nLearners work on topics like latency and "
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "throughput reports, typed request and response schemas, and rollback records [P1]. They also study performance from first principles, writing and optimising code ker"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "nels, and classifying bottlenecks using arithmetic intensity and the roofline model [P1]. \n\nFor practical examples, laboratory work in"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "cludes:\n• Comparing a reference kernel versus an optimised kernel [P2].\n• Studying memory-a"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "ccess patterns [P2].\n• Performing tiled matrix multiplication [P2]. \n\nStudents also complete assignments like tracing a s"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "ervice end-to-end to attribute latency to different components [P2]."
+          }
+        },
+        {
+          "event": "final",
+          "data": {
+            "text": "Based on the lesson, M19 and M20 cover engineering systems, performance, and GPU computing. \n\nLearners work on topics like latency and throughput reports, typed request and response schemas, and rollback records [P1]. They also study performance from first principles, writing and optimising code kernels, and classifying bottlenecks using arithmetic intensity and the roofline model [P1]. \n\nFor practical examples, laboratory work includes:\n• Comparing a reference kernel versus an optimised kernel [P2].\n• Studying memory-access patterns [P2].\n• Performing tiled matrix multiplication [P2]. \n\nStudents also complete assignments like tracing a service end-to-end to attribute latency to different components [P2].",
+            "message": "Give me a short summary of the lesson with practical examples.",
+            "blocked": false,
+            "replaced": false,
+            "off_topic": false,
+            "citations": [
+              {
+                "label": "P1",
+                "chunk_id": "991e0eda-b8df-4d11-974f-9948a1e5b45e",
+                "heading": "M19 Syllabus & Labs"
+              },
+              {
+                "label": "P2",
+                "chunk_id": "b57a345c-d952-4f9f-a763-534126e3232d",
+                "heading": "M19 Syllabus & Labs"
+              }
+            ],
+            "safety": {
+              "input": {
+                "category": "ok",
+                "severity": "none",
+                "flagged": false
+              },
+              "output": {
+                "category": "ok",
+                "severity": "none",
+                "flagged": false
+              },
+              "personal_data": [],
+              "grounding": 0.679
+            },
+            "flags": [],
+            "context": {
+              "pinned_chunk_ids": [
+                "991e0eda-b8df-4d11-974f-9948a1e5b45e",
+                "b57a345c-d952-4f9f-a763-534126e3232d"
+              ],
+              "repinned": false,
+              "extra_retrieval": false,
+              "similarity": null
+            },
+            "usage": {
+              "prompt_tokens_estimate": 858,
+              "reply_tokens_estimate": 98,
+              "history_used": 0,
+              "history_dropped": 0,
+              "cost": 0.0
+            },
+            "latency_ms": 3594,
+            "model": "gemini-3.5-flash-lite",
+            "prompt_version": "tutor/v1",
+            "safety_version": "safety/v1",
+            "mode": "explain"
+          }
+        }
+      ]
+    }
+  ]
+}
