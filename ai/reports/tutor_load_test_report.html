@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tutor AI | 10 Student Load Test</title>
+<style>
+:root {
+  --bg:#f4f7fb; --panel:#fff; --ink:#172033; --muted:#667085;
+  --line:#e7ebf2; --blue:#3659d9; --green:#168653; --red:#c83d4d;
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--ink);
+  font-family:Inter,Segoe UI,Arial,sans-serif; }
+.wrap { max-width:1180px; margin:0 auto; padding:34px 22px 60px; }
+.hero { background:linear-gradient(120deg,#172b65,#3e5cda);
+  color:white; border-radius:22px; padding:30px 32px;
+  box-shadow:0 12px 32px #253d8425; }
+.eyebrow { text-transform:uppercase; letter-spacing:2px;
+  font-size:11px; opacity:.78; font-weight:700; }
+h1 { margin:10px 0 8px; font-size:30px; }
+.subtitle { margin:0; opacity:.85; }
+.hero-meta { display:flex; flex-wrap:wrap; gap:10px; margin-top:22px; }
+.hero-meta span { background:#ffffff20; padding:8px 12px;
+  border-radius:9px; font-size:12px; }
+.section-heading { display:flex; justify-content:space-between;
+  align-items:end; gap:12px; margin:30px 0 14px; }
+h2 { margin:0; font-size:20px; }
+.muted { color:var(--muted); font-size:13px; }
+.metrics { display:grid; grid-template-columns:repeat(5,1fr); gap:13px; }
+.metric { background:var(--panel); border:1px solid var(--line);
+  border-radius:15px; padding:18px; }
+.metric label { display:block; color:var(--muted); font-size:12px; }
+.metric strong { display:block; margin-top:8px; font-size:26px; }
+.metric .unit { font-size:13px; color:var(--muted); font-weight:500; }
+.rate { height:9px; background:#e8edf5; border-radius:99px;
+  overflow:hidden; margin-top:17px; }
+.rate span { display:block; height:100%; width:100.0%;
+  background:var(--green); border-radius:99px; }
+.student-list { display:grid; gap:12px; }
+.student-card { background:white; border:1px solid var(--line);
+  border-left:4px solid var(--green); border-radius:14px;
+  overflow:hidden; box-shadow:0 3px 12px #18294b08; }
+.student-card.failed { border-left-color:var(--red); }
+summary { list-style:none; cursor:pointer; display:flex;
+  align-items:center; gap:15px; padding:17px 19px; }
+summary::-webkit-details-marker { display:none; }
+.student-name { font-weight:700; min-width:105px; }
+.badge { font-size:10px; font-weight:800; letter-spacing:.6px;
+  padding:6px 9px; border-radius:30px; }
+.badge.success { color:#087346; background:#e4f6ed; }
+.badge.failed { color:#a92739; background:#fdebed; }
+.time { margin-left:auto; font-weight:700; font-variant-numeric:tabular-nums; }
+.chevron { color:var(--muted); font-size:20px; }
+.student-content { border-top:1px solid var(--line); padding:20px; }
+.meta-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+.meta-grid div { background:#f7f9fc; padding:12px; border-radius:10px; }
+.meta-grid label { display:block; font-size:11px; color:var(--muted); margin-bottom:5px; }
+.meta-grid strong { font-size:13px; overflow-wrap:anywhere; }
+.section-title { font-size:12px; text-transform:uppercase; letter-spacing:1px;
+  font-weight:800; color:var(--muted); margin:20px 0 8px; }
+.question { background:#f2f5ff; border:1px solid #e2e8ff;
+  padding:13px 15px; border-radius:10px; line-height:1.55; }
+.answer { white-space:pre-wrap; line-height:1.7; padding:17px;
+  background:#fbfcfe; border:1px solid var(--line); border-radius:10px;
+  font-size:14px; }
+.error-box { margin-top:15px; color:#9f2637; background:#fff0f1;
+  border:1px solid #ffd6da; padding:13px; border-radius:10px;
+  white-space:pre-wrap; overflow-wrap:anywhere; }
+.footer { margin-top:28px; color:var(--muted); font-size:12px;
+  text-align:center; }
+@media(max-width:850px) { .metrics { grid-template-columns:repeat(2,1fr); } }
+@media(max-width:560px) {
+  .wrap { padding:18px 12px 40px; } .hero { padding:23px 20px; }
+  h1 { font-size:24px; } .metrics { grid-template-columns:1fr 1fr; }
+  .meta-grid { grid-template-columns:1fr; } summary { gap:9px; }
+  .student-name { min-width:auto; } .badge { font-size:9px; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Performance test report</div>
+    <h1>Tutor AI · Concurrent Student Load Test</h1>
+    <p class="subtitle">10 students submitted lesson questions at the same time.</p>
+    <div class="hero-meta">
+      <span>Provider: Gemini + Ollama embeddings</span>
+      <span>Lesson: M19 Syllabus &amp; Labs</span>
+      <span>Concurrency: 10 students</span>
+    </div>
+  </header>
+
+  <div class="section-heading">
+    <h2>Test overview</h2>
+    <span class="muted">Generated: 2026-10-31T03:14:37.460115+00:00</span>
+  </div>
+  <section class="metrics">
+    <div class="metric"><label>Success rate</label><strong>100%</strong><div class="rate"><span></span></div></div>
+    <div class="metric"><label>Successful</label><strong>10<span class="unit"> / 10</span></strong></div>
+    <div class="metric"><label>Failed</label><strong>0</strong></div>
+    <div class="metric"><label>Average response</label><strong>3.463<span class="unit"> sec</span></strong></div>
+    <div class="metric"><label>Total test duration</label><strong>4.394<span class="unit"> sec</span></strong></div>
+  </section>
+
+  <div class="section-heading">
+    <h2>Student responses</h2>
+    <span class="muted">Select a student to view the full question and AI answer</span>
+  </div>
+  <section class="student-list">
+    
+        <details class="student-card success">
+          <summary>
+            <span class="student-name">Student 01</span>
+            <span class="badge success">SUCCESS</span>
+            <span class="time">4.099s</span>
+            <span class="chevron">＋</span>
+          </summary>
+          <div class="student-content">
+            <div class="meta-grid">
+              <div><label>Learner reference</label><strong>lr_load_student_001</strong></div>
+              <div><label>HTTP status</label><strong>200</strong></div>
+              <div><label>SSE events</label><strong>13</strong></div>
+            </div>
+            <div class="section-title">Student question</div>
+            <div class="question">Explain the main concepts covered in this lesson.</div>
+            <div class="section-title">Gemini tutor answer</div>
+            <div class="answer">Based on the lesson, the main concepts cover performance engineering from first principles, where learners model time and energy, write and optimise kernels, and defend optimisations using profiler evidence and causal explanations [P1]. 
+
+Key topics include:
+* **Execution models and arithmetic intensity:** Estimating work and bytes moved, and looking at compute-bound versus memory-bound operations using the roofline model [P1, P2].
+* **Memory and execution:** Studying the memory hierarchy, spatial and temporal locality, SIMD, GPU execution models (grids, blocks, threads), coalescing, and tiling [P2].
+* **Optimisation and profiling:** Checking occupancy, dealing with divergence, synchronisation, overlapping communication, profiling, Amdahl&#x27;s law, and kernel fusion [P2].
+* **Scaling:** Looking at multi-GPU communication, data parallelism, and end-to-end inference performance [P2].
+
+**Short Example:** In lesson L02, you learn about arithmetic intensity and the roofline to see if an operation is compute-bound or memory-bound [P1, P2].
+
+Sources: [P1], [P2]</div>
+            
+          </div>
+        </details>
+        
+        <details class="student-card success">
+          <summary>
+            <span class="student-name">Student 02</span>
+            <span class="badge success">SUCCESS</span>
+            <span class="time">3.412s</span>
+            <span class="chevron">＋</span>
+          </summary>
+          <div class="student-content">
+            <div class="meta-grid">
+              <div><label>Learner reference</label><strong>lr_load_student_002</strong></div>
+              <div><label>HTTP status</label><strong>200</strong></div>
+              <div><label>SSE events</label><strong>6</strong></div>
+            </div>
+            <div class="section-title">Student question</div>
+            <div class="question">What is an intelligent system? Explain with an example.</div>
+            <div class="section-title">Gemini tutor answer</div>
+            <div class="answer">The lesson does not cover the definition of an intelligent system. It only mentions building one probabilistic component of an intelligent system, such as a calibrated classifier or a Bayesian state estimator [P3]. 
+
+Let&#x27;s stick to our lesson passages! Do you have a question about the M19 syllabus, labs, or the technical viva questions from the text?</div>
+            
+          </div>
+        </details>
+        
+        <details class="student-card success">
+          <summary>
+            <span class="student-name">Student 03</span>
+            <span class="badge success">SUCCESS</span>
+            <span class="time">3.023s</span>
+            <span class="chevron">＋</span>
+          </summary>
+          <div class="student-content">
+            <div class="meta-grid">
+              <div><label>Learner reference</label><strong>lr_load_student_003</strong></div>
+              <div><label>HTTP status</label><strong>200</strong></div>
+              <div><label>SSE events</label><strong>7</strong></div>
+            </div>
+            <div class="section-title">Student question</div>
+            <div class="question">Explain the importance of typed schemas in software systems.</div>
+            <div class="section-title">Gemini tutor answer</div>
+            <div class="answer">The lesson does not cover typed schemas in software systems. It only mentions a question about data engineering and representation: &quot;Why is a schema more than a list of column names?&quot; [P3]. 
+
+Let&#x27;s stick to what is in our lesson passages [P1-P5]. Would you like to look at arithmetic intensity, memory hierarchy, or one of the lab topics from the lesson instead?</div>
+            
+          </div>
+        </details>
+        
+        <details class="student-card success">
+          <summary>
+            <span class="student-name">Student 04</span>
+            <span class="badge success">SUCCESS</span>
+            <span class="time">3.280s</span>
+            <span class="chevron">＋</span>
+          </summary>
+          <div class="student-content">
+            <div class="meta-grid">
+              <div><label>Learner reference</label><strong>lr_load_student_004</strong></div>
+              <div><label>HTTP status</label><strong>200</strong></div>
+              <div><label>SSE events</label><strong>6</strong></div>
+            </div>
+            <div class="section-title">Student question</div>
+            <div class="question">How does system performance affect application reliability?</div>
+            <div class="section-title">Gemini tutor answer</div>
+            <div class="answer">The lesson passages do not cover how system performance affects application reliability. They only talk about things like typed requests, latency and throughput reports, canary evidence, and rollback records [P1]. 
+
+Let&#x27;s stick to our lesson! Do you have a question about the M19 Syllabus &amp; Labs or the other modules shown in the text?</div>
+            
+          </div>
+        </details>
+        
+        <details class="student-card success">
+          <summary>
+            <span class="student-name">Student 05</span>
+            <span class="badge success">SUCCESS</span>
+            <span class="time">3.675s</span>
+            <span class="chevron">＋</span>
+          </summary>
+          <div class="student-content">
+            <div class="meta-grid">
+              <div><label>Learner reference</label><strong>lr_load_student_005</strong></div>
+              <div><label>HTTP status</label><strong>200</strong></div>
+              <div><label>SSE events</label><strong>10</strong></div>
+            </div>
+            <div class="section-title">Student question</div>
+            <div class="question">Explain the role of hardware and GPU in computing.</div>
+            <div class="section-title">Gemini tutor answer</div>
+            <div class="answer">Based on the lesson, the module on GPU Computing (M20) teaches performance from first principles [P1]. Learners model where time and energy go, write and optimise kernels, and defend every optimisation with profiler evidence and causal explanations [P1]. 
+
+The lesson plan covers how execution time spans across arithmetic, memory traffic, launches, synchronisation, and communication [P1]. It also looks at the GPU execution model using grids, blocks, and threads versus physical resources [P2], and managing memory from registers to global memory [P1]. 
+
+For example, learners study memory-access patterns and use the GPU to perform tasks like tiled matrix multiplication in the laboratory work [P2].
+
+Sources used: [P1], [P2].</div>
+            
+          </div>
+        </details>
+        
+        <details class="student-card success">
+          <summary>
+            <span class="student-name">Student 06</span>
+            <span class="badge success">SUCCESS</span>
+            <span class="time">3.420s</span>
+            <span class="chevron">＋</span>
+          </summary>
+          <div class="student-content">
+            <div class="meta-grid">
+              <div><label>Learner reference</label><strong>lr_load_student_006</strong></div>
+              <div><label>HTTP status</label><strong>200</strong></div>
+              <div><label>SSE events</label><strong>8</strong></div>
+            </div>
+            <div class="section-title">Student question</div>
+            <div class="question">What is latency, and why is it important?</div>
+            <div class="section-title">Gemini tutor answer</div>
+            <div class="answer">Based on the lesson, latency is a distribution [P2]. Reporting percentiles like p95 and p99 is important because these tails reveal queueing and the delays that users actually feel, rather than just looking at the mean [P2]. 
+
+For example, when a user waits for a web page or an app service to respond, the delay they experience is part of this latency distribution [P2]. 
+
+Sources used: [P2].</div>
+            
+          </div>
+        </details>
+        
+        <details class="student-card success">
+          <summary>
+            <span class="student-name">Student 07</span>
+            <span class="badge success">SUCCESS</span>
+            <span class="time">3.380s</span>
+            <span class="chevron">＋</span>
+          </summary>
+          <div class="student-content">
+            <div class="meta-grid">
+              <div><label>Learner reference</label><strong>lr_load_student_007</strong></div>
+              <div><label>HTTP status</label><strong>200</strong></div>
+              <div><label>SSE events</label><strong>6</strong></div>
+            </div>
+            <div class="section-title">Student question</div>
+            <div class="question">Explain the difference between CPU and GPU processing.</div>
+            <div class="section-title">Gemini tutor answer</div>
+            <div class="answer">The provided lesson text does not cover the difference between CPU and GPU processing. It only discusses GPU computing topics like arithmetic intensity, memory hierarchy, threads, blocks, and grids [P1, P2]. 
+
+Let&#x27;s stick to our lesson! Would you like to know about GPU lesson topics like arithmetic intensity or memory hierarchy instead?</div>
+            
+          </div>
+        </details>
+        
+        <details class="student-card success">
+          <summary>
+            <span class="student-name">Student 08</span>
+            <span class="badge success">SUCCESS</span>
+            <span class="time">3.340s</span>
+            <span class="chevron">＋</span>
+          </summary>
+          <div class="student-content">
+            <div class="meta-grid">
+              <div><label>Learner reference</label><strong>lr_load_student_008</strong></div>
+              <div><label>HTTP status</label><strong>200</strong></div>
+              <div><label>SSE events</label><strong>7</strong></div>
+            </div>
+            <div class="section-title">Student question</div>
+            <div class="question">How can we improve the performance of an application?</div>
+            <div class="section-title">Gemini tutor answer</div>
+            <div class="answer">We can improve performance by writing and optimising code, and defending every optimisation with profiler evidence and a causal explanation [P1]. We can also use techniques like coalescing, tiling, reductions, fusion, and precision changes [P1]. 
+
+For example, kernel fusion can be used to make fewer launches with less traffic [P2].
+
+Sources: [P1], [P2]</div>
+            
+          </div>
+        </details>
+        
+        <details class="student-card success">
+          <summary>
+            <span class="student-name">Student 09</span>
+            <span class="badge success">SUCCESS</span>
+            <span class="time">3.334s</span>
+            <span class="chevron">＋</span>
+          </summary>
+          <div class="student-content">
+            <div class="meta-grid">
+              <div><label>Learner reference</label><strong>lr_load_student_009</strong></div>
+              <div><label>HTTP status</label><strong>200</strong></div>
+              <div><label>SSE events</label><strong>12</strong></div>
+            </div>
+            <div class="section-title">Student question</div>
+            <div class="question">Explain the important topics in this lesson in simple words.</div>
+            <div class="section-title">Gemini tutor answer</div>
+            <div class="answer">In this lesson, we look at the M19 course curriculum and its assessments. 
+
+The course includes things like typed request and response schema, latency and throughput reports, canary evidence reports, and rollback records [P1]. 
+
+Learners also do 60 daily practice problems, a research reproduction, and a one-page report on an industry technical session [P1]. 
+
+For the assessment, the marks are divided into:
+- Daily practice: 15% [P1]
+- Laboratories: 35% [P1]
+- Controlled study: 15% [P1]
+- Research reproduction: 10% [P1]
+- Project: 15% [P1]
+- Technical viva: 10% [P1]
+
+There are also sample viva questions, such as asking what a deployable model artifact is, why batching can hurt latency, and what makes rollback nontrivial [P1, P2].
+
+Source used: [P1, P2]</div>
+            
+          </div>
+        </details>
+        
+        <details class="student-card success">
+          <summary>
+            <span class="student-name">Student 10</span>
+            <span class="badge success">SUCCESS</span>
+            <span class="time">3.668s</span>
+            <span class="chevron">＋</span>
+          </summary>
+          <div class="student-content">
+            <div class="meta-grid">
+              <div><label>Learner reference</label><strong>lr_load_student_010</strong></div>
+              <div><label>HTTP status</label><strong>200</strong></div>
+              <div><label>SSE events</label><strong>9</strong></div>
+            </div>
+            <div class="section-title">Student question</div>
+            <div class="question">Give me a short summary of the lesson with practical examples.</div>
+            <div class="section-title">Gemini tutor answer</div>
+            <div class="answer">Based on the lesson, M19 and M20 cover engineering systems, performance, and GPU computing. 
+
+Learners work on topics like latency and throughput reports, typed request and response schemas, and rollback records [P1]. They also study performance from first principles, writing and optimising code kernels, and classifying bottlenecks using arithmetic intensity and the roofline model [P1]. 
+
+For practical examples, laboratory work includes:
+• Comparing a reference kernel versus an optimised kernel [P2].
+• Studying memory-access patterns [P2].
+• Performing tiled matrix multiplication [P2]. 
+
+Students also complete assignments like tracing a service end-to-end to attribute latency to different components [P2].</div>
+            
+          </div>
+        </details>
+        
+  </section>
+  <div class="footer">
+    Tutor AI test report · Lesson ID: 0452e793-3dbc-5561-a6d9-c5803d612b53
+    <br>Response times are measured by this test client; this run is not a production capacity certification.
+  </div>
+</div>
+</body>
+</html>

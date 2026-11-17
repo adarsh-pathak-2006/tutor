@@ -7,7 +7,7 @@ requires-python = ">=3.12"
 [tool.ruff]
 line-length = 120
 target-version = "py312"
-extend-exclude = ["migrations/script.py.mako"]
+extend-exclude = ["migrations/script.py.mako", "manual_tests", "investigation"]
 
 [tool.ruff.lint]
 # Same gates as the backend (D22), plus async and type-annotation rules for a FastAPI service.
